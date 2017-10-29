@@ -37,7 +37,8 @@ namespace SMeat.API
                     .AllowCredentials());
             });
             // Add framework services.
-            services.AddMvc();
+            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

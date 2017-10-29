@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +20,7 @@ export class HomePageService {
 
     getValues(): Observable<Array<string>> {
         return this._http.get(BASEURL + 'api/values', OPTIONS)
-            .map((response: Response) => JSON.parse(response.json()))
+            .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.toString()) || 'GET server error');            
     }
 }

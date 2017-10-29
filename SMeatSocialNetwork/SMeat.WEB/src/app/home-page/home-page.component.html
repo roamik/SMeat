@@ -1,7 +1,9 @@
-﻿<p>
+<p>
   home-page works!
   
 </p>
 
-<h1 ng-repeat="let value in values" >{{value}}</h1>
+<li *ngFor="let item of values; let i = index">
+  {{i}} {{item}}
+</li>
 <p>{{test | json}}</p>

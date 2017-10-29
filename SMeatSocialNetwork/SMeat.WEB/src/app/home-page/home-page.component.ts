@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { HomePageService } from './home-page.service';
 
@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
           .subscribe(
           result => {
               this.values = result;
+              this.test = result;
           },
           error => {
               this.errorMessage = <any>error
