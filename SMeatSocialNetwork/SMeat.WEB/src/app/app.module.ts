@@ -23,8 +23,7 @@ import {HomePageService} from './home-page/home-page.service';
       HomePageService
   ],
   bootstrap: [
-      AppComponent,
-      HomePageComponent
+      AppComponent
   ]
 })
 export class AppModule { }
