@@ -55,10 +55,10 @@ namespace SMeat.DAL
             return dbSet.Find(id);
         }
 
-        public virtual T Insert(T obj)
+        public virtual T Insert(T entity)
         {
-            dbSet.Add(obj);
-            return obj;
+            dbSet.Add(entity);
+            return entity;
         }
 
         public virtual void Delete(T obj)
@@ -71,9 +71,10 @@ namespace SMeat.DAL
             dbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(T obj)
+        public virtual T Update(T entity)
         {
-            context.Entry(obj).State = EntityState.Modified;
+            context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
     }
 }

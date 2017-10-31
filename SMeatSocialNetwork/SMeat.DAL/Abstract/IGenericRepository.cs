@@ -15,6 +15,6 @@ namespace SMeat.DAL
         T GetById(object id);
         T Insert(T obj);
         void Delete(T obj);
-        void Update(T obj);
+        T Update(T obj);
     }
 }

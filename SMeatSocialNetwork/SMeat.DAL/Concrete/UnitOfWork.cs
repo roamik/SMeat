@@ -26,8 +26,7 @@ namespace SMeat.DAL
 
         public async Task<int> Save()
         {
-            await context.SaveChangesAsync();
-            return 1;
+            return await context.SaveChangesAsync();
         }
 
         // IDisposable
