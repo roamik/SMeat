@@ -1,30 +1,33 @@
-﻿using SMeat.MODELS.Models;
+﻿using SMeat.DAL.Abstract;
+using SMeat.MODELS.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SMeat.DAL
 {
     class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationContext context = new ApplicationContext();
-        private GenericRepository<User> usersRepository;
+        private IUsersRepository usersRepository;
 
-        public IGenericRepository<User> UsersRepository
+        public IUsersRepository UsersRepository
         {
             get
             {
                 if (usersRepository == null)
                 {
-                    usersRepository = new GenericRepository<User>(context);
+                    usersRepository = new UsersRepository(context);
                 }
                 return usersRepository;
             }
         }
 
-        public void Save()
+        public async Task<int> Save()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            return 1;
         }
 
         // IDisposable

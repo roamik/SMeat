@@ -7,11 +7,11 @@ using System.Text;
 
 namespace SMeat.DAL
 {
-    class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private DbContext context;
+        private ApplicationContext context;
         private DbSet<T> dbSet;
-        public GenericRepository(DbContext context)
+        public GenericRepository(ApplicationContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();
@@ -50,15 +50,15 @@ namespace SMeat.DAL
             return query;
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(object id)
         {
             return dbSet.Find(id);
         }
 
-        public virtual bool Insert(T obj)
+        public virtual T Insert(T obj)
         {
             dbSet.Add(obj);
-            return true;
+            return obj;
         }
 
         public virtual void Delete(T obj)
@@ -71,11 +71,9 @@ namespace SMeat.DAL
             dbSet.Remove(entityToDelete);
         }
 
-        public virtual bool Update(T obj)
+        public virtual void Update(T obj)
         {
-            dbSet.Attach(obj);
             context.Entry(obj).State = EntityState.Modified;
-            return true;
         }
     }
 }

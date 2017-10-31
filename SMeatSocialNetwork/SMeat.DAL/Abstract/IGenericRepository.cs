@@ -12,9 +12,9 @@ namespace SMeat.DAL
 
         List<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes);
         IQueryable<T> Query(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
-        T GetById(int id);
-        bool Insert(T obj);
+        T GetById(object id);
+        T Insert(T obj);
         void Delete(T obj);
-        bool Update(T obj);
+        void Update(T obj);
     }
 }

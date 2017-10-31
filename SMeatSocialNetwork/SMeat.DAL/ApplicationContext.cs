@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SMeat.DAL
 {
-    class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
     }

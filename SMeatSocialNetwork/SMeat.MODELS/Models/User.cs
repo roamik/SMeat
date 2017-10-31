@@ -13,11 +13,11 @@ namespace SMeat.MODELS.Models
         [Required(ErrorMessage = "Enter your name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter your surname")]
-        public string LName { get; set; }
-        public string Picture { get; set; } // is this a link to the picture? or a path to the folder? or both depending on a signature?
+        public string LastName { get; set; }
+        public string PictureUrl { get; set; }
         public string Status { get; set; }
         // public enum Relationship { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTimeOffset? Birthdate { get; set; }
         // public enum Gender { get; set; }
         public string About { get; set; }
 
