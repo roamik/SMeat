@@ -1,5 +1,5 @@
 ﻿using SMeat.DAL.Abstract;
-using SMeat.MODELS.Models;
+using SMeat.MODELS;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace SMeat.DAL
 {
-    class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private ApplicationContext context = new ApplicationContext();
+        private ApplicationContext _context;
+        public UnitOfWork(ApplicationContext context)
+        {
+            _context = context;
+        }
         private IUsersRepository usersRepository;
 
         public IUsersRepository UsersRepository
@@ -18,7 +22,7 @@ namespace SMeat.DAL
             {
                 if (usersRepository == null)
                 {
-                    usersRepository = new UsersRepository(context);
+                    usersRepository = new UsersRepository(_context);
                 }
                 return usersRepository;
             }
@@ -26,11 +30,13 @@ namespace SMeat.DAL
 
         public async Task<int> Save()
         {
-            return await context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         // IDisposable
         bool disposed = false;
+
+       
 
         protected virtual void Dispose(bool disposing)
         {
@@ -38,7 +44,7 @@ namespace SMeat.DAL
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
         }

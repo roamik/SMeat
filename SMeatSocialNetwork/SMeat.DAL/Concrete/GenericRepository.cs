@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SMeat.MODELS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SMeat.DAL
 {
@@ -17,24 +19,21 @@ namespace SMeat.DAL
             this.dbSet = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> Data { get { return dbSet; } }
+        public virtual IQueryable<T> Data { get { return dbSet; } }
 
-        public virtual List<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes)
+        public virtual Task<List<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = dbSet;
-
-            foreach(Expression<Func<T, object>> include in includes)
-            {
+            foreach (Expression<Func<T, object>> include in includes) {
                 query = query.Include(include);
             }
-
-            if (filter != null)
+            if (filter != null) {
                 query = query.Where(filter);
-
-            if (orderBy != null)
+            }
+            if (orderBy != null){
                 query = orderBy(query);
-
-            return query.ToList();
+            }
+            return query.ToListAsync();
         }
 
         public virtual IQueryable<T> Query(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
@@ -50,15 +49,14 @@ namespace SMeat.DAL
             return query;
         }
 
-        public virtual T GetById(object id)
+        public virtual Task<T> GetByIdAsync(object id)
         {
-            return dbSet.Find(id);
+            return dbSet.FindAsync(id);
         }
 
-        public virtual T Insert(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            dbSet.Add(entity);
-            return entity;
+            return (await dbSet.AddAsync(entity)).Entity;
         }
 
         public virtual void Delete(T obj)
@@ -73,6 +71,10 @@ namespace SMeat.DAL
 
         public virtual T Update(T entity)
         {
+            if (context.Entry(entity).State == EntityState.Detached)
+            {
+                dbSet.Attach(entity);
+            }
             context.Entry(entity).State = EntityState.Modified;
             return entity;
         }

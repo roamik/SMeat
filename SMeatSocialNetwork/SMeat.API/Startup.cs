@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SMeat.MODELS;
+using Microsoft.EntityFrameworkCore;
+using SMeat.DAL;
 
 namespace SMeat.API
 {
@@ -27,6 +30,9 @@ namespace SMeat.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -37,7 +43,9 @@ namespace SMeat.API
                     .AllowCredentials());
             });
             // Add framework services.
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
+
 
         }
 

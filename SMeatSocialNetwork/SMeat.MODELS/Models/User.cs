@@ -8,8 +8,13 @@ namespace SMeat.MODELS.Models
 {
     public class User
     {
+        public User()
+        {
+            Id =  Guid.NewGuid().ToString();
+        }
+
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required(ErrorMessage = "Enter your name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter your surname")]

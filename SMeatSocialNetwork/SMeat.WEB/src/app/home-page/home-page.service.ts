@@ -18,7 +18,7 @@ export class HomePageService {
         
 	  }
 
-    getValues(): Observable<Array<string>> {
+    getValues(): Observable<any> {
         return this._http.get(BASEURL + 'api/values', OPTIONS)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.toString()) || 'GET server error');            

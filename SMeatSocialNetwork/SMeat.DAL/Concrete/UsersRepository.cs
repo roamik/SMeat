@@ -1,4 +1,5 @@
 ﻿using SMeat.DAL.Abstract;
+using SMeat.MODELS;
 using SMeat.MODELS.Models;
 using System;
 using System.Collections.Generic;
