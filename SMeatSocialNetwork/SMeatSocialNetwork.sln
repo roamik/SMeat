@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMeat.API", "SMeat.API\SMeat.API.csproj", "{8CB6465F-0827-4D40-96FA-9B9B3AF20742}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMeat.WEB", "SMeat.WEB\SMeat.WEB.csproj", "{B1CB35FE-7438-4E2A-8621-D2A839C7B582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMeat.MODELS", "SMeat.MODELS\SMeat.MODELS.csproj", "{EBD4F49E-4C6B-45FD-B7D8-7177243B87E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMeat.MODELS", "SMeat.MODELS\SMeat.MODELS.csproj", "{EBD4F49E-4C6B-45FD-B7D8-7177243B87E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMeat.DAL", "SMeat.DAL\SMeat.DAL.csproj", "{E44D4971-79A0-43CA-80F6-8E57D63876F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMeat.DAL", "SMeat.DAL\SMeat.DAL.csproj", "{E44D4971-79A0-43CA-80F6-8E57D63876F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

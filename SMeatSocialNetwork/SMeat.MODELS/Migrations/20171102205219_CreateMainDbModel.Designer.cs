@@ -9,9 +9,10 @@ using SMeat.MODELS.Models.Enums;
 namespace SMeat.MODELS.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20171102205219_CreateMainDbModel")]
+    partial class CreateMainDbModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.3")
