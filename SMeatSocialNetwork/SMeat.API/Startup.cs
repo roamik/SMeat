@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using SMeat.MODELS;
 using Microsoft.EntityFrameworkCore;
 using SMeat.DAL;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SMeat.MODELS.Models;
 
 namespace SMeat.API
 {
@@ -33,6 +35,36 @@ namespace SMeat.API
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // ================ IDENTITY
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddDefaultTokenProviders();
+
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // Cookie settings
+                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+                options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
+                options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOut";
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+            // =========================
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -56,6 +88,8 @@ namespace SMeat.API
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
             app.UseMvc();
+
+            app.UseIdentity();
         }
     }
 }
