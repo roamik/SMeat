@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Options;
 using SMeat.MODELS.Models;
 using System;
@@ -119,16 +120,14 @@ namespace SMeat.MODELS
                .HasMany(u => u.ContactsTo)
                .WithOne(c => c.FirstUser)
                .HasForeignKey(c => c.FirstUserId)
-               .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()    //Contacts N => 1 SecondUser (User)
                .HasMany(u => u.ContactsFrom)
                .WithOne(c => c.SecondUser)
                .HasForeignKey(c => c.SecondUserId)
-               .OnDelete(Microsoft.EntityFrameworkCore.Metadata.DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.Restrict);
 
         }
-
-
     }
 }
