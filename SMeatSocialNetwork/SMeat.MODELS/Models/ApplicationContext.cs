@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Options;
 using SMeat.MODELS.Models;
@@ -8,10 +9,8 @@ using System.Text;
 
 namespace SMeat.MODELS
 {
-    public class ApplicationContext : DbContext
-    {
-        
-
+    public class ApplicationContext : IdentityDbContext<User>
+    {   
         #region Config
         private readonly IOptions<AppConnectionStrings> _options;
 
@@ -23,13 +22,14 @@ namespace SMeat.MODELS
         }
 
         protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder ) {
-            optionsBuilder.UseSqlServer(_options.Value.DefaultConnection);
-          //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true");
+           // optionsBuilder.UseSqlServer(_options.Value.DefaultConnection);
+          optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
         #endregion
-        
 
-        public DbSet<User> Users { get; set; }
+       // public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        //public DbSet<User> Users { get; set; }
 
         public DbSet<UserChat> UserChats { get; set; }
 
@@ -50,13 +50,17 @@ namespace SMeat.MODELS
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.Entity<UserChat>().HasKey(e => new { e.UserId, e.ChatId });
 
             modelBuilder.Entity<User>()    // User 1 => N UserChats
                .HasMany(u => u.UserChats)
                .WithOne(uc => uc.User)
                .HasForeignKey(uc => uc.UserId);
+
+            modelBuilder.Entity<User>()    // User 1 => N UserChats
+              .ToTable("Users");
 
             modelBuilder.Entity<User>()         //User 1 =>
                .HasMany(u => u.Chats)          //=> N Chats each =>
@@ -69,14 +73,14 @@ namespace SMeat.MODELS
                 .HasForeignKey(m => m.UserId);
 
 
-            modelBuilder.Entity<User>()    // User N => 1 Location
-                .HasOne(u => u.Location)
-                .WithMany(l => l.Users)
+            modelBuilder.Entity<Location>()    // User N => 1 Location
+                .HasMany(l => l.Users)
+                .WithOne(u => u.Location)
                 .HasForeignKey(u => u.LocationId);
 
-            modelBuilder.Entity<User>()    // User N => 1 Workplace
-                .HasOne(u => u.Workplace)
-                .WithMany(w => w.Users)
+            modelBuilder.Entity<Workplace>()    // User N => 1 Workplace
+                .HasMany(u => u.Users)
+                .WithOne(w => w.Workplace)
                 .HasForeignKey(u => u.WorkplaceId);
 
             modelBuilder.Entity<UserGroupChat>().HasKey(e => new { e.UserId, e.GroupChatId });

@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using SMeat.DAL;
 using Microsoft.AspNetCore.Identity;
 using SMeat.MODELS.Models;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace SMeat.API
 {
@@ -49,9 +52,12 @@ namespace SMeat.API
             services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
 
 
+
             services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationContext>()
-            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
+            
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -89,13 +95,28 @@ namespace SMeat.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
+
+            app.UseExceptionHandler(
+                 options => {
+                     options.Run(
+                     async context =>
+                     {
+                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                         context.Response.ContentType = "text/html";
+                         var ex = context.Features.Get<IExceptionHandlerFeature>();
+                         if (ex != null)
+                         {
+                             var err = "{ Error:" + $"{ ex.Error.Message}, ErrorTrace: {ex.Error.StackTrace }"+"}";
+                             await context.Response.WriteAsync(err).ConfigureAwait(false);
+                         }
+                     });
+                 }
+                );
 
             app.UseMvc();
         }
