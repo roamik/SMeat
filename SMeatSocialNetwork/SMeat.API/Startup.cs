@@ -15,6 +15,16 @@ using SMeat.MODELS.Models;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SMeat.API
 {
@@ -36,6 +46,7 @@ namespace SMeat.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors(options =>
@@ -48,15 +59,14 @@ namespace SMeat.API
                     .AllowCredentials());
             });
             // Add framework services.
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
-
-
+            services.AddTransient<IUnitOfWork, UnitOfWork>();      
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
-            
+                .AddDefaultTokenProviders()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<User>>();
 
 
             services.Configure<IdentityOptions>(options =>
@@ -64,10 +74,10 @@ namespace SMeat.API
                 // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 6;
+                //options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequireUppercase = true;
+                //options.Password.RequireLowercase = false;
+                //options.Password.RequiredUniqueChars = 6;
 
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
@@ -77,18 +87,46 @@ namespace SMeat.API
                 // User settings
                 options.User.RequireUniqueEmail = true;
             });
-
-            services.ConfigureApplicationCookie(options =>
+            
+            //JWT
+            services.AddAuthentication(o =>
             {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-                options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
-                options.SlidingExpiration = true;
+                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))                      
+                };
             });
 
+            var policy = new AuthorizationPolicyBuilder()
+                      .RequireAuthenticatedUser()
+                      .Build();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DefaultPolicy",policy);
+                options.DefaultPolicy = policy;
+            });
+
+            services.AddMvc(config =>
+            {
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
 
         }
 
@@ -99,25 +137,27 @@ namespace SMeat.API
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
-
+            
             app.UseExceptionHandler(
-                 options => {
-                     options.Run(
-                     async context =>
-                     {
-                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                         context.Response.ContentType = "text/html";
-                         var ex = context.Features.Get<IExceptionHandlerFeature>();
-                         if (ex != null)
-                         {
-                             var err = "{ Error:" + $"{ ex.Error.Message}, ErrorTrace: {ex.Error.StackTrace }"+"}";
-                             await context.Response.WriteAsync(err).ConfigureAwait(false);
-                         }
-                     });
-                 }
-                );
+            options => {
+                options.Run(
+                async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "text/html";
+                    var ex = context.Features.Get<IExceptionHandlerFeature>();
+                    if (ex != null)
+                    {
+                        var err = "{ Error:" + $"{ ex.Error.Message}, ErrorTrace: {ex.Error.StackTrace }"+"}";
+                        await context.Response.WriteAsync(err).ConfigureAwait(false);
+                    }
+                });
+            });
 
+
+
+            app.UseAuthentication( );
+            
             app.UseMvc();
         }
     }

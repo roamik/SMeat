@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using SMeat.DAL;
 using SMeat.MODELS.Models;
 using SMeat.MODELS.Models.BindingModels;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using SMeat.API;
+using Microsoft.Extensions.Options;
 
 namespace SMeatSocialNetwork.API.Controllers
 {
@@ -13,9 +19,12 @@ namespace SMeatSocialNetwork.API.Controllers
     public class AccountController : Controller
     {
         private IUnitOfWork _unitOfWork;
-        public AccountController(IUnitOfWork unitOfWork)
+        private IOptions<JWTOptions> _options;
+
+        public AccountController(IUnitOfWork unitOfWork, IOptions<JWTOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _options = options;
         }
 
         // POST api/values
@@ -23,17 +32,85 @@ namespace SMeatSocialNetwork.API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]LoginBindingModel model)
         {
-            var user = new User { UserName = model.Login, Email = model.Login, LastName = "", Name = "" };
-            var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
-            return Ok(user);
+            if (ModelState.IsValid)
+            {
+                var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Login);
+
+                if (user != null)
+                {
+                    var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
+                    var result = await _unitOfWork.SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                    if (result.Succeeded)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                            new Claim(JwtRegisteredClaimNames.Jti+"2", Guid.NewGuid().ToString()),
+                            new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                        };
+                        if (roles.Any())
+                        {
+                            claims.AddRange(roles.Select( role => new Claim(JwtRegisteredClaimNames.Sub, role)));
+                        }
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
+                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                        var token = new JwtSecurityToken(
+                                          issuer: _options.Value.Issuer,
+                                          audience: _options.Value.Issuer,
+                                          claims: claims,
+                                          expires: DateTime.UtcNow.AddMinutes(30),
+                                          signingCredentials: creds);
+
+                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                    }
+                }
+            }
+
+            return BadRequest("Could not create token");
         }
 
         // PUT api/values/5
         [HttpPost]
         [Route("register")]
-        public void Register([FromBody]RegisterBindingModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterBindingModel model)
         {
+            if (ModelState.IsValid)
+            {
+                if (await _unitOfWork.UserManager.FindByNameAsync(model.Login) != null)
+                {
+                    return BadRequest("user already exists");
+                }
+                var user = new User { UserName = model.Login, Email = model.Login, LastName = "", Name = "" };
+                if (user != null)
+                {
+                    var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
 
+                        var claims = new[]
+                        {
+                          new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                          new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        };
+
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
+                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                        var token = new JwtSecurityToken(_options.Value.Issuer,
+                          _options.Value.Issuer,
+                          claims,
+                          expires: DateTime.Now.AddMinutes(30),
+                          signingCredentials: creds);
+
+                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                    }
+                }
+            }
+
+            return BadRequest("Could not create token");
         }
     }
 }

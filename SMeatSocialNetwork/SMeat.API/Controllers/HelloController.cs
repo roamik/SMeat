@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using SMeat.MODELS.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace SMeat.API.Controllers
 {
@@ -11,6 +13,7 @@ namespace SMeat.API.Controllers
     public class HelloController : Controller
     {
         [HttpGet]
+        [Authorize]
         public IActionResult Get()
         {
             //var user = new User { Name = "user", LastName = "new", Birthdate = DateTimeOffset.UtcNow };
@@ -21,7 +24,13 @@ namespace SMeat.API.Controllers
 
             //groupChat.UserGroupChats.First().User.Name;
 
-            return Ok("Hello Angular4 and ASP.NET Core");
+            //return Ok("Hello Angular4 and ASP.NET Core");
+            var dict = new Dictionary<string, string>();
+
+            HttpContext.User.Claims.ToList()
+               .ForEach(item => dict.Add(item.Type, item.Value));
+
+            return Ok(dict);
         }
     }
 }
