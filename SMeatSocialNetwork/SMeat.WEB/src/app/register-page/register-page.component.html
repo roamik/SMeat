@@ -1,3 +1,70 @@
-<p>
-  register-page works!
-</p>
+<!doctype html>
+
+<html lang="en">
+	<head>
+  		<title>SMeat - Registrtion</title>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+  		<link rel="stylesheet" type="text/css" href="register-page.component.css">
+	</head>
+
+	<body>
+  		<div id="mainBody" class="container">
+			<form method="POST" action="">
+				<fieldset>
+					<h1 class="text-center">Account Info</h1>
+					<h4 class="text-center">These field are required</h4>
+					<hr>
+
+					<div class="row inputDiv">
+						<label class="col-xs-6" for="name">Name:</label>
+          				<input type="text" id="name" name="">
+          			</div>
+					<div class="row inputDiv">
+          				<label class="col-xs-6" for="lastName">Last Name:</label>
+          				<input type="text" id="lastName" name="">
+          			</div>
+					<div class="row inputDiv">
+          				<label class="col-xs-6" for="mail">Email:</label>
+          				<input type="text" id="mail" name="">
+          			</div>
+					<div class="row inputDiv">
+          				<label class="col-xs-6" for="password">Password:</label>
+          				<input type="text" id="password" name="">
+          			</div>
+					<div class="row inputDiv">
+          				<label class="col-xs-6" for="repeatPassword">Repeat password:</label>
+          				<input type="text" id="repeatPassword" name="">
+          			</div>
+				</fieldset>
+				
+				<fieldset>
+					<h1 class="text-center">Profile Details</h1>
+					<hr>
+
+					<div class="row inputDiv">
+          				<label class="col-xs-6" for="name">Gender:</label>
+						<div class="col-xs-6">
+          					<input type="radio" name="gender" value="male" checked>
+          					<label for="male">Male</label><br>
+          					<input type="radio" name="gender" value="female">
+          					<label for="female">Female</label><br>
+          					<input id="otherToCheck" type="radio" name="gender" value="other">
+          					<label for="other">
+          						Other <input type="text" id="genderText" name="" value="" placeholder="Enter gender here">
+          					</label><br>
+          				</div>
+          			</div>
+          			<div class="row inputDiv">
+          				<label class="col-xs-6" for="birthdate">Date of birth (dd/mm/yyyy):</label>
+          				<input type="text" id="birthdate" name="">
+          			</div>
+				</fieldset>
+				<div id="buttonsDiv">
+					<input class="btn-danger" type="submit" value="Register">
+				</div>
+			</form>
+  		</div>
+
+  		<script type="text/javascript" src="otherScript.js"></script>
+	</body>
+</html>
