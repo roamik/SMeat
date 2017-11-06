@@ -10,8 +10,21 @@ using Microsoft.Extensions.Logging;
 using SMeat.MODELS;
 using Microsoft.EntityFrameworkCore;
 using SMeat.DAL;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using SMeat.MODELS.Models;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SMeat.API
 {
@@ -33,38 +46,9 @@ namespace SMeat.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            // ================ IDENTITY
-            services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationContext>()
-            .AddDefaultTokenProviders();
-
-            // Configure Identity
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-
-                // Cookie settings
-                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-                options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
-                options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOut";
-
-                // User settings
-                options.User.RequireUniqueEmail = true;
-            });
-            // =========================
-
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -75,9 +59,74 @@ namespace SMeat.API
                     .AllowCredentials());
             });
             // Add framework services.
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();      
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<User>>();
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                //options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequireUppercase = true;
+                //options.Password.RequireLowercase = false;
+                //options.Password.RequiredUniqueChars = 6;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+            
+            //JWT
+            services.AddAuthentication(o =>
+            {
+                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))                      
+                };
+            });
+
+            var policy = new AuthorizationPolicyBuilder()
+                      .RequireAuthenticatedUser()
+                      .Build();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DefaultPolicy",policy);
+                options.DefaultPolicy = policy;
+            });
+
+            services.AddMvc(config =>
+            {
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
 
         }
 
@@ -87,6 +136,28 @@ namespace SMeat.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
+
+            
+            app.UseExceptionHandler(
+            options => {
+                options.Run(
+                async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "text/html";
+                    var ex = context.Features.Get<IExceptionHandlerFeature>();
+                    if (ex != null)
+                    {
+                        var err = "{ Error:" + $"{ ex.Error.Message}, ErrorTrace: {ex.Error.StackTrace }"+"}";
+                        await context.Response.WriteAsync(err).ConfigureAwait(false);
+                    }
+                });
+            });
+
+
+
+            app.UseAuthentication( );
+            
             app.UseMvc();
 
             app.UseIdentity();

@@ -1,4 +1,5 @@
-﻿using SMeat.MODELS.Models.Enums;
+﻿using Microsoft.AspNetCore.Identity;
+using SMeat.MODELS.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,15 +8,12 @@ using System.Text;
 
 namespace SMeat.MODELS.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public User()
         {
-            Id =  Guid.NewGuid().ToString();
-        }
-
-        [Key]
-        public string Id { get; set; }
+           Id =  Guid.NewGuid().ToString();
+        }       
 
         [Required(ErrorMessage = "Enter your name")]
         public string Name { get; set; }
@@ -44,7 +42,7 @@ namespace SMeat.MODELS.Models
         public string WorkplaceId { get; set; }
 
         public virtual Workplace Workplace { get; set; }
-
+        
         //Navigation properties
         public virtual List<UserGroupChat> UserGroupChats { get; set; }
 

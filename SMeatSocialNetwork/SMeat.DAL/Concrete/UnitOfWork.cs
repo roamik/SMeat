@@ -4,15 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using SMeat.MODELS.Models;
 
 namespace SMeat.DAL
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationContext _context;
-        public UnitOfWork(ApplicationContext context)
+
+        private UserManager<User> _userManager;
+
+        private SignInManager<User> _signInManager;
+
+        public UnitOfWork(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         private IUsersRepository usersRepository;
 
@@ -27,6 +36,22 @@ namespace SMeat.DAL
                 return usersRepository;
             }
         }
+
+        public UserManager<User> UserManager
+        {
+            get
+            {
+                return _userManager;
+            }
+        }
+        public SignInManager<User> SignInManager
+        {
+            get
+            {
+                return _signInManager;
+            }
+        }
+
 
         public async Task<int> Save()
         {
