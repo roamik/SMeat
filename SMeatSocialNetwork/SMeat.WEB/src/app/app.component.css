@@ -1,0 +1,68 @@
+.navbar-default {
+	background-color: #AA3939;
+}
+
+nav {
+	border: none;
+}
+
+.navbar-brand {
+	color: white;
+}
+
+nav ul {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+footer {
+	border-radius: 8px;
+	background-color: #AA3939;
+}
+
+#searchBar {
+	display: inline-block; 
+	padding: 1em;
+}
+#searchBar .input-group-btn {
+	display: block;
+}
+
+#blockButtons li {
+	min-width: 100%;
+	clear: both;
+}
+#blockButtons li button {
+	width: 100%;
+	margin: 1px 0;
+	padding: 0.5em;
+	border: none;
+	border-radius: 8px;
+}
+
+.btn_custom {
+	background: #810000;
+}
+.btn_custom:hover {
+	background: #5D0000;
+}
+.btn_custom:hover a{
+	color: white;
+	text-decoration: none;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+
+#footerText {
+	font-weight: 800;
+	padding: 1em 1em;
+}
+
+.line {
+	display: inline;
+	height: 100%;
+	padding: 0 10em;
+	border-right: 2px solid black; 
+}
