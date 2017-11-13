@@ -1,8 +1,29 @@
-<head>
-  <title>LogIn</title>
-</head>
-<body>
-  <div class="center">
+
+	<head>
+  		<title>LogIn</title>
+	</head>
+<form method="post" action="">
+<div class="fieldWrap">
     <h1>LogIn</h1>
-  </div>
-</body>
+    <hr>
+  		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Email: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="text" name="mail" placeholder="test@example.com">
+			</div>
+		</div>
+
+  		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Password: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="password" name="pass" placeholder="Password">
+			</div>
+		</div>
+
+  		<button class="btn-default btn_custom center-block" type="submit">LogIn</button>
+</div>
+</form>

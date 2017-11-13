@@ -1,8 +1,59 @@
-html,body{
-  height:100%;
+.fieldWrap{
+	border: 2px solid black;
+	background: #D39797;
+	margin-bottom: 1em;
+	padding: 1em 1em;
 }
-.center{
-  position: relative;
-  top:50%;
-  left:50%; 
+
+h1{
+	text-align: center;
+	color: black;
+	font-weight: 800;
+	text-shadow: 0 3px 5px rgba(0,0,0,.6);
+}
+
+
+.boldLables {
+	font-weight: 800;
+	color: GhostWhite;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.text-right{
+	padding-left: 5em;
+}
+
+#inputBlock{
+	width: 300px;
+    height: 300px;
+    text-align: center;
+    position: relative;
+    left:auto; right:auto;
+    top:4em; bottom:auto;
+    margin:auto;    
+    padding: 1em 1em;
+}
+
+.btn_custom {
+	background: #810000;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	margin-bottom: 1em;
+}
+.btn_custom:hover {
+	background: #5D0000;
+}
+.btn_custom:hover a{
+	color: white;
+	text-decoration: none;
+}
+
+input{
+	color: black;
+	border: 1px solid rgba(0,0,0,.6);
 }
