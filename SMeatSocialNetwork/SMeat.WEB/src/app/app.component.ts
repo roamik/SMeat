@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import * as jQuery from 'jquery';
 
 import { AppService } from './app.service';
 
