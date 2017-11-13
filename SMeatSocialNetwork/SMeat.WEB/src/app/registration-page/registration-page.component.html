@@ -1,0 +1,74 @@
+<form method="post" action="">
+
+	<div class="fieldWrap">
+		<h1>Account Info</h1>
+		<h5>These fields are required</h5>
+		<hr>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Name: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="text" name="name">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Last Name: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="text" name="lastName">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Email: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="text" name="mail" placeholder="Email@somewhere.yeah">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Password: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="password" name="pass" placeholder="Make this super secret">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Repeat Password: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="password" name="repPass" placeholder="Not [password1234]">
+			</div>
+		</div>
+	</div>
+
+	<div class="fieldWrap">
+		<h1>Profile Details</h1>
+		<hr>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Gender: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="radio" name="gender" value="male"> Male<br>
+  				<input type="radio" name="gender" value="female"> Female<br>
+  				<input type="radio" name="gender" value="other"> Other
+  					<input id="customGenderTextField" type="text" name="otherGender" placeholder="Custom gender">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<p class="boldLables text-right">Date of birth: </p>
+			</div>
+			<div class="col-xs-6">
+				<input type="password" name="birth" placeholder="dd/mm/yyyy">
+			</div>
+		</div>
+	</div>
+
+	<button class="btn-default btn_custom center-block" type="submit">Register</button>
+</form>

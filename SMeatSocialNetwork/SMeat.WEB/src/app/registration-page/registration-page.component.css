@@ -1,0 +1,47 @@
+.fieldWrap {
+	border: 2px solid black;
+	background: #D39797;
+	margin-bottom: 1em;
+	padding: 1em 1em;
+}
+
+h1, h5 {
+	text-align: center;
+	color: black;
+	font-weight: 800;
+	text-shadow: 0 3px 5px rgba(0,0,0,.6);
+}
+
+input {
+	color: black;
+	border: 1px solid rgba(0,0,0,.6);
+}
+
+.boldLables {
+	font-weight: 800;
+	color: GhostWhite;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.btn_custom {
+	background: #810000;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	margin-bottom: 1em;
+}
+.btn_custom:hover {
+	background: #5D0000;
+}
+.btn_custom:hover a{
+	color: white;
+	text-decoration: none;
+}
+
+#customGenderTextField {
+	display: none;
+}

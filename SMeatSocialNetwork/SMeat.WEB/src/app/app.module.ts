@@ -9,11 +9,15 @@ import { AppService } from './app.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import {HomePageService} from './home-page/home-page.service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'login-page', component: LoginPageComponent },
+  { path: 'registration-page', component: RegistrationPageComponent },
+  { path: 'profile-page', component: ProfilePageComponent },
 
 
   {
@@ -27,7 +31,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+	RegistrationPageComponent,
+    ProfilePageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
