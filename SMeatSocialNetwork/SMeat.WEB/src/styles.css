@@ -3,3 +3,39 @@ body {
 	background-color: #C5C5C5;
 	color: white;
 }
+
+input {
+	color: black;
+}
+
+hr {
+	border: 2px dashed rgba(0,0,0,.5);
+}
+
+.containerEdit {
+	max-width: 97%;
+	margin: auto auto;
+}
+
+.btn_custom {
+	background: #810000;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	margin-bottom: 1em;
+}
+.btn_custom:hover {
+	background: #5D0000;
+}
+.btn_custom:hover a{
+	color: white;
+	text-decoration: none;
+}
+
+.textOutline {
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}

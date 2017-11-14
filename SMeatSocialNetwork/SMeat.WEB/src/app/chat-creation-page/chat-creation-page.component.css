@@ -1,3 +1,7 @@
+input {
+	width: 100%;
+}
+
 .lineRow {
 	min-height: 3em;
 	display: block;
@@ -5,11 +9,6 @@
 	margin: 0 0.5em;
 	margin-bottom: 0.5em;
 	padding: 0.5em;
-}
-
-input {
-	color: black;
-	width: 100%;
 }
 
 #addUserBtn {
@@ -37,19 +36,4 @@ input {
 
 #picture {
 	width: 100%;
-}
-
-.btn_custom {
-	background: #810000;
-	color: white;
-	border: none;
-	border-radius: 8px;
-	margin-bottom: 1em;
-}
-.btn_custom:hover {
-	background: #5D0000;
-}
-.btn_custom:hover a{
-	color: white;
-	text-decoration: none;
 }
