@@ -1,0 +1,72 @@
+hr {
+	border: 2px dashed rgba(0,0,0,.5);
+}
+
+#profileBody {
+	display: block;
+}
+
+.sideBar {
+	display: block;
+	background: #D39797;
+	border: 2px solid rgba(0,0,0,.3);
+	border-radius: 8px;
+	margin-bottom: 1em;
+}
+.sideBar p {
+	display: block;
+}
+
+#avatar {
+	max-width: 90%;
+}
+
+.container {
+	max-width: 100%;
+}
+
+.txtFieldText {
+	font-weight: 800;
+}
+
+.txtField {
+	display: block;
+	min-height: 100%;
+}
+
+.txtField + .txtField {
+	border-top: 2px solid rgba(0,0,0,.3);
+}
+
+
+#boardList a {
+	color: white;
+	font-weight: 800;
+	background: #D39797;
+	display: block;
+	margin: 1em 1em;
+	padding: 0.5em 0.5em;
+	border: 2px solid rgba(0,0,0,.5);
+	border-radius: 8px;
+}
+#boardList a p {
+	display: inline-block;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.center {
+	display: block;
+	margin: 0 auto;
+}
+
+.textOutline {
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
