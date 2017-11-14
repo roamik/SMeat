@@ -1,0 +1,55 @@
+.lineRow {
+	min-height: 3em;
+	display: block;
+	background: #D39797;
+	margin: 0 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0.5em;
+}
+
+input {
+	color: black;
+	width: 100%;
+}
+
+#addUserBtn {
+	margin: 2px 2px;
+	padding: 1em 0.5em;
+}
+
+#userList {
+	display: inline-block;
+	border-left: 2px solid rgba(0,0,0,.5);
+	padding: 0 0.5em;
+}
+#userList a img {
+	width: 5em;
+	margin: 2px;
+	display: inline-block;
+	border: 2px solid rgba(0,0,0,.5);
+	border-radius: 8px;
+}
+
+#pictureRow {
+	background: #D39797;
+	border: 2px solid rgba(0,0,0,.5);
+}
+
+#picture {
+	width: 100%;
+}
+
+.btn_custom {
+	background: #810000;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	margin-bottom: 1em;
+}
+.btn_custom:hover {
+	background: #5D0000;
+}
+.btn_custom:hover a{
+	color: white;
+	text-decoration: none;
+}
