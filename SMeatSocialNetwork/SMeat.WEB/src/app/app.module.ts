@@ -11,6 +11,7 @@ import {HomePageService} from './home-page/home-page.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
+import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
 
 
 const appRoutes: Routes = [
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'login-page', component: LoginPageComponent },
   { path: 'registration-page', component: RegistrationPageComponent },
   { path: 'profile-page', component: ProfilePageComponent },
+  { path: 'user-settings', component: UserSettingsPageComponent },
 
 
   {
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     HomePageComponent,
     LoginPageComponent,
 	RegistrationPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    UserSettingsPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
