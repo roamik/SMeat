@@ -4,6 +4,10 @@ body {
 	color: white;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 input {
 	color: black;
 }
@@ -25,6 +29,7 @@ hr {
 	margin-bottom: 1em;
 }
 .btn_custom:hover {
+	color: white;
 	background: #5D0000;
 }
 .btn_custom:hover a{

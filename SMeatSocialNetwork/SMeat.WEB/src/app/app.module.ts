@@ -13,6 +13,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
 import { ChatCreationPageComponent } from './chat-creation-page/chat-creation-page.component';
+import { ChatListPageComponent } from './chat-list-page/chat-list-page.component';
 
 
 const appRoutes: Routes = [
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfilePageComponent },
   { path: 'user-settings', component: UserSettingsPageComponent },
   { path: 'chat-creation', component: ChatCreationPageComponent },
+  { path: 'chat-list', component: ChatListPageComponent },
 
 
   {
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
 	RegistrationPageComponent,
     ProfilePageComponent,
     UserSettingsPageComponent,
-    ChatCreationPageComponent
+    ChatCreationPageComponent,
+    ChatListPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

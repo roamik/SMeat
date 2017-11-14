@@ -1,0 +1,39 @@
+#topForm {
+	display: block;
+	min-height: 2.5em;
+}
+
+#searchForm {
+	width: 75%;
+	display: inline-block;
+}
+
+#addBtnLink {
+	float: right;
+}
+
+#searchField {
+	height: 100%;
+}
+
+#chatList {
+	display: block;
+}
+#chatList div a img {
+	width: 5em;
+	margin: 2px;
+	display: inline-block;
+	border: 2px solid rgba(0,0,0,.5);
+	border-radius: 8px;
+}
+
+.chat {
+	background: #D39797;
+	display: block;
+	margin: 1em 0;
+	padding: 0.5em;
+	border: 2px solid rgba(0,0,0,.5);
+	border-radius: 8px;
+	font-weight: 800;
+	color: white;
+}
