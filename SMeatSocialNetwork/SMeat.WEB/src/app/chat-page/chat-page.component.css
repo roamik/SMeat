@@ -1,0 +1,51 @@
+input {
+	width: 100%;
+	margin: 0.5em;
+	min-height: 2em;
+}
+
+a {
+	color: white;
+	font-weight: 800;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.btn_custom {
+	margin: 0.5em;
+}
+
+.block {
+	background: #D39797;
+	margin: 1em;
+}
+
+#chat {
+	display: inline-block;
+	overflow-y: auto;
+	max-height: 25em;
+}
+
+.message {
+	background: #AA3939;
+	display: block;
+	border-radius: 8px;
+	margin: .5em 0;
+	padding: .5em .5em;
+}
+.message * {
+	display: inline-block;
+}
+
+#menu {
+	border: 2px solid rgba(0,0,0,.5);
+	display: block;
+	overflow-y: auto;
+	max-height: 25em;
+}
+#menu p {
+	display: block;
+}
