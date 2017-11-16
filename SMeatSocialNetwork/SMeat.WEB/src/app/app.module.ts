@@ -20,6 +20,7 @@ import { BoardListPageComponent } from './board-list-page/board-list-page.compon
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { GroupCreationPageComponent } from './group-creation-page/group-creation-page.component';
 import { BoardPageComponent } from './board-page/board-page.component';
+import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 
 
 const appRoutes: Routes = [
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'group', component: GroupPageComponent },
   { path: 'chat', component: ChatPageComponent },
   { path: 'board', component: BoardPageComponent },
+  { path: 'createboard', component: BoardCreationPageComponent },
 
 
   {
@@ -60,7 +62,8 @@ const appRoutes: Routes = [
     BoardListPageComponent,
     ChatPageComponent,
     GroupCreationPageComponent,
-    BoardPageComponent
+    BoardPageComponent,
+    BoardCreationPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
