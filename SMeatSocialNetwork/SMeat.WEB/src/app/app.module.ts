@@ -21,6 +21,7 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
 import { GroupCreationPageComponent } from './group-creation-page/group-creation-page.component';
 import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
+import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
 
 
 const appRoutes: Routes = [
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   { path: 'chats/:id', component: ChatPageComponent },
   { path: 'boards/:id', component: BoardPageComponent },
   { path: 'board-feed/createboard', component: BoardCreationPageComponent },
+  { path: 'unsigned', component: UnsignedPageComponent },
 
 
   {
@@ -63,7 +65,8 @@ const appRoutes: Routes = [
     ChatPageComponent,
     GroupCreationPageComponent,
     BoardPageComponent,
-    BoardCreationPageComponent
+    BoardCreationPageComponent,
+    UnsignedPageComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

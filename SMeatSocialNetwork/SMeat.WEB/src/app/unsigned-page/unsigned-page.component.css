@@ -1,0 +1,30 @@
+#block {
+	background: #D39797;
+	border-radius: 15px;
+	margin: 1em 0;
+	padding: 1em 1em;
+}
+
+#block h1 {
+	display: block;
+	max-width: 90%;
+	margin: 0 auto;
+	margin-bottom: 1em;
+	text-align: center;	
+	font-weight: 800;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.btn_custom {
+	min-width: 5em;
+	min-height: 2em;
+}
+
+button {
+	margin: 0 auto;
+	margin-bottom: .5em;
+}
