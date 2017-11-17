@@ -1,59 +1,50 @@
-<div class="fieldWrap">
-        <h1>-Profile settings-</h1>
-        <hr>
-      	<div class="col-xs-16">
-        <div class="col-xs-6" >
-			<p class="text-right"><input maxlength="10" type="text" name="name" placeholder="Name"></p>
-        </div>
-
-        <div class="col-xs-6">
-        	<p><input maxlength="15" type="text" name="lname" placeholder="Last Name"></p>
-        </div>
-
-        <div class="col-xs-12">
-        	<p id="userAElement"><textarea maxlength="444" placeholder="Describe yourself here..." class="userAbout"></textarea></p>
-        </div>
-
-        <div class="col-xs-12">
-        	<p id="userAElement"><textarea maxlength="444" placeholder="Location" class="userLocation"></textarea></p>
-        </div>
-
-        <div class="col-xs-12">
-        	<p id="userAElement"><textarea maxlength="444" placeholder="Workplace" class="userLocation"></textarea></p>
-        </div>
-
-        <div class="col-xs-12">
-			<p><select id="MySelect">
-				<option value="" disabled selected>Gender</option>
-  				<option value="male">Male</option>
-  				<option value="female">Female</option>
-			</select></p>
-        </div><br>
-
-		<div class="col-xs-12">
-			<p><select id="MySelect">
-				<option value="" disabled selected>Relationship</option>
-  				<option value="male">Single</option>
-  				<option value="female">In relation</option>
-			</select></p>
-        </div>
-
-		<div class="col-xs-12">
-			<p><select id="MySelect">
-				<option value="" disabled selected>Color</option>
-  				<option value="male">OrangeFire</option>
-  				<option value="female">GreenLemon</option>
-			</select></p>
-        </div><br>
-
-        <div class="col-xs-12">
-			<p><select id="MySelect">
-  				<option value="male">Classic Template</option>
-  				<option value="female">Extra Template</option>
-			</select></p>
-        </div>
-      </div>      
+<div id="body">
+  
+  <div class="row field">
+    <div id="name" class="col-xs-6 nameBlock">
+      <input class="nameText" type="text" name="name" placeholder="Name">
+    </div>
+    <div id="lastName" class="col-xs-6 nameBlock">
+      <input class="nameText" type="text" name="lastName" placeholder="Last Names">
+    </div>
+  </div>
+  <div class="field">
+    <textarea placeholder="Descripe yourself here"></textarea>
+  </div>
+  <div class="field">
+    <input type="text" name="location" placeholder="Location">
+  </div>
+  <div class="field">
+    <input type="text" name="workplace" placeholder="Workplace">
+  </div>
+  <div class="field">
+    <select id="MySelect">
+      <option value="" disabled selected>Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+  <div class="field">
+    <select id="MySelect">
+      <option value="" disabled selected>Relationship</option>
+      <option value="male">Single</option>
+      <option value="female">In relation</option>
+    </select>
+  </div>
+  <div class="field">
+    <select id="MySelect">
+      <option value="" disabled selected>Color</option>
+      <option value="male">OrangeFire</option>
+      <option value="female">GreenLemon</option>
+    </select>
+  </div>
+  <div class="field">
+    <select id="MySelect">
+      <option value="male">Classic Template</option>
+      <option value="female">Extra Template</option>
+    </select>
+  </div>
 
 
-<button class="btn-default btn_custom center-block" type="submit">Apply</button>
+  <button class="btn-default btn_custom center-block" type="submit">Apply</button>
 </div>

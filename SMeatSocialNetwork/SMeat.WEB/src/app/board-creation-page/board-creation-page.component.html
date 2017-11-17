@@ -1,20 +1,24 @@
-<div class="containerEdit">
+<div class="">
 	<h1>Create new board:</h1>
 
-	<div id="EditBoard" class="editField">
+	<div id="editBoard" class="editField">
 
-		<h5>Board name:</h5>
-		<input type="text" name="boardName" placeholder="Board name">
+		<h3 class="text-center">Board name:</h3>
+		<div class="textBlock">
+			<input type="text" name="boardName" placeholder="Board name">
+		</div>
+		
+		<hr>
 
-		<p>Discussion:<br>
-			<textarea maxlength="300" placeholder="Describe the subject here..." class="discussion"></textarea>
-		</p>
+		<h3 class="text-center">Discussion:</h3>
+		<div class="textBlock">
+			<textarea class="discussion center-block" placeholder="Describe the subject here..."></textarea>
+		</div>
 
-	</div>
+		<div>
+			<button class="btn_custom center-block">Create</button>
+		</div>
 
-
-	<div>
-		<button class="btn_custom center-block">Create</button>
 	</div>
 
 
