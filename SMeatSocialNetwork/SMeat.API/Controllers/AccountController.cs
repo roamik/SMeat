@@ -27,7 +27,7 @@ namespace SMeatSocialNetwork.API.Controllers
             _options = options;
         }
 
-        // POST api/values
+        // POST api/account/login
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]LoginBindingModel model)
