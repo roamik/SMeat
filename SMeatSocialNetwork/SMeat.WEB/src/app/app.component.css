@@ -1,68 +1,53 @@
-.navbar-default {
-	background-color: #AA3939;
-}
-
-nav {
-	border: none;
-}
-
-.navbar-brand {
-	color: white;
-}
-
-nav ul {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 footer {
-	border-radius: 8px;
-	background-color: #AA3939;
+	font-weight: 800;
+}
+footer p {
+	margin: 0;
 }
 
-#searchBar {
-	display: inline-block; 
-	padding: 1em;
-}
-#searchBar .input-group-btn {
+#searchForm {
 	display: block;
+	margin: auto auto;
+}
+#searchBlock {
+	padding: 0 1em;
 }
 
-#blockButtons li {
-	min-width: 100%;
-	clear: both;
+#sideButtons a {
+	padding: 0;
 }
-#blockButtons li button {
+#sideButtons button {
 	width: 100%;
 	margin: 1px 0;
 	padding: 0.5em;
-	border: none;
+}
+
+#logo {
+	padding: .2em;
+}
+#logo img {
+	width: 60%;
+	display: block;
+	margin: auto auto;
+}
+
+.block {
+	background: #AA3939;
 	border-radius: 8px;
+	padding: .5em;
 }
 
-.btn_custom {
-	background: #810000;
-}
-.btn_custom:hover {
-	background: #5D0000;
-}
-.btn_custom:hover a{
-	color: white;
-	text-decoration: none;
-}
-a {
-	color: white;
-	text-decoration: none;
-}
-
-#footerText {
-	font-weight: 800;
+#buttonsMenu {
 	padding: 1em 1em;
 }
 
-.line {
-	display: inline;
-	height: 100%;
-	padding: 0 10em;
-	border-right: 2px solid black; 
+.btn_custom {
+	min-height: 2em;
+	min-width: 5em;
+}
+
+.signed {
+	
+}
+.unsigned {
 }
