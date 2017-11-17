@@ -10,6 +10,7 @@ a:hover {
 
 input {
 	color: black;
+  max-width: 100%;
 }
 
 hr {
