@@ -29,6 +29,8 @@ hr {
 	border: none;
 	border-radius: 8px;
 	margin-bottom: 1em;
+	min-width: 5em;
+	min-height: 2em;
 }
 .btn_custom:hover {
 	color: white;
