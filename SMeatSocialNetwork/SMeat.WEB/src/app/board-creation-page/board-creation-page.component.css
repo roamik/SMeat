@@ -1,8 +1,21 @@
+.textBlock {
+	margin: 1em 1em;
+}
+
 input {
 	display: block;
 	height: 2em;
-	width: 20%;
-	margin: 0.5em 1em;
+	width: 100%;
+	margin: 0;
+}
+
+.discussion {
+  width: 100%;
+  height: 10em;
+  color: black;
+  margin: 0;
+  border: 1px solid rgba(0,0,0,.6);
+  resize: none;
 }
 
 h1{
@@ -12,10 +25,10 @@ h1{
 	text-shadow: 0 3px 5px rgba(0,0,0,.6);
 }
 
-#EditBoard {
-	background: #810000;
+#editBoard {
+	background: #D39797;
 }
-#EditBoard h4 {
+#editBoard h4 {
 	margin: .5em 3em;
 }
 
@@ -23,7 +36,6 @@ h1{
 	margin-bottom: 1em;
 	background: #D39797;
 	border: 2px solid rgba(0,0,0,.7);
-	border-radius: 8px;
 	text-shadow:
 		-1px -1px 0 #000,
 		1px -1px 0 #000,
@@ -36,22 +48,4 @@ h1{
 .editField p {
 	margin: 1em;
 	padding: .5em 0;
-	border: 2px solid rgba(0,0,0,.5);
-	border-left: none;
-	border-right: none;
-}
-
-textarea {
-  border: none;
-  -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
-  -moz-box-sizing: border-box; /* FF1+ */
-  box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
-}
-
-.discussion {
-  width: 66.5%;
-  height: 10em;
-  resize: none;
-  color: black;
-  border: 1px solid rgba(0,0,0,.6);
 }

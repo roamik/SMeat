@@ -1,100 +1,49 @@
-.fieldWrap{
-	border: 2px solid black;
-	background: #D39797;
-	margin-bottom: 1em;
-	padding: 1em 1em;
+#body {
+  padding: .5em .1em;
+  border: 1px solid rgba(0,0,0,0.5);
+  background: #D39797;
 }
 
-h1{
-	text-align: center;
-	color: black;
-	font-weight: 800;
-	text-shadow: 0 3px 5px rgba(0,0,0,.6);
+.field {
+  margin: .5em 0em;
+  padding: 0 1em;
+  width: 100%;
+  text-align: center;
 }
 
-
-.boldLables {
-	font-weight: 800;
-	color: GhostWhite;
-	text-shadow:
-	-1px -1px 0 #000,
-	1px -1px 0 #000,
-	-1px 1px 0 #000,
-	1px 1px 0 #000;
+#name {
+  padding-right: .5em;
+}
+#lastName {
+  padding-left: .5em;
 }
 
-.text-right{
-	margin-left: 13%;
-}
-.inputBlock {
-	width: 300px;
-    height: 300px;
-    text-align: center;
-    position: relative;
-    left:auto; right:auto;
-    top:4em; bottom:auto;
-    margin:auto;    
-    padding: 1em 1em;
+.nameBlock {
+  padding: 0 0;
 }
 
-.btn_custom {
-	background: #810000;
-	color: GhostWhite;
-	border: none;
-	border-radius: 8px;
-	margin-bottom: 1em;
-}
-.btn_custom:hover {
-	background: #5D0000;
-}
-.btn_custom:hover a{
-	color: GhostWhite;
-	text-decoration: none;
+.nameText {
+  padding: 0 0;
+  margin: 0 0;
+  width: 100%;
 }
 
-.userAbout {
-  width: 66.5%;
-  height: 10em;
-  resize: none;
+select {
   color: black;
-  border: 1px solid rgba(0,0,0,.6);
-}
-
-#userAElement{
-	padding-left: 27.5%;
-}
-
-.userLocation{
-  width: 66.5%;
+  width: 100%;
   height: 2em;
-  resize: none;
-  color: black;
-  border: 1px solid rgba(0,0,0,.6);
 }
 
-#MySelect{
-    margin-left:27.5%;
-    width:48.3%;
-    height: 2em;
-    color: black;
-    text-align: left;
-  	text-align-last: left;
-}
-
-
-input{
-  color: black;
-  border: 1px solid rgba(0,0,0,.6);
-  margin-left:0;
-  width: 50%;
-  box-sizing: border-box;
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing: border-box;
+input {
+  width: 100%;
+  height: 2em;
 }
 
 textarea {
-  border: none;
-  -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
-  -moz-box-sizing: border-box; /* FF1+ */
-  box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+  min-height: 5em;
+  width: 100%;
+  display: block;
+  resize: none;
+  margin: 0;
+  padding: 0;
 }
