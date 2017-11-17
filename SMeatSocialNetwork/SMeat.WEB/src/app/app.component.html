@@ -8,11 +8,11 @@
 
           <div class="signed">
             <a><button class="btn_custom">LogOut</button></a>
-            <a><button class="btn_custom">Settings</button></a>
+            <a routerLink="/user-settings"><button class="btn_custom">Settings</button></a>
           </div>
           <div class="unsigned">
-            <a><button class="btn_custom">LogIn</button></a>
-            <a><button class="btn_custom">Register</button></a>
+            <a routerLink ="/login-page"><button class="btn_custom">LogIn</button></a>
+            <a routerLink ="/registration-page"><button class="btn_custom">Register</button></a>
           </div>
           <a><button class="btn_custom">Language</button></a>
 
@@ -38,10 +38,10 @@
             <div id="buttonsMenu" class="col-xs-12">
 
               <div class="signed">
-                <a><button class="btn_custom">Profile</button></a>
-                <a><button class="btn_custom">Messages</button></a>
-                <a><button class="btn_custom">Groups</button></a>
-                <a><button class="btn_custom">Boards</button></a>
+                <a routerLink ="/profile/:id"><button class="btn_custom">Profile</button></a>
+                <a routerLink ="/chat-list"><button class="btn_custom">Messages</button></a>
+                <a routerLink ="/group-list"><button class="btn_custom">Groups</button></a>
+                <a routerLink ="/board-feed"><button class="btn_custom">Boards</button></a>
               </div>
               
             </div>
