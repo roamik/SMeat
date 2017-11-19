@@ -23,7 +23,6 @@ import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
 
-
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'login-page', component: LoginPageComponent },
