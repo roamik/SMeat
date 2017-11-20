@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 
@@ -70,7 +73,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
-    HttpModule
+    HttpModule,
+	
+	BrowserAnimationsModule,
+	MatSidenavModule
   ],
   providers: [
       AppService,

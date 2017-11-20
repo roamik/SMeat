@@ -57,3 +57,32 @@ footer p {
 .unsigned {
 	
 }
+
+/* Mobile navbar*/
+.example-sidenav a {
+	display: block;
+}
+
+.example-container {
+	width: 500px;
+	height: 300px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+	display: flex;
+	height: 100%;
+	text-align: right;
+	align-items: center;
+	justify-content: center;
+}
+
+.example-sidenav {
+	background: #A52A2A;
+	overflow-y: auto;
+	opacity: .95;
+	padding: 20px;
+}
+.example-sidenav button {
+	width: 100%;
+}
