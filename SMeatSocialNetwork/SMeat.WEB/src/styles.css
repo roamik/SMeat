@@ -48,3 +48,8 @@ hr {
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
 }
+html, body, material-app, mat-sidenav-container, .my-content {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}

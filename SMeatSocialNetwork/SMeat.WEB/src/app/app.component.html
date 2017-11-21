@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-	<mat-sidenav #sidenav class="example-sidenav">
+	<mat-sidenav #sidenav class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="fixedTop" [fixedBottomGap]="fixedBottom">
     	<div class="signed">
 				<a><button class="btn_custom">LogOut</button></a>
 				<a routerLink="/user-settings"><button class="btn_custom">Settings</button></a>
@@ -8,9 +8,7 @@
 				<a routerLink ="/login-page"><button class="btn_custom">LogIn</button></a>
 				<a routerLink ="/registration-page"><button class="btn_custom">Register</button></a>
 			</div>
-
 			<hr>
-
 			<div class="signed">
 				<a routerLink ="/profile/:id"><button class="btn_custom">Profile</button></a>
 				<a routerLink ="/chat-list"><button class="btn_custom">Messages</button></a>
@@ -18,24 +16,22 @@
 				<a routerLink ="/board-feed"><button class="btn_custom">Boards</button></a>
 			</div>
   	</mat-sidenav>
-
 <div class="container">
   <header class="block">
-
   	<div class="row visible-xs-block">
   		<div id="logo" class="col-xs-3">
 			<img src="../assets/LOGO.png">
 		</div>
 		<div class="col-xs-4"></div>
   		<div class="col-xs-5">
-  			<div class="example-sidenav-content">
-    			<button class="btn btn_custom" type="button" mat-button (click)="sidenav.open()">
-      				Open menu
-    			</button>
+  			<div class="example-sidenav-content">				
+				<button mat-mini-fab style="position: fixed; top:15px; right:30px; z-index:15" (click)="sidenav.toggle()">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</button>
   			</div>
   		</div>
   	</div>
-
+	
 	<div class="row hidden-xs">
 		<div id="logo" class="col-xs-6 col-sm-2">
 			<img src="../assets/LOGO.png">
@@ -69,7 +65,6 @@
 					</div>
 				</div>
 				<div id="buttonsMenu" class="col-xs-12">
-
 					<div class="signed text-center">
 						<a routerLink ="/profile/:id"><button class="btn_custom">Profile</button></a>
 						<a routerLink ="/chat-list"><button class="btn_custom">Messages</button></a>
@@ -82,9 +77,7 @@
         </div>
 	</div>
 </header>
-
       <router-outlet></router-outlet>
-
   <footer class="block">
     <p id="footerText">SMeat (c) 2017</p>
   </footer>

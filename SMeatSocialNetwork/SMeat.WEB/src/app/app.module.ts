@@ -4,8 +4,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule} from '@angular/material/sidenav';
-
+import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule} from '@angular/material/button';
+import { MatIconModule} from '@angular/material/icon';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 
@@ -76,7 +78,10 @@ const appRoutes: Routes = [
     HttpModule,
 	
 	BrowserAnimationsModule,
-	MatSidenavModule
+	MatSidenavModule,
+	MatButtonModule,
+	MatIconModule,
+	AngularFontAwesomeModule
   ],
   providers: [
       AppService,
