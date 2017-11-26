@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule }   from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -10,6 +11,9 @@ import { MatIconModule} from '@angular/material/icon';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { AuthenticationService } from './_services/authentication.service';
+import { UserService } from './_services/users.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import {HomePageService} from './home-page/home-page.service';
@@ -27,22 +31,23 @@ import { GroupCreationPageComponent } from './group-creation-page/group-creation
 import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomePageComponent },
-  { path: 'login-page', component: LoginPageComponent },
-  { path: 'registration-page', component: RegistrationPageComponent },
-  { path: 'profile/:id', component: ProfilePageComponent },
-  { path: 'user-settings', component: UserSettingsPageComponent },
-  { path: 'chat-list/createchat', component: ChatCreationPageComponent },
-  { path: 'group-list/creategroup', component: GroupCreationPageComponent },
-  { path: 'chat-list', component: ChatListPageComponent },
-  { path: 'group-list', component: GroupListPageComponent },
-  { path: 'board-feed', component: BoardListPageComponent },
-  { path: 'groups/:id', component: GroupPageComponent },
-  { path: 'chats/:id', component: ChatPageComponent },
-  { path: 'boards/:id', component: BoardPageComponent },
-  { path: 'board-feed/createboard', component: BoardCreationPageComponent },
+  { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'registration', component: RegistrationPageComponent },
+  { path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard]},
+  { path: 'settings', component: UserSettingsPageComponent, canActivate: [AuthGuard]},
+  { path: 'chats/create', component: ChatCreationPageComponent, canActivate: [AuthGuard] },
+  { path: 'groups/create', component: GroupCreationPageComponent, canActivate: [AuthGuard] },
+  { path: 'boards/create', component: BoardCreationPageComponent, canActivate: [AuthGuard] },
+  { path: 'chats', component: ChatListPageComponent, canActivate: [AuthGuard] },
+  { path: 'groups', component: GroupListPageComponent, canActivate: [AuthGuard] },
+  { path: 'boards', component: BoardListPageComponent, canActivate: [AuthGuard] },
+  { path: 'groups/:id', component: GroupPageComponent, canActivate: [AuthGuard] },
+  { path: 'chats/:id', component: ChatPageComponent, canActivate: [AuthGuard] },
+  { path: 'boards/:id', component: BoardPageComponent, canActivate: [AuthGuard] },
   { path: 'unsigned', component: UnsignedPageComponent },
 
 
@@ -70,11 +75,13 @@ const appRoutes: Routes = [
     GroupCreationPageComponent,
     BoardPageComponent,
     BoardCreationPageComponent,
-    UnsignedPageComponent
+    UnsignedPageComponent,
+    NavbarComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
+    FormsModule,
     HttpModule,
 	
 	BrowserAnimationsModule,
@@ -85,7 +92,10 @@ const appRoutes: Routes = [
   ],
   providers: [
       AppService,
-      HomePageService
+      HomePageService,
+      AuthenticationService,
+      AuthGuard,
+      UserService
   ],
   bootstrap: [
       AppComponent

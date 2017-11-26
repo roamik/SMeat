@@ -12,10 +12,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SMeat.API;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SMeatSocialNetwork.API.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -43,7 +45,8 @@ namespace SMeatSocialNetwork.API.Controllers
                     if (result.Succeeded)
                     {
                         var claims = new List<Claim>
-                        {                            
+                        {   
+                            new Claim(ClaimsIdentity.DefaultNameClaimType,user.UserName),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                             new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
                         };
@@ -88,6 +91,7 @@ namespace SMeatSocialNetwork.API.Controllers
                     {
                         var claims = new[]
                         {
+                          new Claim(ClaimsIdentity.DefaultNameClaimType,user.UserName),
                           new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                           new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         };

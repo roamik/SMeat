@@ -6,6 +6,7 @@ using System;
 using SMeat.MODELS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 
 namespace SMeat.API.Controllers
 {
@@ -16,7 +17,9 @@ namespace SMeat.API.Controllers
         [Authorize]
         public IActionResult Get()
         {
-            //var user = new User { Name = "user", LastName = "new", Birthdate = DateTimeOffset.UtcNow };
+           
+
+            //var user = new User { Name = "User", LastName = "Test", Birthdate = DateTimeOffset.UtcNow };
 
             //var userGroupChat = new UserGroupChat {User = user };
 

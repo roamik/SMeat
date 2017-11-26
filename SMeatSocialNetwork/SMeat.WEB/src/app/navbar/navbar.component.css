@@ -1,0 +1,78 @@
+header {
+  margin-bottom: 2em;
+}
+
+#searchForm {
+  display: block;
+  margin: auto auto;
+}
+
+#searchBlock {
+  padding: 0 1em;
+}
+
+#sideButtons a {
+  padding: 0;
+}
+
+#sideButtons button {
+  width: 100%;
+  margin: 1px 0;
+  padding: 0.5em;
+}
+
+#logo {
+  padding: .2em;
+}
+
+  #logo img {
+    width: 60%;
+    display: block;
+    margin: auto auto;
+  }
+
+
+#buttonsMenu {
+  padding: 1em 1em;
+}
+
+.btn_custom {
+  min-height: 2em;
+  min-width: 5em;
+}
+
+/*.signed {
+}*/
+
+/*.unsigned {
+}*/
+
+/* Mobile navbar*/
+.example-sidenav a {
+  display: block;
+}
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  text-align: right;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  background: #A52A2A;
+  overflow-y: auto;
+  opacity: .95;
+  padding: 20px;
+}
+
+  .example-sidenav button {
+    width: 100%;
+  }
