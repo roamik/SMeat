@@ -45,7 +45,7 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest("User not found!");
             }
-            return Ok(new { UserName = user.UserName, UserLastName = user.LastName, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, Id = user.Id });
         }
     }
 }

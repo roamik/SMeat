@@ -68,10 +68,6 @@
           <div id="buttonsMenu" class="col-xs-12">
             <div *ngIf="isAuthenticated" class="signed">
 
-              <span>
-                {{user.userName}}
-              </span>
-
               <button [routerLink]="['/profile', user.id]" class="btn_custom">Profile</button>
               <button [routerLink]="['/chats']" class="btn_custom">Messages</button>
               <button [routerLink]="['/groups']" class="btn_custom">Groups</button>
