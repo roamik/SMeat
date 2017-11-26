@@ -36,7 +36,7 @@ namespace SMeatSocialNetwork.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Login);
+                var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Email);
 
                 if (user != null)
                 {
