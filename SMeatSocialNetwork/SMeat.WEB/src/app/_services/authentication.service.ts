@@ -11,6 +11,20 @@ const BASEURL = "http://localhost:27121/";
 export class AuthenticationService {
   constructor(private http: Http) { }
 
+  public register(model) {
+      return this.http.post(BASEURL + 'api/account/register', model, OPTIONS)
+          .map((response: Response) => {
+              // login successful if there's a jwt token in the response
+              let user = response.json();
+              if (user && user.token) {
+                  // store user details and jwt token in local storage to keep user logged in between page refreshes
+                  localStorage.setItem('currentUser', JSON.stringify(user));
+              }
+
+              return user;
+          });
+  }
+
   public login(model) {
     return this.http.post(BASEURL + 'api/account/login', model, OPTIONS)
       .map((response: Response) => {

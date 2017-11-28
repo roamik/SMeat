@@ -1,4 +1,4 @@
-<form method="post" action="">
+<form #f="ngForm" (ngSubmit)="register()" novalidate>
 
 	<div class="fieldWrap">
 		<h1>Account Info</h1>
@@ -9,7 +9,7 @@
 				<p class="boldLables text-right">Name: </p>
 			</div>
 			<div class="col-xs-6">
-				<input type="text" name="name">
+				<input type="text" name="name" [(ngModel)]="model.name" #name="ngModel" ngModel required/>
 			</div>
 		</div>
 		<div class="row">
@@ -17,7 +17,7 @@
 				<p class="boldLables text-right">Last Name: </p>
 			</div>
 			<div class="col-xs-6">
-				<input type="text" name="lastName">
+				<input type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required/>
 			</div>
 		</div>
 		<div class="row">
@@ -25,7 +25,7 @@
 				<p class="boldLables text-right">Email: </p>
 			</div>
 			<div class="col-xs-6">
-				<input type="text" name="mail" placeholder="Email@somewhere.yeah">
+				<input type="text" name="mail" placeholder="Email@somewhere.yeah" [(ngModel)]="model.email" #email="ngModel" ngModel required/>
 			</div>
 		</div>
 		<div class="row">
@@ -33,7 +33,7 @@
 				<p class="boldLables text-right">Password: </p>
 			</div>
 			<div class="col-xs-6">
-				<input type="password" name="pass" placeholder="Make this super secret">
+				<input type="password" name="pass" placeholder="Make this super secret" [(ngModel)]="model.password" #password="ngModel" ngModel required/>
 			</div>
 		</div>
 		<div class="row">

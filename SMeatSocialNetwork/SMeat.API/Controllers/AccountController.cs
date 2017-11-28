@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,11 +79,11 @@ namespace SMeatSocialNetwork.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _unitOfWork.UserManager.FindByNameAsync(model.Login) != null)
+                if (await _unitOfWork.UserManager.FindByNameAsync(model.Email) != null)
                 {
                     return BadRequest("user already exists");
                 }
-                var user = new User { UserName = model.Login, Email = model.Login, LastName = "", Name = "" };
+                var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name };
                 if (user != null)
                 {
                     var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
