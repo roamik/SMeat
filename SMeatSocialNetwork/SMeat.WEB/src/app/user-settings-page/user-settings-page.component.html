@@ -1,50 +1,51 @@
-<div id="body">
-  
-  <div class="row field">
-    <div id="name" class="col-xs-6 nameBlock">
-      <input class="nameText" type="text" name="name" placeholder="Name">
+<form #f="ngForm" (ngSubmit)="updateUserInfo()" novalidate>
+  <div id="body">
+    <div class="row field">
+      <div id="name" class="col-xs-6 nameBlock">
+        <input class="nameText" type="text" name="name" placeholder="Name" [(ngModel)]="user.name" #name="ngModel">
+      </div>
+      <div id="lastName" class="col-xs-6 nameBlock">
+        <input class="nameText" type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" #lastName="ngModel">
+      </div>
     </div>
-    <div id="lastName" class="col-xs-6 nameBlock">
-      <input class="nameText" type="text" name="lastName" placeholder="Last Names">
+    <div class="field">
+      <textarea placeholder="Descripe yourself here" [(ngModel)]="user.about" #about="ngModel" name="about"></textarea>
     </div>
-  </div>
-  <div class="field">
-    <textarea placeholder="Descripe yourself here"></textarea>
-  </div>
-  <div class="field">
-    <input type="text" name="location" placeholder="Location">
-  </div>
-  <div class="field">
-    <input type="text" name="workplace" placeholder="Workplace">
-  </div>
-  <div class="field">
-    <select id="MySelect">
-      <option value="" disabled selected>Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
-  </div>
-  <div class="field">
-    <select id="MySelect">
-      <option value="" disabled selected>Relationship</option>
-      <option value="male">Single</option>
-      <option value="female">In relation</option>
-    </select>
-  </div>
-  <div class="field">
-    <select id="MySelect">
-      <option value="" disabled selected>Color</option>
-      <option value="male">OrangeFire</option>
-      <option value="female">GreenLemon</option>
-    </select>
-  </div>
-  <div class="field">
-    <select id="MySelect">
-      <option value="male">Classic Template</option>
-      <option value="female">Extra Template</option>
-    </select>
-  </div>
+    <div class="field">
+      <input type="text" name="location" placeholder="Location">
+    </div>
+    <div class="field">
+      <input type="text" name="workplace" placeholder="Workplace">
+    </div>
+    <div class="field">
+      <select id="MySelect">
+        <option value="" disabled selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="field">
+      <select id="MySelect">
+        <option value="" disabled selected>Relationship</option>
+        <option value="male">Single</option>
+        <option value="female">In relation</option>
+      </select>
+    </div>
+    <div class="field">
+      <select id="MySelect">
+        <option value="" disabled selected>Color</option>
+        <option value="male">OrangeFire</option>
+        <option value="female">GreenLemon</option>
+      </select>
+    </div>
+    <div class="field">
+      <select id="MySelect">
+        <option value="male">Classic Template</option>
+        <option value="female">Extra Template</option>
+      </select>
+    </div>
 
 
-  <button class="btn-default btn_custom center-block" type="submit">Apply</button>
-</div>
+    <button class="btn-default btn_custom center-block">Apply</button>
+  </div>
+</form>

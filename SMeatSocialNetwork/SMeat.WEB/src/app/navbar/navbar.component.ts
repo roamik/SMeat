@@ -14,42 +14,14 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: any;
 
-  constructor(private guard: AuthGuard, private userService: UserService) {
-    this.guard.userStateChange.subscribe(
-      state => this.getUserInfo(state)
-    )
-  }
+  constructor(private guard: AuthGuard, private userService: UserService) {}
 
-  get isAuthenticated(): boolean { return this.guard.isAuthenticated() }
+  get isAuthenticated(): boolean { return this.guard.isAuthenticated }
 
-  get user(): User { return this._user; }
-
-  _user: User = new User();
+  get userId(): string { return this.guard.userId; }
 
   ngOnInit() {
 
-    this.getUserInfo(this.isAuthenticated);
-
   }
-
-  getUserInfo(state) {
-    
-    if (state) {
-      this.userService.getMyInfo().subscribe(
-        user => { this._user = user },
-        error => { }
-      )
-    }
-    else {
-      this._user = new User();
-    }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (event.target.innerWidth < 500) {
-      this.sidenav.close();
-    }
-  }
-
+  
 }

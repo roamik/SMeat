@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,14 +45,15 @@ namespace SMeatSocialNetwork.API.Controllers
                     if (result.Succeeded)
                     {
                         var claims = new List<Claim>
-                        {   
+                        {
                             new Claim(ClaimsIdentity.DefaultNameClaimType,user.UserName),
+                            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                            new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                            new Claim(JwtRegisteredClaimNames.Sid, user.Id) // Set userid to token Sid claim
                         };
                         if (roles.Any())
                         {
-                            claims.AddRange(roles.Select( role => new Claim(JwtRegisteredClaimNames.Sub, role)));
+                            claims.AddRange(roles.Select(role => new Claim(JwtRegisteredClaimNames.Sub, role)));
                         }
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
                         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -64,7 +65,7 @@ namespace SMeatSocialNetwork.API.Controllers
                                           expires: DateTime.UtcNow.AddMinutes(30),
                                           signingCredentials: creds);
 
-                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
                     }
                 }
             }
@@ -94,6 +95,7 @@ namespace SMeatSocialNetwork.API.Controllers
                           new Claim(ClaimsIdentity.DefaultNameClaimType,user.UserName),
                           new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                           new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                          new Claim(JwtRegisteredClaimNames.Sid, user.Id) // Set userid to token Sid claim
                         };
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
@@ -105,7 +107,7 @@ namespace SMeatSocialNetwork.API.Controllers
                           expires: DateTime.Now.AddMinutes(30),
                           signingCredentials: creds);
 
-                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
                     }
                 }
             }

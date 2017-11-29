@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
-import { AuthGuard } from '../_guards/auth.guard';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { User } from "../_models/user";
 import { UserService } from "../_services/users.service";
 
@@ -11,7 +10,7 @@ import { UserService } from "../_services/users.service";
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private guard: AuthGuard, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   id: string;
   private sub: any;

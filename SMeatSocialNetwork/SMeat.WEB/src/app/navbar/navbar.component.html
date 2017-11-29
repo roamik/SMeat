@@ -9,7 +9,7 @@
   </div>
   <hr>
   <div *ngIf="isAuthenticated" class="signed">
-    <a [routerLink]="['/profile', user.id]" class="btn_custom">Profile</a>
+    <a [routerLink]="['/profile', userId]" class="btn_custom">Profile</a>
     <a routerLink="/chats" class="btn_custom">Messages</a>
     <a routerLink="/groups" class="btn_custom">Groups</a>
     <a routerLink="/boards" class="btn_custom">Boards</a>
@@ -68,7 +68,7 @@
           <div id="buttonsMenu" class="col-xs-12">
             <div *ngIf="isAuthenticated" class="signed">
 
-              <button [routerLink]="['/profile', user.id]" class="btn_custom">Profile</button>
+              <button [routerLink]="['/profile', userId]" class="btn_custom">Profile</button>
               <button [routerLink]="['/chats']" class="btn_custom">Messages</button>
               <button [routerLink]="['/groups']" class="btn_custom">Groups</button>
               <button [routerLink]="['/boards']" class="btn_custom">Boards</button>

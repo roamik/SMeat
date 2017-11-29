@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using SMeat.DAL;
+using SMeat.MODELS.Models.BindingModels;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SMeat.API.Controllers
 {
@@ -26,13 +28,13 @@ namespace SMeat.API.Controllers
         [Route("me")]
         public async Task<IActionResult> GetMyInfoAsync()
         {
-            var userName = User?.Identity?.Name ?? ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value;
-            var user = await _unitOfWork.UserManager.FindByNameAsync(userName);
-            if(user == null)
+            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            if (user == null)
             {
                 return Forbid("User not found!");
             }
-            return Ok(new { UserName = user.UserName, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Id = user.Id });
         }
 
         [HttpGet]
@@ -45,7 +47,36 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest("User not found!");
             }
-            return Ok(new { Name = user.Name, LastName = user.LastName, Id = user.Id });
+
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Id = user.Id });
+        }
+
+
+        [HttpPut]
+        [Authorize]
+        [Route("me")]
+        public async Task<IActionResult> Update([FromBody] UpdateSettingsBindingModel model)
+        {
+            if (!ModelState.IsValid || model == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            user.Name = model.Name;
+            user.LastName = model.LastName;
+            user.About = model.About;
+
+            await _unitOfWork.UserManager.UpdateAsync(user);
+            await _unitOfWork.Save();
+            return new NoContentResult();
         }
     }
 }
