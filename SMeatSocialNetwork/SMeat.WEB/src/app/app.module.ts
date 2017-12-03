@@ -2,21 +2,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule} from '@angular/material/sidenav';
-import { MatButtonModule} from '@angular/material/button';
-import { MatIconModule} from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
+
 import { AppService } from './app.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
-import { UserService } from './_services/users.service';
+import { UsersService } from './_services/users.service';
+import { LocationsService } from './_services/locations.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
-import {HomePageService} from './home-page/home-page.service';
+import { HomePageService } from './home-page/home-page.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
@@ -37,8 +41,8 @@ const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'registration', component: RegistrationPageComponent },
-  { path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard]},
-  { path: 'settings', component: UserSettingsPageComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: UserSettingsPageComponent, canActivate: [AuthGuard] },
   { path: 'chats/create', component: ChatCreationPageComponent, canActivate: [AuthGuard] },
   { path: 'groups/create', component: GroupCreationPageComponent, canActivate: [AuthGuard] },
   { path: 'boards/create', component: BoardCreationPageComponent, canActivate: [AuthGuard] },
@@ -63,7 +67,7 @@ const appRoutes: Routes = [
     AppComponent,
     HomePageComponent,
     LoginPageComponent,
-	  RegistrationPageComponent,
+    RegistrationPageComponent,
     ProfilePageComponent,
     UserSettingsPageComponent,
     ChatCreationPageComponent,
@@ -81,24 +85,26 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
-    FormsModule,
     HttpModule,
-	
-	BrowserAnimationsModule,
-	MatSidenavModule,
-	MatButtonModule,
-	MatIconModule,
-	AngularFontAwesomeModule
+
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    AngularFontAwesomeModule,
+    FormsModule,
+    NgSelectModule
   ],
   providers: [
-      AppService,
-      HomePageService,
-      AuthenticationService,
-      AuthGuard,
-      UserService
+    AppService,
+    HomePageService,
+    AuthenticationService,
+    AuthGuard,
+    UsersService,
+    LocationsService
   ],
   bootstrap: [
-      AppComponent
+    AppComponent
   ]
 })
 export class AppModule { }

@@ -34,7 +34,7 @@ namespace SMeat.API.Controllers
             {
                 return Forbid("User not found!");
             }
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, Id = user.Id });
         }
 
         [HttpGet]
@@ -42,13 +42,14 @@ namespace SMeat.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetUserByIdAsync(string id)
         {
-            var user = await _unitOfWork.UserManager.FindByIdAsync(id);
+            var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id, //1st filterBy
+                u => u.Location, u => u.Workplace); //include foreign entities
             if (user == null)
             {
                 return BadRequest("User not found!");
             }
 
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Id = user.Id });
         }
 
 
@@ -73,6 +74,7 @@ namespace SMeat.API.Controllers
             user.Name = model.Name;
             user.LastName = model.LastName;
             user.About = model.About;
+            user.LocationId = model.LocationId;
 
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.Save();

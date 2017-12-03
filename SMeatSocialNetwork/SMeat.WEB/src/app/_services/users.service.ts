@@ -10,7 +10,7 @@ const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'ap
 const BASEURL = "http://localhost:27121/";
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(private http: Http, private guard: AuthGuard ) { }
 
   getById(id: string) {

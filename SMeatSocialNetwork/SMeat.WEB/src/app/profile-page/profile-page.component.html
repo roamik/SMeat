@@ -23,7 +23,7 @@
 
 	<div class="col-md-4 sideBar">
 		<p class="txtField"><span class="txtFieldText textOutline">Relationship: </span> [some value]</p>
-		<p class="txtField"><span class="txtFieldText textOutline">Location: </span>[some value]</p>
+		<p class="txtField"><span class="txtFieldText textOutline">Location: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}, {{user.location.street}}</span></p>
 		<p class="txtField"><span class="txtFieldText textOutline">Workplace: </span>[some value]</p>
 	</div>
 </div>

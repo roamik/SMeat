@@ -12,37 +12,75 @@
       <textarea placeholder="Descripe yourself here" [(ngModel)]="user.about" #about="ngModel" name="about"></textarea>
     </div>
     <div class="field">
-      <input type="text" name="location" placeholder="Location">
+      <ng-select name="location" [items]="locations"
+                 bindLabel="city"
+                 bindValue="id"
+                 placeholder="Select city"
+                 [(ngModel)]="user.locationId">
+        <ng-template ng-label-tmp let-item="item">
+          {{item.country}}, {{item.city}}, {{item.street}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          <div><b>City:</b> {{item.city}}</div>
+          <small *ngIf="!item.street">Country: {{item.country}}</small>
+          <small *ngIf="item.street">Country: {{item.country}} | Street: {{item.street}}</small>
+        </ng-template>
+      </ng-select>
     </div>
     <div class="field">
-      <input type="text" name="workplace" placeholder="Workplace">
+      <!--<ng-select [allowClear]="true"
+                 [items]="workplaces"
+                 [disabled]="disabled"
+                 (data)="refreshValue($event)"
+                 (selected)="selected($event)"
+                 (removed)="removed($event)"
+                 (typed)="typed($event)"
+                 placeholder="No workplace selected">
+      </ng-select>-->
     </div>
     <div class="field">
-      <select id="MySelect">
-        <option value="" disabled selected>Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+      <!--<ng-select [allowClear]="true"
+                 [items]="genders"
+                 [disabled]="disabled"
+                 (data)="refreshValue($event)"
+                 (selected)="selected($event)"
+                 (removed)="removed($event)"
+                 (typed)="typed($event)"
+                 placeholder="Gender">
+      </ng-select>-->
     </div>
     <div class="field">
-      <select id="MySelect">
-        <option value="" disabled selected>Relationship</option>
-        <option value="male">Single</option>
-        <option value="female">In relation</option>
-      </select>
+      <!--<ng-select [allowClear]="true"
+                 [items]="relationships"
+                 [disabled]="disabled"
+                 (data)="refreshValue($event)"
+                 (selected)="selected($event)"
+                 (removed)="removed($event)"
+                 (typed)="typed($event)"
+                 placeholder="Relationship">
+      </ng-select>-->
     </div>
     <div class="field">
-      <select id="MySelect">
-        <option value="" disabled selected>Color</option>
-        <option value="male">OrangeFire</option>
-        <option value="female">GreenLemon</option>
-      </select>
+      <!--<ng-select [allowClear]="true"
+                 [items]="templates"
+                 [disabled]="disabled"
+                 (data)="refreshValue($event)"
+                 (selected)="selected($event)"
+                 (removed)="removed($event)"
+                 (typed)="typed($event)"
+                 placeholder="Choose a template">
+      </ng-select>-->
     </div>
     <div class="field">
-      <select id="MySelect">
-        <option value="male">Classic Template</option>
-        <option value="female">Extra Template</option>
-      </select>
+      <!--<ng-select [allowClear]="true"
+                 [items]="colors"
+                 [disabled]="disabled"
+                 (data)="refreshValue($event)"
+                 (selected)="selected($event)"
+                 (removed)="removed($event)"
+                 (typed)="typed($event)"
+                 placeholder="Template color">
+      </ng-select>-->
     </div>
 
 

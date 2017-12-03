@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AuthGuard } from '../_guards/auth.guard';
 import { User } from "../_models/user";
-import { UserService } from "../_services/users.service";
 
 import { MatSidenav } from '@angular/material/sidenav';
 
@@ -14,7 +13,7 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: any;
 
-  constructor(private guard: AuthGuard, private userService: UserService) {}
+  constructor(private guard: AuthGuard) {}
 
   get isAuthenticated(): boolean { return this.guard.isAuthenticated }
 

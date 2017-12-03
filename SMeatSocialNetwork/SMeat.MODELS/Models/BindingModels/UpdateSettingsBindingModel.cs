@@ -13,5 +13,7 @@ namespace SMeat.MODELS.Models.BindingModels
         public string LastName { get; set; }
         [Required]
         public string About { get; set; }
+
+        public string LocationId { get; set; }
     }
 }

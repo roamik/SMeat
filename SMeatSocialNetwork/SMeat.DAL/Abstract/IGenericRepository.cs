@@ -11,8 +11,13 @@ namespace SMeat.DAL
     {
         IQueryable<T> Data { get; }
 
-        Task<List<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes);
-        IQueryable<T> Query(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
+        IQueryable<T> GetAsync(List<Expression<Func<T, bool>>> filter = null, /*Func<T,object> orderBy = null,*/ params Expression<Func<T, object>>[] includes);
+        Task<List<T>> GetPagedAsync(List<Expression<Func<T, bool>>> filters = null, /*Func<T,object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<T, object>>[] includes);
+        Task<List<T>> GetPagedAsync(Expression<Func<T, bool>> filter = null, /*Func<T,object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<T, object>>[] includes);
+        Task<T> FirstOrDefaultAsync(List<Expression<Func<T, bool>>> filters = null, /*Func<T,object> orderBy = null,*/ params Expression<Func<T, object>>[] includes);
+        Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, /*Func<T,object> orderBy = null,*/ params Expression<Func<T, object>>[] includes);
+        Task<int> CountAsync(List<Expression<Func<T, bool>>> filters = null);
+        Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
         Task<T> GetByIdAsync(object id);
         Task<T> AddAsync(T obj);
         void Delete(T obj);

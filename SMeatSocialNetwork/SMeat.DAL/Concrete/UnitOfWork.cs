@@ -23,6 +23,7 @@ namespace SMeat.DAL
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         private IUsersRepository usersRepository;
 
         public IUsersRepository UsersRepository
@@ -34,6 +35,20 @@ namespace SMeat.DAL
                     usersRepository = new UsersRepository(_context);
                 }
                 return usersRepository;
+            }
+        }
+
+        private ILocationsRepository locationsRepository;
+
+        public ILocationsRepository LocationsRepository
+        {
+            get
+            {
+                if (locationsRepository == null)
+                {
+                    locationsRepository = new LocationsRepository(_context);
+                }
+                return locationsRepository;
             }
         }
 
@@ -52,7 +67,6 @@ namespace SMeat.DAL
             }
         }
 
-
         public async Task<int> Save()
         {
             return await _context.SaveChangesAsync();
@@ -60,8 +74,6 @@ namespace SMeat.DAL
 
         // IDisposable
         bool disposed = false;
-
-       
 
         protected virtual void Dispose(bool disposing)
         {

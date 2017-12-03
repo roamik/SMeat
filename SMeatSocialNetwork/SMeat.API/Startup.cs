@@ -25,6 +25,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SMeat.API.Helpers;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace SMeat.API
 {
@@ -126,12 +129,18 @@ namespace SMeat.API
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters();
+            services.AddMvcCore().AddFormatterMappings().AddJsonFormatters()
+            .AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            // Add Database Initializer
+            services.AddScoped<IDataBaseInitializer, DataBaseInitializer>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDataBaseInitializer dbInitializer)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -156,11 +165,15 @@ namespace SMeat.API
 
 
 
+
             app.UseAuthentication( );
             
             app.UseMvc();
 
-            app.UseIdentity();
+            //app.UseIdentity();
+
+            //Generate EF Core Seed Data
+            ((DataBaseInitializer)dbInitializer).Initialize().Wait();
         }
     }
 }

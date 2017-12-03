@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { User } from "../_models/user";
-import { UserService } from "../_services/users.service";
+import { UsersService } from "../_services/users.service";
 
 @Component({
   selector: 'profile-page',
@@ -10,7 +10,7 @@ import { UserService } from "../_services/users.service";
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private usersService: UsersService) { }
 
   id: string;
   private sub: any;
@@ -27,7 +27,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getUserInfo(id: string) {
-    this.userService.getById(id).subscribe(
+    this.usersService.getById(id).subscribe(
       user => { this.user = user },
       error => { }
     )
