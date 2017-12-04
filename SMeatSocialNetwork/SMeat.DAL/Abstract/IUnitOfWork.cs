@@ -12,6 +12,7 @@ namespace SMeat.DAL
     {
         IUsersRepository UsersRepository { get; }
         ILocationsRepository LocationsRepository { get; }
+        IWorkplacesRepository WorkplacesRepository { get; }
         UserManager<User> UserManager { get; }
         SignInManager<User> SignInManager { get; }
         Task<int> Save();

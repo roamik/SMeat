@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { User } from "../_models/user";
 import { UsersService } from "../_services/users.service";
+import { GenderType } from "../_models/genders";
+import { RelationshipType } from "../_models/relations";
 
 @Component({
   selector: 'profile-page',
@@ -14,6 +16,9 @@ export class ProfilePageComponent implements OnInit {
 
   id: string;
   private sub: any;
+
+  public genders: typeof GenderType = GenderType;
+  public relations: typeof RelationshipType = RelationshipType;
 
   user: User = new User();
 

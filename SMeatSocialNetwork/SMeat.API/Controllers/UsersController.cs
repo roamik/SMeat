@@ -34,7 +34,7 @@ namespace SMeat.API.Controllers
             {
                 return Forbid("User not found!");
             }
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, WorkplaceId = user.WorkplaceId, Gender = user.GenderType , Relationship = user.RelationshipType, Id = user.Id });
         }
 
         [HttpGet]
@@ -43,13 +43,13 @@ namespace SMeat.API.Controllers
         public async Task<IActionResult> GetUserByIdAsync(string id)
         {
             var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id, //1st filterBy
-                u => u.Location, u => u.Workplace); //include foreign entities
+                u => u.Location, u=>u.Workplace.Location ); //include foreign entities
             if (user == null)
             {
                 return BadRequest("User not found!");
             }
 
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Workplace = user.Workplace, Gender = user.GenderType, Relationship = user.RelationshipType, Id = user.Id });
         }
 
 
@@ -75,6 +75,9 @@ namespace SMeat.API.Controllers
             user.LastName = model.LastName;
             user.About = model.About;
             user.LocationId = model.LocationId;
+            user.GenderType = model.Gender;
+            user.RelationshipType = model.Relationship;
+            user.WorkplaceId = model.WorkplaceId;
 
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.Save();

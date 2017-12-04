@@ -5,6 +5,10 @@ import { Location } from "../_models/location";
 import { UsersService } from "../_services/users.service";
 import { LocationsService } from "../_services/locations.service";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { GenderType } from '../_models/genders';
+import { RelationshipType } from "../_models/relations";
+import { WorkPlace } from "../_models/workplace";
+import { WorkplacesService } from "../_services/workplaces.service";
 
 @Component({
   selector: 'app-user-settings-page',
@@ -13,17 +17,16 @@ import { NgSelectModule } from '@ng-select/ng-select';
 })
 export class UserSettingsPageComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private locationService: LocationsService, private router: Router) { }
+  constructor(private usersService: UsersService, private locationService: LocationsService, private workplaceService: WorkplacesService, private router: Router) { }
 
   public locations: Array<Location> = [];
 
-  public workplaces: Array<string> = ['WorkPlace1', 'WorkPlace2', 'WorkPlace3', 'WorkPlace4',
-    'WorkPlace5', 'WorkPlace6', 'WorkPlace7', 'WorkPlace8', 'WorkPlace9', 'WorkPlace10',
-    'WorkPlace11', 'WorkPlace12', 'WorkPlace13'];
+  public workplaces: Array<WorkPlace> = [];
 
-  public genders: Array<string> = ['Male', 'Female', 'Other'];
 
-  public relationships: Array<string> = ['Single', 'In relation', 'Complicated', 'Waiting for a miracle'];
+  public genders: any = this.enumSelector(GenderType);
+
+  public relations: any = this.enumSelector(RelationshipType);
 
   public colors: Array<string> = ['AppleGreen', 'OrangeFox', 'CheerryRed'];
 
@@ -43,12 +46,17 @@ export class UserSettingsPageComponent implements OnInit {
   locationCount: number = 100;
   locationSearchBy: string;
 
+  workplacePage: number = 0;
+  workplaceCount: number = 100;
+  workplaceSearchBy: string;
+
   user: User = new User();
 
   ngOnInit() {
 
     this.getUserInfo();
     this.getLocations();
+    this.getWorkplaces();
   }
 
   updateUserInfo() {
@@ -78,5 +86,21 @@ export class UserSettingsPageComponent implements OnInit {
       },
       error => {
       });
+  }
+
+  getWorkplaces() {
+    this.workplaceService.getWorkplaces(this.workplacePage, this.workplaceCount, this.workplaceSearchBy)
+      .subscribe(
+      workplaces => {
+        this.workplaces = workplaces;
+      },
+      error => {
+      });
+  }
+
+  enumSelector(definition) {
+    var selectors = Object.keys(definition);
+
+    return selectors.slice(selectors.length / 2).map(key => ({ value: definition[key], title: key }));
   }
 }

@@ -2,6 +2,9 @@
 {
     public enum RelationshipType
     {
-        Single = 0
+        Single = 1,
+        InRelation,
+        Complicated,
+        WaitingForAMiracle
     }
 }

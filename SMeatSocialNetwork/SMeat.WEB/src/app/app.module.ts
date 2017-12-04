@@ -18,9 +18,10 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { UsersService } from './_services/users.service';
 import { LocationsService } from './_services/locations.service';
+import { WorkplacesService } from "./_services/workplaces.service";
+import { HomePageService } from './home-page/home-page.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
-import { HomePageService } from './home-page/home-page.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
@@ -101,7 +102,8 @@ const appRoutes: Routes = [
     AuthenticationService,
     AuthGuard,
     UsersService,
-    LocationsService
+    LocationsService,
+    WorkplacesService
   ],
   bootstrap: [
     AppComponent

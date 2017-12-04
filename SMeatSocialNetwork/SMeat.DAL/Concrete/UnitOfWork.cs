@@ -52,6 +52,20 @@ namespace SMeat.DAL
             }
         }
 
+        private IWorkplacesRepository workplacesRepository;
+
+        public IWorkplacesRepository WorkplacesRepository
+        {
+            get
+            {
+                if (workplacesRepository == null)
+                {
+                    workplacesRepository = new WorkplacesRepository(_context);
+                }
+                return workplacesRepository;
+            }
+        }
+
         public UserManager<User> UserManager
         {
             get

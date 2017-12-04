@@ -17,14 +17,14 @@
 	</div>
 
 	<div class="col-md-4 col-md-pull-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span> Male</p>
+		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span>{{genders[user.gender]}}</p>
 		<p class="txtField"><span class="txtFieldText textOutline">About:<br /> </span>{{user.about}}</p>
 	</div>
 
 	<div class="col-md-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">Relationship: </span> [some value]</p>
-		<p class="txtField"><span class="txtFieldText textOutline">Location: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}, {{user.location.street}}</span></p>
-		<p class="txtField"><span class="txtFieldText textOutline">Workplace: </span>[some value]</p>
+		<p class="txtField"><span class="txtFieldText textOutline">Relationship: </span>{{relations[user.relationship]}}</p>
+		<p class="txtField"><span class="txtFieldText textOutline">Location: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}{{user.location.street?',':''}} {{user.location.street}}</span></p>
+		<p class="txtField"><span class="txtFieldText textOutline">Workplace: </span><span *ngIf="user.workplace">{{user.workplace.companyName}}</span></p>
 	</div>
 </div>
 

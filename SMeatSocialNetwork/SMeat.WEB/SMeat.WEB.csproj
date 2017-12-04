@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <None Remove="src\app\_guards\auth.guard.ts" />
+    <None Remove="src\app\_models\genders.ts" />
     <None Remove="src\app\_models\location.ts" />
+    <None Remove="src\app\_models\relations.ts" />
     <None Remove="src\app\_models\user.ts" />
+    <None Remove="src\app\_models\workplace.ts" />
     <None Remove="src\app\_services\authentication.service.ts" />
     <None Remove="src\app\_services\locations.service.ts" />
     <None Remove="src\app\_services\users.service.ts" />
+    <None Remove="src\app\_services\workplaces.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,11 +35,15 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\_models\genders.ts" />
     <TypeScriptCompile Include="src\app\_models\location.ts" />
+    <TypeScriptCompile Include="src\app\_models\relations.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
+    <TypeScriptCompile Include="src\app\_models\workplace.ts" />
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\locations.service.ts" />
     <TypeScriptCompile Include="src\app\_services\users.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\workplaces.service.ts" />
   </ItemGroup>
 
 </Project>

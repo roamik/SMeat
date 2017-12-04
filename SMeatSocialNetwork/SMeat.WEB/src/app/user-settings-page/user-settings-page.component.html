@@ -1,11 +1,22 @@
-<form #f="ngForm" (ngSubmit)="updateUserInfo()" novalidate>
+<form #f="ngForm" (ngSubmit)="f.valid && updateUserInfo()">
+  <pre>{{f.value | json}}</pre>
   <div id="body">
     <div class="row field">
       <div id="name" class="col-xs-6 nameBlock">
-        <input class="nameText" type="text" name="name" placeholder="Name" [(ngModel)]="user.name" #name="ngModel">
+        <input class="nameText" type="text" name="name" placeholder="Name" [(ngModel)]="user.name" #name="ngModel" required>
+        <div class="pull-left" *ngIf="name.invalid && (name.touched || f.submited)">
+          <small class="danger" *ngIf="name.errors.required">
+            Name is required.
+          </small>
+        </div>
       </div>
       <div id="lastName" class="col-xs-6 nameBlock">
-        <input class="nameText" type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" #lastName="ngModel">
+        <input class="nameText" type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" #lastName="ngModel" required>
+        <div class="pull-left" *ngIf="lastName.invalid && (lastName.touched || f.submited)">
+          <small class="danger" *ngIf="lastName.errors.required">
+            Last name is required.
+          </small>
+        </div>
       </div>
     </div>
     <div class="field">
@@ -18,7 +29,7 @@
                  placeholder="Select city"
                  [(ngModel)]="user.locationId">
         <ng-template ng-label-tmp let-item="item">
-          {{item.country}}, {{item.city}}, {{item.street}}
+          {{item.country}}, {{item.city}}{{item.street?',':''}} {{item.street}}
         </ng-template>
         <ng-template ng-option-tmp let-item="item">
           <div><b>City:</b> {{item.city}}</div>
@@ -27,49 +38,46 @@
         </ng-template>
       </ng-select>
     </div>
-    <div class="field">
-      <!--<ng-select [allowClear]="true"
-                 [items]="workplaces"
-                 [disabled]="disabled"
-                 (data)="refreshValue($event)"
-                 (selected)="selected($event)"
-                 (removed)="removed($event)"
-                 (typed)="typed($event)"
-                 placeholder="No workplace selected">
-      </ng-select>-->
+    <div class="row field">
+      <ng-select name="gender" [items]="genders"
+                 required
+                 bindLabel="title"
+                 bindValue="value"
+                 placeholder="Gender"
+                 [(ngModel)]="user.gender" #gender ="ngModel">
+      </ng-select>
+      <div class="pull-left" *ngIf="gender.invalid && (gender.touched || f.submited)">
+        <small class="danger" *ngIf="gender.errors.required">
+          Gender is required.
+        </small>
+      </div>
+    </div>
+    <div *ngIf="user.gender===1" class="field">
+      <input class="nameText" type="text" name="customGender" placeholder="Type in gender" [(ngModel)]="user.customGender" #customGender="ngModel">
     </div>
     <div class="field">
-      <!--<ng-select [allowClear]="true"
-                 [items]="genders"
-                 [disabled]="disabled"
-                 (data)="refreshValue($event)"
-                 (selected)="selected($event)"
-                 (removed)="removed($event)"
-                 (typed)="typed($event)"
-                 placeholder="Gender">
-      </ng-select>-->
+      <ng-select name="relationship" [items]="relations"
+                 bindLabel="title"
+                 bindValue="value"
+                 placeholder="Relationship"
+                 [(ngModel)]="user.relationship" #relationship="ngModel">
+      </ng-select>
     </div>
     <div class="field">
-      <!--<ng-select [allowClear]="true"
-                 [items]="relationships"
-                 [disabled]="disabled"
-                 (data)="refreshValue($event)"
-                 (selected)="selected($event)"
-                 (removed)="removed($event)"
-                 (typed)="typed($event)"
-                 placeholder="Relationship">
-      </ng-select>-->
-    </div>
-    <div class="field">
-      <!--<ng-select [allowClear]="true"
-                 [items]="templates"
-                 [disabled]="disabled"
-                 (data)="refreshValue($event)"
-                 (selected)="selected($event)"
-                 (removed)="removed($event)"
-                 (typed)="typed($event)"
-                 placeholder="Choose a template">
-      </ng-select>-->
+      <ng-select name="workplace" [items]="workplaces"
+                 bindLabel="companyName"
+                 bindValue="id"
+                 placeholder="Select workplace"
+                 [(ngModel)]="user.workplaceId">
+        <ng-template ng-label-tmp let-item="item">
+          {{item.companyName}}, {{item.location.city}}{{item.location.street?',':''}} {{item.location.street}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          <div><b>Company:</b> {{item.companyName}}</div>
+          <small *ngIf="!item.street">Country: {{item.location.country}}</small>
+          <small *ngIf="item.street">Country: {{item.location.country}} | Street: {{item.location.street}}</small>
+        </ng-template>
+      </ng-select>
     </div>
     <div class="field">
       <!--<ng-select [allowClear]="true"
