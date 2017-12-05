@@ -29,6 +29,8 @@ namespace SMeat.MODELS.Models
 
         public GenderType GenderType { get; set; }
 
+        public string CustomGenderType { get; set; }
+
         public DateTimeOffset? Birthdate { get; set; }
 
         public string About { get; set; }

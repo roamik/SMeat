@@ -9,6 +9,7 @@ import { GenderType } from '../_models/genders';
 import { RelationshipType } from "../_models/relations";
 import { WorkPlace } from "../_models/workplace";
 import { WorkplacesService } from "../_services/workplaces.service";
+import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
 
 @Component({
   selector: 'app-user-settings-page',
@@ -17,16 +18,16 @@ import { WorkplacesService } from "../_services/workplaces.service";
 })
 export class UserSettingsPageComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private locationService: LocationsService, private workplaceService: WorkplacesService, private router: Router) { }
+  constructor(private usersService: UsersService, private locationService: LocationsService, private workplaceService: WorkplacesService, private enumSelector: EnumToArrayHelper ,private router: Router) { }
 
   public locations: Array<Location> = [];
 
   public workplaces: Array<WorkPlace> = [];
 
 
-  public genders: any = this.enumSelector(GenderType);
+  public genders: any = this.enumSelector.enumSelector(GenderType);
 
-  public relations: any = this.enumSelector(RelationshipType);
+  public relations: any = this.enumSelector.enumSelector(RelationshipType);
 
   public colors: Array<string> = ['AppleGreen', 'OrangeFox', 'CheerryRed'];
 
@@ -96,11 +97,5 @@ export class UserSettingsPageComponent implements OnInit {
       },
       error => {
       });
-  }
-
-  enumSelector(definition) {
-    var selectors = Object.keys(definition);
-
-    return selectors.slice(selectors.length / 2).map(key => ({ value: definition[key], title: key }));
-  }
+  }  
 }

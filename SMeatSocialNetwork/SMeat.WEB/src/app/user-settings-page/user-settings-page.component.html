@@ -1,40 +1,47 @@
-<form #f="ngForm" (ngSubmit)="f.valid && updateUserInfo()">
-  <pre>{{f.value | json}}</pre>
+<form #form="ngForm" (ngSubmit)="form.valid && updateUserInfo()">
+  <pre>{{form.value | json}}</pre>
+  
   <div id="body">
     <div class="row field">
       <div id="name" class="col-xs-6 nameBlock">
-        <input class="nameText" type="text" name="name" placeholder="Name" [(ngModel)]="user.name" #name="ngModel" required>
-        <div class="pull-left" *ngIf="name.invalid && (name.touched || f.submited)">
-          <small class="danger" *ngIf="name.errors.required">
-            Name is required.
+        <input class="nameText" type="text" name="name" maxlength="10" minlength="4" placeholder="{{'NAME_TEXT' | translate}}" [(ngModel)]="user.name" #name="ngModel" required>
+        <div class="pull-left" *ngIf="name.invalid && (name.touched || form.submited)">
+          <small class="text-danger" *ngIf="name.errors.required">
+            {{'ERR_NAME_REQUIRED' | translate}}
           </small>
+          <div class="text-danger" *ngIf="name.errors.minlength">
+            {{'ERR_NAME_MIN_LENGTH' | translate}}.
+          </div>
         </div>
       </div>
       <div id="lastName" class="col-xs-6 nameBlock">
-        <input class="nameText" type="text" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" #lastName="ngModel" required>
-        <div class="pull-left" *ngIf="lastName.invalid && (lastName.touched || f.submited)">
-          <small class="danger" *ngIf="lastName.errors.required">
-            Last name is required.
+        <input class="nameText" type="text" name="lastName" maxlength="10" minlength="4" placeholder="{{'LASTNAME_TEXT' | translate}}" [(ngModel)]="user.lastName" #lastName="ngModel" required>
+        <div class="pull-left" *ngIf="lastName.invalid && (lastName.touched || form.submited)">
+          <small class="text-danger" *ngIf="lastName.errors.required">
+            {{'ERR_LASTNAME_REQUIRED' | translate}}
           </small>
+          <div class="text-danger" *ngIf="name.errors.minlength">
+            {{'ERR_LASTNAME_MIN_LENGTH' | translate}}.
+          </div>
         </div>
       </div>
     </div>
     <div class="field">
-      <textarea placeholder="Descripe yourself here" [(ngModel)]="user.about" #about="ngModel" name="about"></textarea>
+      <textarea placeholder="{{'ABOUT_TEXT' | translate}}" maxlength="300" [(ngModel)]="user.about" #about="ngModel" name="about"></textarea>
     </div>
     <div class="field">
       <ng-select name="location" [items]="locations"
                  bindLabel="city"
                  bindValue="id"
-                 placeholder="Select city"
+                 placeholder="{{'SELECT_CITY_TEXT' | translate}}"
                  [(ngModel)]="user.locationId">
         <ng-template ng-label-tmp let-item="item">
           {{item.country}}, {{item.city}}{{item.street?',':''}} {{item.street}}
         </ng-template>
         <ng-template ng-option-tmp let-item="item">
           <div><b>City:</b> {{item.city}}</div>
-          <small *ngIf="!item.street">Country: {{item.country}}</small>
-          <small *ngIf="item.street">Country: {{item.country}} | Street: {{item.street}}</small>
+          <small *ngIf="!item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}}</small>
+          <small *ngIf="item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}} | {{'STREET_TEXT' | translate}}: {{item.street}}</small>
         </ng-template>
       </ng-select>
     </div>
@@ -43,23 +50,31 @@
                  required
                  bindLabel="title"
                  bindValue="value"
-                 placeholder="Gender"
-                 [(ngModel)]="user.gender" #gender ="ngModel">
+                 placeholder="{{'GENDER_TEXT' | translate}}"
+                 [(ngModel)]="user.gender" #gender="ngModel">
       </ng-select>
-      <div class="pull-left" *ngIf="gender.invalid && (gender.touched || f.submited)">
-        <small class="danger" *ngIf="gender.errors.required">
-          Gender is required.
+      <div class="pull-left" *ngIf="gender.invalid && (gender.touched || form.submited)">
+        <small class="text-danger" *ngIf="gender.errors.required">
+          {{'ERR_GENDER_REQUIRED' | translate}}
         </small>
       </div>
     </div>
     <div *ngIf="user.gender===1" class="field">
-      <input class="nameText" type="text" name="customGender" placeholder="Type in gender" [(ngModel)]="user.customGender" #customGender="ngModel">
+      <input class="nameText" type="text" name="customGender" maxlength="9" minlength="4" placeholder="{{'TYPE_IN_GENDER_TEXT' | translate}}" [(ngModel)]="user.customGender" #customGender="ngModel" required>
+      <div class="pull-left" *ngIf="customGender.invalid && (customGender.touched || form.submited)">
+        <small class="text-danger" *ngIf="customGender.errors.required">
+          {{'ERR_FIELD_REQUIRED' | translate}}
+        </small>
+        <div class="text-danger" *ngIf="name.errors.minlength">
+          {{'ERR_GENDER_MIN_LENGTH' | translate}}.
+        </div>
+      </div>
     </div>
     <div class="field">
       <ng-select name="relationship" [items]="relations"
                  bindLabel="title"
                  bindValue="value"
-                 placeholder="Relationship"
+                 placeholder="{{'RELATIONSHIP_TEXT' | translate}}"
                  [(ngModel)]="user.relationship" #relationship="ngModel">
       </ng-select>
     </div>
@@ -67,13 +82,13 @@
       <ng-select name="workplace" [items]="workplaces"
                  bindLabel="companyName"
                  bindValue="id"
-                 placeholder="Select workplace"
+                 placeholder="{{'SELECT_WORKPLACE_TEXT' | translate}}"
                  [(ngModel)]="user.workplaceId">
         <ng-template ng-label-tmp let-item="item">
           {{item.companyName}}, {{item.location.city}}{{item.location.street?',':''}} {{item.location.street}}
         </ng-template>
         <ng-template ng-option-tmp let-item="item">
-          <div><b>Company:</b> {{item.companyName}}</div>
+          <div><b>{{'COMPANY_TEXT' | translate}}:</b> {{item.companyName}}</div>
           <small *ngIf="!item.street">Country: {{item.location.country}}</small>
           <small *ngIf="item.street">Country: {{item.location.country}} | Street: {{item.location.street}}</small>
         </ng-template>
@@ -92,6 +107,6 @@
     </div>
 
 
-    <button class="btn-default btn_custom center-block">Apply</button>
+    <button class="btn-default btn_custom center-block">{{'BTN_APPLY_TEXT' | translate}}</button>
   </div>
 </form>

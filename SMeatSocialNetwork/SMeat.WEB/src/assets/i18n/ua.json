@@ -1,0 +1,21 @@
+{
+	"ABOUT_TEXT": "Про користувача",
+	"BTN_APPLY_TEXT": "Підтвердити",
+	"COMPANY_TEXT": "Компанія",
+	"COUNTRY_TEXT": "Країна",
+	"ERR_FIELD_REQUIRED": "Це поле є обов'язковим",
+	"ERR_GENDER_MIN_LENGTH": "Поле статі повинне містити мінімум 4 символи",
+	"ERR_GENDER_REQUIRED": "Оберіть вашу стать",
+	"ERR_LASTNAME_MIN_LENGTH": "Поле прізвища повинне містити мінімум 4 символи",
+	"ERR_LASTNAME_REQUIRED": "Введіть Ваше прізвище",
+	"ERR_NAME_MIN_LENGTH": "Поле імені повинне містити мінімум 4 символи",
+	"ERR_NAME_REQUIRED": "Введіть Ваше ім'я",
+	"GENDER_TEXT": "Стать",
+	"LASTNAME_TEXT": "Прізвище",
+	"NAME_TEXT": "Ім'я",
+	"RELATIONSHIP_TEXT": "Сімейний стан",
+	"SELECT_CITY_TEXT": "Вкажіть місто",
+	"SELECT_WORKPLACE_TEXT": "Вкажіть місце роботи",
+	"STREET_TEXT": "Вулиця",
+	"TYPE_IN_GENDER_TEXT": "Введіть Вашу стать"
+}

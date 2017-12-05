@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\_helpers\EnumToArrayHelper.ts" />
     <TypeScriptCompile Include="src\app\_models\genders.ts" />
     <TypeScriptCompile Include="src\app\_models\location.ts" />
     <TypeScriptCompile Include="src\app\_models\relations.ts" />

@@ -10,7 +10,8 @@
       "outDir": "wwwroot",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+		"i18n"
       ],
       "index": "index.html",
       "main": "main.ts",

@@ -1,0 +1,21 @@
+{
+	"ABOUT_TEXT": "Sur",
+	"BTN_APPLY_TEXT": "Appliquer",
+	"COMPANY_TEXT": "Compagnie",
+	"COUNTRY_TEXT": "Pays",
+	"ERR_FIELD_REQUIRED": "Ce champ est requis",
+	"ERR_GENDER_MIN_LENGTH": "Le genre doit comporter au moins 4 caractères",
+	"ERR_GENDER_REQUIRED": "Le genre est requis",
+	"ERR_LASTNAME_MIN_LENGTH": "Le nom de famille doit comporter au moins 4 caractères",
+	"ERR_LASTNAME_REQUIRED": "Le nom est requis",
+	"ERR_NAME_MIN_LENGTH": "Le nom doit comporter au moins 4 caractères",
+	"ERR_NAME_REQUIRED": "Le nom est requis",
+	"GENDER_TEXT": "Le genre",
+	"LASTNAME_TEXT": "Nom de famille",
+	"NAME_TEXT": "Prénom",
+	"RELATIONSHIP_TEXT": "Relation",
+	"SELECT_CITY_TEXT": "Choisissez une ville",
+	"SELECT_WORKPLACE_TEXT": "Sélectionnez un lieu de travail",
+	"STREET_TEXT": "Rue",
+	"TYPE_IN_GENDER_TEXT": "Tapez le genre"
+}

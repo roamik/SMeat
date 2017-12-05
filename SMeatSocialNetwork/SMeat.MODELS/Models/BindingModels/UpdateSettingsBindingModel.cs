@@ -20,6 +20,9 @@ namespace SMeat.MODELS.Models.BindingModels
         public GenderType Gender { get; set; }
 
         public RelationshipType Relationship { get; set; }
+
         public string WorkplaceId { get; set; }
+
+        public string CustomGender { get; set; }
     }
 }

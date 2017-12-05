@@ -34,7 +34,7 @@ namespace SMeat.API.Controllers
             {
                 return Forbid("User not found!");
             }
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, WorkplaceId = user.WorkplaceId, Gender = user.GenderType , Relationship = user.RelationshipType, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, WorkplaceId = user.WorkplaceId, Gender = user.GenderType,CustomGender = user.CustomGenderType , Relationship = user.RelationshipType, Id = user.Id });
         }
 
         [HttpGet]
@@ -49,7 +49,7 @@ namespace SMeat.API.Controllers
                 return BadRequest("User not found!");
             }
 
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Workplace = user.Workplace, Gender = user.GenderType, Relationship = user.RelationshipType, Id = user.Id });
+            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Workplace = user.Workplace, Gender = user.GenderType, CustomGender = user.CustomGenderType, Relationship = user.RelationshipType, Id = user.Id });
         }
 
 
@@ -78,6 +78,7 @@ namespace SMeat.API.Controllers
             user.GenderType = model.Gender;
             user.RelationshipType = model.Relationship;
             user.WorkplaceId = model.WorkplaceId;
+            user.CustomGenderType = model.CustomGender;
 
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.Save();

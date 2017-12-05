@@ -1,0 +1,21 @@
+{
+	"ABOUT_TEXT": "About",
+	"BTN_APPLY_TEXT": "Apply",
+	"COMPANY_TEXT": "Company",
+	"COUNTRY_TEXT": "Country",
+	"ERR_FIELD_REQUIRED": "This field is required",
+	"ERR_GENDER_MIN_LENGTH": "Gender must be at least 4 characters long",
+	"ERR_GENDER_REQUIRED": "Gender is required",
+	"ERR_LASTNAME_MIN_LENGTH": "Last name must be at least 4 characters long",
+	"ERR_LASTNAME_REQUIRED": "Last name is required",
+	"ERR_NAME_MIN_LENGTH": "Name must be at least 4 characters long",
+	"ERR_NAME_REQUIRED": "Name is required",
+	"GENDER_TEXT": "Gender",
+	"LASTNAME_TEXT": "Last name",
+	"NAME_TEXT": "Name",
+	"RELATIONSHIP_TEXT": "Relationship",
+	"SELECT_CITY_TEXT": "Select a city",
+	"SELECT_WORKPLACE_TEXT": "Select a workplace",
+	"STREET_TEXT": "Street",
+	"TYPE_IN_GENDER_TEXT": "Type in gender"
+}

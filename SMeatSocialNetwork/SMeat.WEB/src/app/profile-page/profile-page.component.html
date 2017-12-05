@@ -17,7 +17,9 @@
 	</div>
 
 	<div class="col-md-4 col-md-pull-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span>{{genders[user.gender]}}</p>
+		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span>
+    <span>{{user.gender===1 ? user.customGender: genders[user.gender]}}</span>
+    </p>
 		<p class="txtField"><span class="txtFieldText textOutline">About:<br /> </span>{{user.about}}</p>
 	</div>
 
