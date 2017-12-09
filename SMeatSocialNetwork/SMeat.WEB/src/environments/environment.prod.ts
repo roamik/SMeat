@@ -1,4 +1,4 @@
 export const environment = {
   production: true,  
-  baseApi: "http://localhost:27121/" 
+  baseApi: "https://smeat-web-api.herokuapp.com/" 
 };

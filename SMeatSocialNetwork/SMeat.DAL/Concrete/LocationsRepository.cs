@@ -12,6 +12,6 @@ namespace SMeat.DAL
 {
     class LocationsRepository : GenericRepository<Location>, ILocationsRepository
     {
-        public LocationsRepository(ApplicationContext context) : base(context) { }
+        public LocationsRepository(IApplicationContext context) : base(context) { }
     }
 }

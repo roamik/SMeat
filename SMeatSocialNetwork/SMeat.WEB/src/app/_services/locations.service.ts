@@ -8,7 +8,7 @@ import { AuthGuard } from '../_guards/auth.guard';
 import { Observable } from "rxjs/Observable";
 
 
-const BASEURL = "http://localhost:27121/";
+const BASEURL = "https://smeat-web-api.herokuapp.com/";
 
 @Injectable()
 export class LocationsService {

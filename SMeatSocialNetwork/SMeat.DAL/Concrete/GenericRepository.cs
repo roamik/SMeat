@@ -11,9 +11,9 @@ namespace SMeat.DAL
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private ApplicationContext context;
+        private IApplicationContext context;
         private DbSet<T> dbSet;
-        public GenericRepository(ApplicationContext context)
+        public GenericRepository(IApplicationContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();

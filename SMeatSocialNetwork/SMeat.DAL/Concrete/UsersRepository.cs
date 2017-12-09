@@ -9,6 +9,6 @@ namespace SMeat.DAL
 {
     class UsersRepository : GenericRepository<User>, IUsersRepository
     {
-        public UsersRepository(ApplicationContext context) : base(context) { }
+        public UsersRepository(IApplicationContext context) : base(context) { }
     }
 }

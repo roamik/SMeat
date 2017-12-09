@@ -50,27 +50,43 @@ namespace SMeat.API
         {
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<ApplicationContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSqlServer")));
+
+            services.AddDbContext<ApplicationNpgsqlContext>(options =>
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionNpgsql")));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
-                    .WithOrigins("http://localhost:3000")
+                    .WithOrigins("https://smeat-web.herokuapp.com")                    
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
             // Add framework services.
-            services.AddTransient<IUnitOfWork, UnitOfWork>();      
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
+            
+             
+            services.AddScoped<IApplicationContext, ApplicationNpgsqlContext>();
+
+            //services.AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<ApplicationContext>()
+            //    .AddDefaultTokenProviders()
+            //    .AddRoleValidator<RoleValidator<Role>>()
+            //    .AddRoleManager<RoleManager<Role>>()
+            //    .AddSignInManager<SignInManager<User>>();
+
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationNpgsqlContext>()
                 .AddDefaultTokenProviders()
-                .AddRoleValidator<RoleValidator<IdentityRole>>()
-                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddRoleValidator<RoleValidator<Role>>()
+                .AddRoleManager<RoleManager<Role>>()
                 .AddSignInManager<SignInManager<User>>();
-
 
             services.Configure<IdentityOptions>(options =>
             {
