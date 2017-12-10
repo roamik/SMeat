@@ -1,8 +1,32 @@
 {
 	"ABOUT_TEXT": "About",
-	"BTN_APPLY_TEXT": "Apply",
+	"CITY_TEXT": "City",
+	"LOCATION_TEXT":"Location",
 	"COMPANY_TEXT": "Company",
 	"COUNTRY_TEXT": "Country",
+	"WORKPLACE_TEXT":"Workplace",
+	"STREET_TEXT": "Street",
+	"RELATIONSHIP_TEXT": "Relationship",
+	
+	"ComplicatedRelation": "It's complicated",	
+	"InRelationRelation": "In relation",
+	"SingleRelation": "Single",
+	"WaitingForAMiracleRelation": "Waiting for a miracle",
+	
+	"MaleGender": "Male",
+	"FemaleGender": "Female",
+	"OtherGender": "Other",
+
+	"PLACEHOLDER_ABOUT_TEXT":"Describe yourself here",
+	"PLACEHOLDER_GENDER_TEXT": "Gender",
+	"PLACEHOLDER_LASTNAME_TEXT": "Last name",
+	"PLACEHOLDER_NAME_TEXT": "Name",
+	"PLACEHOLDER_RELATIONSHIP_TEXT": "Relationship",
+	"PLACEHOLDER_SELECT_CITY_TEXT": "Select a city",
+	"PLACEHOLDER_SELECT_WORKPLACE_TEXT": "Select a workplace",
+	"PLACEHOLDER_TYPE_IN_GENDER_TEXT": "Type in gender",
+	"PLACEHOLDER_FIND_A_PERSON_TEXT": "Find a person",
+	
 	"ERR_FIELD_REQUIRED": "This field is required",
 	"ERR_GENDER_MIN_LENGTH": "Gender must be at least 4 characters long",
 	"ERR_GENDER_REQUIRED": "Gender is required",
@@ -10,12 +34,15 @@
 	"ERR_LASTNAME_REQUIRED": "Last name is required",
 	"ERR_NAME_MIN_LENGTH": "Name must be at least 4 characters long",
 	"ERR_NAME_REQUIRED": "Name is required",
-	"GENDER_TEXT": "Gender",
-	"LASTNAME_TEXT": "Last name",
-	"NAME_TEXT": "Name",
-	"RELATIONSHIP_TEXT": "Relationship",
-	"SELECT_CITY_TEXT": "Select a city",
-	"SELECT_WORKPLACE_TEXT": "Select a workplace",
-	"STREET_TEXT": "Street",
-	"TYPE_IN_GENDER_TEXT": "Type in gender"
+	
+	"BTN_APPLY_TEXT": "Apply",	
+	"BTN_LOGOUT_TEXT":"LogOut",
+	"BTN_SETTINGS_TEXT":"Settings",
+	"BTN_LOGIN_TEXT":"LogIn",
+	"BTN_REGISTER_TEXT":"Register",
+	"BTN_PROFILE_TEXT":"Profile",
+	"BTN_MESSAGES_TEXT":"Messages",
+	"BTN_GROUPS_TEXT":"Groups",
+	"BTN_BOARDS_TEXT":"Boards",
+	"BTN_LANGUAGE_TEXT":"Language"
 }

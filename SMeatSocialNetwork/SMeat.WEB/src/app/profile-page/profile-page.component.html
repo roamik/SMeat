@@ -18,15 +18,15 @@
 
 	<div class="col-md-4 col-md-pull-4 sideBar">
 		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span>
-    <span>{{user.gender===1 ? user.customGender: genders[user.gender]}}</span>
+    <span>{{user.gender===1 ? user.customGender: genders[user.gender]  | translate}}</span>
     </p>
-		<p class="txtField"><span class="txtFieldText textOutline">About:<br /> </span>{{user.about}}</p>
+		<p class="txtField"><span class="txtFieldText textOutline">{{'ABOUT_TEXT' | translate}}:<br /> </span>{{user.about}}</p>
 	</div>
 
 	<div class="col-md-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">Relationship: </span>{{relations[user.relationship]}}</p>
-		<p class="txtField"><span class="txtFieldText textOutline">Location: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}{{user.location.street?',':''}} {{user.location.street}}</span></p>
-		<p class="txtField"><span class="txtFieldText textOutline">Workplace: </span><span *ngIf="user.workplace">{{user.workplace.companyName}}</span></p>
+		<p class="txtField"><span class="txtFieldText textOutline">{{'RELATIONSHIP_TEXT' | translate}}: </span>{{relations[user.relationship] | translate}}</p>
+		<p class="txtField"><span class="txtFieldText textOutline">{{'LOCATION_TEXT' | translate}}: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}{{user.location.street?',':''}} {{user.location.street}}</span></p>
+		<p class="txtField"><span class="txtFieldText textOutline">{{'WORKPLACE_TEXT' | translate}}: </span><span *ngIf="user.workplace">{{user.workplace.companyName}}</span></p>
 	</div>
 </div>
 

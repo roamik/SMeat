@@ -6,17 +6,17 @@ import { Location } from "../_models/location";
 import { AuthGuard } from '../_guards/auth.guard';
 
 import { Observable } from "rxjs/Observable";
+import { HttpClient } from "@angular/common/http";
 
 
 const BASEURL = "http://localhost:27121/";
 
 @Injectable()
 export class LocationsService {
-  constructor(private http: Http, private guard: AuthGuard) { }
+  constructor(private http: HttpClient, private guard: AuthGuard) { }
 
-  getLocations(page: number, count: number, searchBy?: string): Observable<Array<Location>> {
-    var url = 'api/locations/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy: '');
-    return this.http.get(BASEURL + url, this.guard.jwt())
-      .map((response: Response) => response.json());
+  getLocations(page: number, count: number, searchBy?: string): Observable<Location[]> {
+    var url = 'api/locations/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
+    return this.http.get<Location[]>(BASEURL + url);
   }
 }

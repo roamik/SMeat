@@ -1,6 +1,6 @@
 export enum RelationshipType {
-  Single = 1,
-  InRelation,
-  Complicated,
-  WaitingForAMiracle
+  SingleRelation = 1,
+  InRelationRelation,
+  ComplicatedRelation,
+  WaitingForAMiracleRelation
 }

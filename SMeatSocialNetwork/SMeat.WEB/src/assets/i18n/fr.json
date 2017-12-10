@@ -1,8 +1,32 @@
 {
 	"ABOUT_TEXT": "Sur",
-	"BTN_APPLY_TEXT": "Appliquer",
+	"WORKPLACE_TEXT":"Lieu de travail",
+	"STREET_TEXT": "Rue",
+	"CITY_TEXT": "Ville",
+	"LOCATION_TEXT":"Emplacement",
 	"COMPANY_TEXT": "Compagnie",
 	"COUNTRY_TEXT": "Pays",
+	"RELATIONSHIP_TEXT": "Relation",
+	
+	"ComplicatedRelation": "C'est compliqué",
+	"InRelationRelation": "En relation",
+	"SingleRelation": "Bachelier",
+	"WaitingForAMiracleRelation": "En attente d'un miracle",
+	
+	"FemaleGender": "Femelle",	
+	"MaleGender": "Mâle",
+	"OtherGender": "Autre",
+	
+	"PLACEHOLDER_RELATIONSHIP_TEXT": "Relation",
+	"PLACEHOLDER_SELECT_CITY_TEXT": "Choisissez une ville",
+	"PLACEHOLDER_SELECT_WORKPLACE_TEXT": "Sélectionnez un lieu de travail",
+	"PLACEHOLDER_TYPE_IN_GENDER_TEXT": "Tapez le genre",
+	"PLACEHOLDER_NAME_TEXT": "Prénom",
+	"PLACEHOLDER_LASTNAME_TEXT": "Nom de famille",
+	"PLACEHOLDER_GENDER_TEXT": "Le genre",
+	"PLACEHOLDER_ABOUT_TEXT":"Décrivez-vous",
+	"PLACEHOLDER_FIND_A_PERSON_TEXT": "Trouver quelqu'un",
+	
 	"ERR_FIELD_REQUIRED": "Ce champ est requis",
 	"ERR_GENDER_MIN_LENGTH": "Le genre doit comporter au moins 4 caractères",
 	"ERR_GENDER_REQUIRED": "Le genre est requis",
@@ -10,12 +34,15 @@
 	"ERR_LASTNAME_REQUIRED": "Le nom est requis",
 	"ERR_NAME_MIN_LENGTH": "Le nom doit comporter au moins 4 caractères",
 	"ERR_NAME_REQUIRED": "Le nom est requis",
-	"GENDER_TEXT": "Le genre",
-	"LASTNAME_TEXT": "Nom de famille",
-	"NAME_TEXT": "Prénom",
-	"RELATIONSHIP_TEXT": "Relation",
-	"SELECT_CITY_TEXT": "Choisissez une ville",
-	"SELECT_WORKPLACE_TEXT": "Sélectionnez un lieu de travail",
-	"STREET_TEXT": "Rue",
-	"TYPE_IN_GENDER_TEXT": "Tapez le genre"
+	
+	"BTN_APPLY_TEXT": "Appliquer",	
+	"BTN_LOGOUT_TEXT":"Connectez Out",
+	"BTN_SETTINGS_TEXT":"Paramètres",
+	"BTN_LOGIN_TEXT":"S'identifier",
+	"BTN_REGISTER_TEXT":"Registre",
+	"BTN_PROFILE_TEXT":"Profil",
+	"BTN_MESSAGES_TEXT":"Messages",
+	"BTN_GROUPS_TEXT":"Groupes",
+	"BTN_BOARDS_TEXT":"Planches",
+	"BTN_LANGUAGE_TEXT":"La langue"
 }

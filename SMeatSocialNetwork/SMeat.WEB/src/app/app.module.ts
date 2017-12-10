@@ -5,7 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClientModule,HttpClient } from "@angular/common/http";
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { TokenInterceptor } from "./_guards/token.interceptor";
+import { UnauthorizeInterceptor } from "./_guards/unauthorize.interceptor";
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -42,6 +44,9 @@ import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
+
+
+
 
 
 const appRoutes: Routes = [
@@ -116,7 +121,16 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizeInterceptor,
+      multi: true
+    },
     AppService,
     HomePageService,
     AuthenticationService,
