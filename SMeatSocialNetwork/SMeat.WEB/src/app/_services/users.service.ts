@@ -19,15 +19,15 @@ export class UsersService {
     } 
 
   getById(id: string): Observable<User> {
-    return this.http.get<User>(BASEURL + 'api/users/' + id);
+    return this.http.get<User>(this.BASEURL + 'api/users/' + id);
   }
 
   getMyInfo(): Observable<User>{
-    return this.http.get<User>(BASEURL + 'api/users/me');
+    return this.http.get<User>(this.BASEURL + 'api/users/me');
   }
 
   update(model): Observable<User> {
-    return this.http.put<User>(BASEURL + 'api/users/me', model);
+    return this.http.put<User>(this.BASEURL + 'api/users/me', model);
   }
 
   //delete(id: number) {

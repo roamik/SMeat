@@ -18,7 +18,7 @@ export class AuthenticationService {
     }
 
   public register(model) {
-    return this.http.post(BASEURL + 'api/account/register', model, OPTIONS)
+    return this.http.post(this.BASEURL + 'api/account/register', model, OPTIONS)
           .map((response: Response) => {
               // login successful if there's a jwt token in the response
               let user = response.json();
