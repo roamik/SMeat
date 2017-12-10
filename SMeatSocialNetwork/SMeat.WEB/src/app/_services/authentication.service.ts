@@ -2,17 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
 const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
-const BASEURL = "https://smeat-web-api.herokuapp.com/";
+//const BASEURL = "https://smeat-web-api.herokuapp.com/";
+//const BASEURL = "http://localhost:27121/";
 
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: Http) { }
+    readonly BASEURL: string;
+    constructor(private http: Http) {
+        this.BASEURL = environment.baseApi;
+    }
 
   public register(model) {
-      return this.http.post(BASEURL + 'api/account/register', model, OPTIONS)
+      return this.http.post(this.BASEURL + 'api/account/register', model, OPTIONS)
           .map((response: Response) => {
               // login successful if there's a jwt token in the response
               let user = response.json();
@@ -26,7 +31,7 @@ export class AuthenticationService {
   }
 
   public login(model) {
-    return this.http.post(BASEURL + 'api/account/login', model, OPTIONS)
+      return this.http.post(this.BASEURL + 'api/account/login', model, OPTIONS)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         let user = response.json();

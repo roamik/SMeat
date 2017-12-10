@@ -13,6 +13,8 @@ export class AuthGuard implements CanActivate {
 
   public get userId(): string { return this.currentUser !== null ? this.currentUser.id : null }
 
+  public get token(): string { return this.currentUser !== null ? this.currentUser.token : null }
+
   get isAuthenticated(): boolean { return this.currentUser !== null };
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -28,8 +30,8 @@ export class AuthGuard implements CanActivate {
 
   public jwt() {
     // create authorization header with jwt token
-    if (this.currentUser && this.currentUser.token) {
-      let headers = new Headers({ 'Authorization': 'Bearer ' + this.currentUser.token });
+    if (this.token) {
+      let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
       return new RequestOptions({ headers: headers });
     }
   }
