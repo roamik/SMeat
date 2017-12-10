@@ -5,14 +5,18 @@ import { AuthGuard } from '../_guards/auth.guard';
 
 import { User } from '../_models/user';
 import { Observable } from "rxjs/Observable";
+import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 
 //const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
-const BASEURL = "http://localhost:27121/";
+//const BASEURL = "http://localhost:27121/";
 
 @Injectable()
 export class UsersService {
-  constructor(private http: HttpClient, private guard: AuthGuard ) { }
+    readonly BASEURL: string;
+    constructor(private http: HttpClient, private guard: AuthGuard) {
+        this.BASEURL = environment.baseApi;
+    } 
 
   getById(id: string): Observable<User> {
     return this.http.get<User>(BASEURL + 'api/users/' + id);

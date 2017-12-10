@@ -139,7 +139,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LocationsService,
     WorkplacesService,
 
-    EnumToArrayHelper
+      EnumToArrayHelper
   ],
   bootstrap: [
     AppComponent

@@ -5,6 +5,7 @@
         public AppConnectionStrings()
         {
         }
-        public string DefaultConnection { get; set; }
+        public string DefaultConnectionSqlServer { get; set; }
+        public string DefaultConnectionNpgsql { get; set; }
     }
 }

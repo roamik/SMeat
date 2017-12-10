@@ -1,34 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SMeat.MODELS.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SMeat.MODELS
 {
-    public class ApplicationContext : ApplicatonBaseContext, IApplicationContext
-    {   
+    public class ApplicationNpgsqlContext : ApplicatonBaseContext, IApplicationContext
+    {
         #region Config
         private readonly IOptions<AppConnectionStrings> _options;
 
-        public ApplicationContext() {
+        public ApplicationNpgsqlContext()
+        {
 
         }
 
-        public ApplicationContext( IOptions<AppConnectionStrings> options ) {
+        public ApplicationNpgsqlContext(IOptions<AppConnectionStrings> options)
+        {
             _options = options;
         }
-
-        protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder ) {
-             optionsBuilder.UseSqlServer(_options?.Value?.DefaultConnectionSqlServer ?? 
-                 "Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true");           
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {            
+            optionsBuilder.UseNpgsql(_options?.Value?.DefaultConnectionNpgsql ??
+                "Server=ec2-107-22-211-182.compute-1.amazonaws.com;Port=5432;Database=d9fqhn7q9nokge;User Id=zrfxlosldmeqmq;Password=733fc919fb34e7fef9bcc25fc18f07913290f321180cf3432e20d6c6e6a66067;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;");
         }
         #endregion
-        
-        
 
         public DbSet<UserChat> UserChats { get; set; }
 
@@ -45,12 +43,13 @@ namespace SMeat.MODELS
         public DbSet<Location> Locations { get; set; }
 
         public DbSet<Contacts> Contacts { get; set; }
-        
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<UserChat>().HasKey(e => new { e.UserId, e.ChatId });
 
             modelBuilder.Entity<User>()    // User 1 => N UserChats
@@ -132,6 +131,5 @@ namespace SMeat.MODELS
                .OnDelete(DeleteBehavior.Restrict);
 
         }
-        
     }
 }

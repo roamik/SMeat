@@ -1,37 +1,42 @@
 <div class="containerEdit">
 
-<div class="row block">
-	<div id="chat" class="col-xs-12 col-md-12">
-		<div class="message">
-			<a href="">Roam: </a>
-			<p>єє бой</p>
-		</div>
-		<div class="message">
-			<a href="">Бояновський: </a>
-			<p>єє сан</p>
-		</div>
-		<div class="message">
-			<a href="">Міха: </a>
-			<p>Cancer</p>
-		</div>
-		<div class="message">
-			<a href="">Міха: </a>
-			<p>Тестове повідомлення</p>
-		</div>
-		<div class="message">
-			<a href="">Міха: </a>
-			<p>Тестове повідомлення</p>
-		</div>
-	</div>
-</div>
+  <div class="row block">
+    <div id="chat" class="col-xs-12 col-md-12">
+      <div >
+        <div class="container" *ngIf="messages.length > 0">
+          <div *ngFor="let item of messages">
+            <div *ngIf="item.type === 'user'" class="row message">
+              <a [routerLink]="['/profile', item.user.id]">{{item.user.lastName}}: </a>
+              <p>{{item.message}}</p>
+            </div>
+            <div *ngIf="item.type === 'server'" class="row message">
+              <span>Server:</span>             
+              <p>{{item.message}}</p>
+            </div>
+          </div>
+        </div>
 
-<div class="row block">
-	<div class="col-xs-9 col-md-11">
-		<input type="text" name="message" placeholder="Enter message">
-	</div>
-	<div class="col-xs-3 col-md-1">
-		<button class="btn_custom">Send</button>
-	</div>
-</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row block">
+    <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+      <div>
+        <label for="message">Message</label>
+        <div class="col-xs-9 col-md-11">
+          <input type="text" id="message" name="message" [(ngModel)]="message" required>
+        </div>
+      </div>
+      <div class="col-xs-3 col-md-1">
+        <button type="submit" class="btn_custom" id="sendmessage" [disabled]="!chatForm.valid">
+          Send
+        </button>
+      </div>
+    </form>
+
+
+  </div>
 
 </div>

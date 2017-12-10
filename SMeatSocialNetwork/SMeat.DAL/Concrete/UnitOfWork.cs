@@ -11,13 +11,13 @@ namespace SMeat.DAL
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private ApplicationContext _context;
+        private IApplicationContext _context;
 
         private UserManager<User> _userManager;
 
         private SignInManager<User> _signInManager;
 
-        public UnitOfWork(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UnitOfWork(IApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;

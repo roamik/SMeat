@@ -12,6 +12,6 @@ namespace SMeat.DAL
 {
     class WorkplacesRepository : GenericRepository<Workplace>, IWorkplacesRepository
     {
-        public WorkplacesRepository(ApplicationContext context) : base(context) { }
+        public WorkplacesRepository(IApplicationContext context) : base(context) { }
     }
 }

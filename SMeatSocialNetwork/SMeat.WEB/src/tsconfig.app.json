@@ -4,7 +4,10 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": ["jquery"]
+    "types": ["jquery"],
+    "typeRoots": [
+            "../node_modules/@types"
+        ]
   },
   "exclude": [
     "test.ts",

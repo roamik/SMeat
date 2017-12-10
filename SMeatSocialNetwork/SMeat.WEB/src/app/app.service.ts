@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
 const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
-const BASEURL = "http://localhost:27121/";
+const BASEURL = "https://smeat-web-api.herokuapp.com/";
 
 @Injectable()
 export class AppService {

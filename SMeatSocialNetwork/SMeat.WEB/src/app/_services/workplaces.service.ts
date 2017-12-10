@@ -8,12 +8,17 @@ import { AuthGuard } from '../_guards/auth.guard';
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 
+import { environment } from '../../environments/environment';
 
-const BASEURL = "http://localhost:27121/";
+//const BASEURL = "https://smeat-web-api.herokuapp.com/";
+//const BASEURL = "http://localhost:27121/";
 
 @Injectable()
 export class WorkplacesService {
-  constructor(private http: HttpClient, private guard: AuthGuard) { }
+    readonly BASEURL: string;
+    constructor(private http: HttpClient, private guard: AuthGuard) {
+        this.BASEURL = environment.baseApi;
+    } 
 
   getWorkplaces(page: number, count: number, searchBy?: string): Observable<WorkPlace[]> {
     var url = 'api/workplaces/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');

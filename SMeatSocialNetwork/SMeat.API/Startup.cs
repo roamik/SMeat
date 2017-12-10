@@ -28,11 +28,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using SMeat.API.Helpers;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using SMeatSocialNetwork.API.Hubs;
 
 namespace SMeat.API
 {
     public class Startup
     {
+        private const string TOKEN = "token";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -50,27 +53,45 @@ namespace SMeat.API
         {
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<ApplicationContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSqlServer")));
+
+            services.AddDbContext<ApplicationNpgsqlContext>(options =>
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionNpgsql")));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
+
                     .WithOrigins("http://localhost:3000")
+                    .WithOrigins("https://smeat-web.herokuapp.com")                    
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
             // Add framework services.
-            services.AddTransient<IUnitOfWork, UnitOfWork>();      
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
+
+
+
+            //services.AddScoped<IApplicationContext, ApplicationContext>();
+            //services.AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<ApplicationContext>()
+            //    .AddDefaultTokenProviders()
+            //    .AddRoleValidator<RoleValidator<Role>>()
+            //    .AddRoleManager<RoleManager<Role>>()
+            //    .AddSignInManager<SignInManager<User>>();
+
+            services.AddScoped<IApplicationContext, ApplicationNpgsqlContext>();
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationNpgsqlContext>()
                 .AddDefaultTokenProviders()
-                .AddRoleValidator<RoleValidator<IdentityRole>>()
-                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddRoleValidator<RoleValidator<Role>>()
+                .AddRoleManager<RoleManager<Role>>()
                 .AddSignInManager<SignInManager<User>>();
-
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -94,9 +115,9 @@ namespace SMeat.API
             //JWT
             services.AddAuthentication(o =>
             {
-                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
@@ -113,11 +134,25 @@ namespace SMeat.API
                     ValidAudience = Configuration["Tokens:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))                      
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = (MessageReceivedContext context) =>
+                    {
+                        if (/*context.HttpContext.WebSockets.IsWebSocketRequest &&*/ context.Request.Query.ContainsKey(TOKEN))
+                        {
+                            // pull the bearer token out of the QueryString for WebSocket connections
+                            //_logger.LogInformation($"{nameof(OnMessageReceived)} processing websocket querystring authentication");
+                            context.Token = context.Request.Query[TOKEN];
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             var policy = new AuthorizationPolicyBuilder()
-                      .RequireAuthenticatedUser()
-                      .Build();
+                .RequireAuthenticatedUser()
+                .Build();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DefaultPolicy",policy);
@@ -136,7 +171,7 @@ namespace SMeat.API
             });
             // Add Database Initializer
             services.AddScoped<IDataBaseInitializer, DataBaseInitializer>();
-
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -145,7 +180,6 @@ namespace SMeat.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseCors("CorsPolicy");
-
             
             app.UseExceptionHandler(
             options => {
@@ -164,8 +198,6 @@ namespace SMeat.API
             });
 
 
-
-
             app.UseAuthentication( );
             
             app.UseMvc();
@@ -174,6 +206,11 @@ namespace SMeat.API
 
             //Generate EF Core Seed Data
             ((DataBaseInitializer)dbInitializer).Initialize().Wait();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("chat");
+            });
         }
     }
 }
