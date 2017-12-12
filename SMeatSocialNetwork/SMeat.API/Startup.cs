@@ -54,11 +54,11 @@ namespace SMeat.API
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
 
-            //services.AddDbContext<ApplicationContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSqlServer")));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSqlServer")));
 
-            services.AddDbContext<ApplicationNpgsqlContext>(options =>
-               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionNpgsql")));
+            //services.AddDbContext<ApplicationNpgsqlContext>(options =>
+            //   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionNpgsql")));
 
             services.AddCors(options =>
             {
@@ -77,21 +77,21 @@ namespace SMeat.API
 
 
 
-            //services.AddScoped<IApplicationContext, ApplicationContext>();
-            //services.AddIdentity<User, Role>()
-            //    .AddEntityFrameworkStores<ApplicationContext>()
-            //    .AddDefaultTokenProviders()
-            //    .AddRoleValidator<RoleValidator<Role>>()
-            //    .AddRoleManager<RoleManager<Role>>()
-            //    .AddSignInManager<SignInManager<User>>();
-
-            services.AddScoped<IApplicationContext, ApplicationNpgsqlContext>();
+            services.AddScoped<IApplicationContext, ApplicationContext>();
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationNpgsqlContext>()
+                .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders()
                 .AddRoleValidator<RoleValidator<Role>>()
                 .AddRoleManager<RoleManager<Role>>()
                 .AddSignInManager<SignInManager<User>>();
+
+            //services.AddScoped<IApplicationContext, ApplicationNpgsqlContext>();
+            //services.AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<ApplicationNpgsqlContext>()
+            //    .AddDefaultTokenProviders()
+            //    .AddRoleValidator<RoleValidator<Role>>()
+            //    .AddRoleManager<RoleManager<Role>>()
+            //    .AddSignInManager<SignInManager<User>>();
 
             services.Configure<IdentityOptions>(options =>
             {
