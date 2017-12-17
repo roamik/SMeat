@@ -6,13 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { TokenInterceptor } from "./_guards/token.interceptor";
-import { UnauthorizeInterceptor } from "./_guards/unauthorize.interceptor";
+import { TokenInterceptor } from "./_interceptors/token.interceptor";
+import { UnauthorizeInterceptor } from "./_interceptors/unauthorize.interceptor";
+import { BadrequestInterceptor } from "./_interceptors/badrequest.interceptor";
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -25,6 +27,7 @@ import { UsersService } from './_services/users.service';
 import { LocationsService } from './_services/locations.service';
 import { WorkplacesService } from "./_services/workplaces.service";
 import { HomePageService } from './home-page/home-page.service';
+import { CustomTosterService } from "./_services/customToaster.service";
 
 import { EnumToArrayHelper } from "./_helpers/EnumToArrayHelper";
 
@@ -44,6 +47,7 @@ import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
+
 
 
 
@@ -105,6 +109,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     HttpModule,
 
+    ToasterModule,
+
     BrowserAnimationsModule,
     MatSidenavModule,
     MatButtonModule,
@@ -131,6 +137,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: UnauthorizeInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BadrequestInterceptor,
+      multi: true
+    },
     AppService,
     HomePageService,
     AuthenticationService,
@@ -138,6 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersService,
     LocationsService,
     WorkplacesService,
+    CustomTosterService,
 
       EnumToArrayHelper
   ],

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { User } from "../_models/user";
 import { UsersService } from "../_services/users.service";
-import { GenderType } from "../_models/genders";
-import { RelationshipType } from "../_models/relations";
+import { GenderType } from "../_enums/genders";
+import { RelationshipType } from "../_enums/relations";
 
 @Component({
   selector: 'profile-page',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { ToasterConfig, ToasterService, Toast } from "angular2-toaster/angular2-toaster";
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,7 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-
+  error: any = {};
   model: any = {};
   loading = false;
   returnUrl: string;
@@ -18,10 +19,17 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
-    ) { }
+    private authenticationService: AuthenticationService,
+  ) { }
+
+  public config1: ToasterConfig = new ToasterConfig({
+    positionClass: 'toast-top-right'
+  });
+
+
 
   ngOnInit() {
+
     // reset login status
     this.authenticationService.logout();
 
@@ -36,9 +44,9 @@ export class LoginPageComponent implements OnInit {
       result => {
         this.router.navigate([this.returnUrl]);
       },
-      error => {
+      response => {
+        this.error = response.error;
         this.loading = false;
       });
   }
-
 }

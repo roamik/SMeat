@@ -2,7 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from "../_services/authentication.service";
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "../_guards/auth.guard";
+
 
 
 @Injectable()

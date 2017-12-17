@@ -1,32 +1,24 @@
 {
 	"ABOUT_TEXT": "Про користувача",
-	"WORKPLACE_TEXT":"Місце роботи",
-	"STREET_TEXT": "Вулиця",
+	
+	"BTN_APPLY_TEXT": "Підтвердити",
+	"BTN_BOARDS_TEXT": "Дошки",
+	"BTN_GROUPS_TEXT": "Групи",
+	"BTN_LANGUAGE_TEXT": "Мова",
+	"BTN_LOGIN_TEXT": "Увійти",
+	"BTN_LOGOUT_TEXT": "Вихід",
+	"BTN_MESSAGES_TEXT": "Повідомлення",
+	"BTN_PROFILE_TEXT": "Профіль",
+	"BTN_REGISTER_TEXT": "Реєстрація",
+	"BTN_SETTINGS_TEXT": "Налаштування",
+	
 	"CITY_TEXT": "Місто",
-	"LOCATION_TEXT":"Місце знаходження",
 	"COMPANY_TEXT": "Компанія",
 	"COUNTRY_TEXT": "Країна",
-	"RELATIONSHIP_TEXT": "Сімейний стан",
-	
 	"ComplicatedRelation": "Все складно",
-	"InRelationRelation": "У відносинах",
-	"SingleRelation": "Холостяк",
-	"WaitingForAMiracleRelation": "В очікуванні дива",
-
-	"FemaleGender": "Жінка",
-	"MaleGender": "Чоловік",
-	"OtherGender": "Інше",
 	
-	"PLACEHOLDER_NAME_TEXT": "Ім'я",
-	"PLACEHOLDER_LASTNAME_TEXT": "Прізвище",
-	"PLACEHOLDER_GENDER_TEXT": "Стать",
-	"PLACEHOLDER_RELATIONSHIP_TEXT": "Сімейний стан",
-	"PLACEHOLDER_SELECT_CITY_TEXT": "Вкажіть місто",
-	"PLACEHOLDER_SELECT_WORKPLACE_TEXT": "Вкажіть місце роботи",
-	"PLACEHOLDER_ABOUT_TEXT":"Опишіть себе тут",
-	"PLACEHOLDER_TYPE_IN_GENDER_TEXT": "Введіть Вашу стать",
-	"PLACEHOLDER_FIND_A_PERSON_TEXT": "Пошук людей",
-
+	"ERR_EMAIL_INVALID": "Email введено не коректно!",
+	"ERR_EMAIL_REQUIRED": "Введіть Ваш email!",
 	"ERR_FIELD_REQUIRED": "Це поле є обов'язковим",
 	"ERR_GENDER_MIN_LENGTH": "Поле статі повинне містити мінімум 4 символи",
 	"ERR_GENDER_REQUIRED": "Оберіть вашу стать",
@@ -34,15 +26,34 @@
 	"ERR_LASTNAME_REQUIRED": "Введіть Ваше прізвище",
 	"ERR_NAME_MIN_LENGTH": "Поле імені повинне містити мінімум 4 символи",
 	"ERR_NAME_REQUIRED": "Введіть Ваше ім'я",
+	"ERR_PASSWORD_INVALID": "Пароль введено не вірно(мін. 8 символів)!",
+	"ERR_PASSWORD_REQUIRED": "Введіть Ваш пароль!",
 	
-	"BTN_APPLY_TEXT": "Підтвердити",	
-	"BTN_LOGOUT_TEXT":"Вихід",
-	"BTN_SETTINGS_TEXT":"Налаштування",
-	"BTN_LOGIN_TEXT":"Увійти",
-	"BTN_REGISTER_TEXT":"Реєстрація",
-	"BTN_PROFILE_TEXT":"Профіль",
-	"BTN_MESSAGES_TEXT":"Повідомлення",
-	"BTN_GROUPS_TEXT":"Групи",
-	"BTN_BOARDS_TEXT":"Дошки",
-	"BTN_LANGUAGE_TEXT":"Мова"
+	"FemaleGender": "Жінка",
+	"InRelationRelation": "У відносинах",
+	"MaleGender": "Чоловік",
+	"OtherGender": "Інше",
+	
+	"LBL_PASSWORD": "Пароль",
+	"LBL_EMAIL": "Пошта",
+	
+	"LOCATION_TEXT": "Місце знаходження",
+	
+	"PLACEHOLDER_ABOUT_TEXT": "Опишіть себе тут",
+	"PLACEHOLDER_FIND_A_PERSON_TEXT": "Пошук людей",
+	"PLACEHOLDER_GENDER_TEXT": "Стать",
+	"PLACEHOLDER_LASTNAME_TEXT": "Прізвище",
+	"PLACEHOLDER_NAME_TEXT": "Ім'я",
+	"PLACEHOLDER_RELATIONSHIP_TEXT": "Сімейний стан",
+	"PLACEHOLDER_SELECT_CITY_TEXT": "Вкажіть місто",
+	"PLACEHOLDER_SELECT_WORKPLACE_TEXT": "Вкажіть місце роботи",
+	"PLACEHOLDER_TYPE_IN_GENDER_TEXT": "Введіть Вашу стать",
+	
+	"RELATIONSHIP_TEXT": "Сімейний стан",
+	"STREET_TEXT": "Вулиця",
+	"SingleRelation": "Холостяк",
+	"WORKPLACE_TEXT": "Місце роботи",
+	"WaitingForAMiracleRelation": "В очікуванні дива",
+	
+	"TITLE_LOGIN": "Вхід"
 }

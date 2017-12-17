@@ -5,11 +5,12 @@ import { Location } from "../_models/location";
 import { UsersService } from "../_services/users.service";
 import { LocationsService } from "../_services/locations.service";
 import { NgSelectModule } from '@ng-select/ng-select';
-import { GenderType } from '../_models/genders';
-import { RelationshipType } from "../_models/relations";
+import { GenderType } from '../_enums/genders';
+import { RelationshipType } from "../_enums/relations";
 import { WorkPlace } from "../_models/workplace";
 import { WorkplacesService } from "../_services/workplaces.service";
 import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
+import { CustomTosterService } from "../_services/customToaster.service";
 
 @Component({
   selector: 'app-user-settings-page',
@@ -18,7 +19,16 @@ import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
 })
 export class UserSettingsPageComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private locationService: LocationsService, private workplaceService: WorkplacesService, private enumSelector: EnumToArrayHelper ,private router: Router) { }
+  constructor(private usersService: UsersService,
+    private locationService: LocationsService,
+    private workplaceService: WorkplacesService,
+    private enumSelector: EnumToArrayHelper,
+    private router: Router,
+    private tosterService: CustomTosterService) {  }
+
+  customTosterService = this.tosterService;
+
+  config1 = this.customTosterService.config1;
 
   public locations: Array<Location> = [];
 
@@ -65,14 +75,13 @@ export class UserSettingsPageComponent implements OnInit {
     this.usersService.update(this.user)
       .subscribe(
       result => {
-        this.router.navigate(['/profile', this.user.id]);
+        this.tosterService.popToastSuccess();
       },
       error => {
       });
   }
 
   getUserInfo() {
-
     this.usersService.getMyInfo().subscribe(
       user => { this.user = user },
       error => { }
@@ -97,5 +106,5 @@ export class UserSettingsPageComponent implements OnInit {
       },
       error => {
       });
-  }  
+  }
 }

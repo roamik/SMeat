@@ -6,7 +6,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { LangChangeEvent } from "@ngx-translate/core";
 import { TranslateService } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { LanguagesEnum, LanguagesIconEnum } from "../_models/languages";
+import { LanguagesEnum, LanguagesIconEnum } from "../_enums/languages";
 import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
 
 @Component({

@@ -68,9 +68,13 @@ namespace SMeatSocialNetwork.API.Controllers
                         return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
                     }
                 }
+                else
+                {
+                    ModelState.AddModelError("Email", "ERR_USER_NOT_FOUND");
+                }
             }
 
-            return BadRequest("Could not create token");
+            return BadRequest(ModelState);
         }
 
         // PUT api/values/5
@@ -82,11 +86,12 @@ namespace SMeatSocialNetwork.API.Controllers
             {
                 if (await _unitOfWork.UserManager.FindByNameAsync(model.Email) != null)
                 {
-                    return BadRequest("user already exists");
+                    ModelState.AddModelError("Email", "ERR_USER_ALREADY_EXISTS");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name };
-                if (user != null)
+                else
                 {
+                    var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name };
+
                     var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
@@ -110,6 +115,7 @@ namespace SMeatSocialNetwork.API.Controllers
                         return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
                     }
                 }
+
             }
 
             return BadRequest("Could not create token");
