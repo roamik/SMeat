@@ -1,5 +1,5 @@
-import { GenderType } from "./genders";
-import { RelationshipType } from "./relations";
+import { GenderType } from "../_enums/genders";
+import { RelationshipType } from "../_enums/relations";
 
 export class User {
   id: string;

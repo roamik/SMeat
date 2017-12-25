@@ -7,6 +7,8 @@ namespace SMeat.MODELS
 {
     public interface IApplicationContext : IContext, IIdentityContext
     {
+        DbSet<Reply> Replies { get; set; }
+        DbSet<Board> Boards { get; set; }
         DbSet<Chat> Chats { get; set; }
         DbSet<Contacts> Contacts { get; set; }
         DbSet<GroupChat> GroupChats { get; set; }

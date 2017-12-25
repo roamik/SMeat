@@ -27,8 +27,10 @@ namespace SMeat.MODELS
                  "Server = (localdb)\\mssqllocaldb; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");           
         }
         #endregion
-        
-        
+
+        public DbSet<Reply> Replies { get; set; }
+
+        public DbSet<Board> Boards { get; set; }
 
         public DbSet<UserChat> UserChats { get; set; }
 
@@ -50,7 +52,12 @@ namespace SMeat.MODELS
         {
             
             base.OnModelCreating(modelBuilder);
-            
+
+            modelBuilder.Entity<Board>() //Chat 1 = > N Messages (Chat has many messages and one message has 1 chat)
+                 .HasMany(b => b.Replies)
+                 .WithOne(m => m.Board)
+                 .HasForeignKey(m => m.BoardId);
+
             modelBuilder.Entity<UserChat>().HasKey(e => new { e.UserId, e.ChatId });
 
             modelBuilder.Entity<User>()    // User 1 => N UserChats

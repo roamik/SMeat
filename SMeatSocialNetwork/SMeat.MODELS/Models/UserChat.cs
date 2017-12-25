@@ -19,6 +19,6 @@ namespace SMeat.MODELS.Models
 
         public virtual Chat Chat { get; set; }
 
-        public UserChatPermitions Permitions { get; set; }
+        public UserChatPermitions Permitions { get; set; } 
     }
 }
