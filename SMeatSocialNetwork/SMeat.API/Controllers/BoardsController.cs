@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
-    public class BoardController : Controller
+    public class BoardsController : Controller
     {
         [HttpGet]
-        [Route("GetBoards")]
-        public async Task<IActionResult> GetBoards()
+        [Route("boards")]
+        public async Task<IActionResult> Boards()
         {
             throw new NotImplementedException();
             return Ok();

@@ -22,6 +22,6 @@ namespace SMeat.MODELS.Models
 
         public Board Board { get; set; }
 
-        public int[] replyTo { get; set; } // an array of IDs of the replies this reply is sent to (WHAT?)
+        public int[] ReplyTo { get; set; } // an array of IDs of the replies this reply is sent to (WHAT?)
     }
 }
