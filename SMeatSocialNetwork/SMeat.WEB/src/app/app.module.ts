@@ -47,6 +47,7 @@ import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardCreationPageComponent } from './board-creation-page/board-creation-page.component';
 import { UnsignedPageComponent } from './unsigned-page/unsigned-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { BoardViewComponent } from './board-view/board-view.component';
 
 
 
@@ -102,7 +103,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BoardPageComponent,
     BoardCreationPageComponent,
     UnsignedPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    BoardViewComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

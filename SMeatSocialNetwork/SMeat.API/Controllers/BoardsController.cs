@@ -10,7 +10,6 @@ namespace SMeat.API.Controllers
     public class BoardsController : Controller
     {
         [HttpGet]
-        [Route("boards")]
         public async Task<IActionResult> Boards()
         {
             throw new NotImplementedException();

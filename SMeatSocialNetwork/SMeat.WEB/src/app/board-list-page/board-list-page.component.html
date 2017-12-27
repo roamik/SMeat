@@ -4,8 +4,5 @@
 </div>
 
 <div id="boardList">
-	<a *ngFor="let b of boards" class="row" href="">
-		<p class="col-xs-8 col-md-9">"{{ b.name }}" - [number of replies]</p>
-		<p class="col-xs-4 col-md-3">{{ b.likes }} / {{ b.dislikes }}</p>
-	</a>
+	<app-board-view *ngFor="let b of boards" [model]='b'></app-board-view>
 </div>
