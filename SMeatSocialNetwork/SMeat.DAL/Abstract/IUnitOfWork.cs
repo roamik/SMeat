@@ -11,6 +11,7 @@ namespace SMeat.DAL
     public interface IUnitOfWork
     {
         IUsersRepository UsersRepository { get; }
+        IBoardsRepository BoardsRepository { get; }
         ILocationsRepository LocationsRepository { get; }
         IWorkplacesRepository WorkplacesRepository { get; }
         UserManager<User> UserManager { get; }

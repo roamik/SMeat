@@ -35,8 +35,8 @@ namespace SMeat.API.Controllers
                filter = (l => l.City.Contains(searchBy));
             }
 
-            var locations = await _unitOfWork.LocationsRepository.GetPagedAsync(filter:filter, count: count, page: page);
-            var locationsCount = await _unitOfWork.LocationsRepository.CountAsync(filter:filter);
+            var locations = await _unitOfWork.BoardsRepository.GetPagedAsync(filter:filter, count: count, page: page);
+            var locationsCount = await _unitOfWork.BoardsRepository.CountAsync(filter:filter);
 
             //return Ok(new { Items = locations, TotalCount = locationsCount, CurrentPage = page });
 

@@ -22,7 +22,7 @@ namespace SMeat.API.Helpers
         //Warning!!! to avoid duplicates - check if data already exists
         public async Task Initialize()
         {
-            var locationsCount = await _unitOfWork.LocationsRepository.CountAsync(filters: null);
+            var locationsCount = await _unitOfWork.BoardsRepository.CountAsync(filters: null);
             var workplacesCount = await _unitOfWork.WorkplacesRepository.CountAsync(filters: null);
 
             if (locationsCount == 0)
@@ -41,7 +41,7 @@ namespace SMeat.API.Helpers
 
                 foreach (var location in locations)
                 {
-                    await _unitOfWork.LocationsRepository.AddAsync(location);
+                    await _unitOfWork.BoardsRepository.AddAsync(location);
                 }
 
                 await _unitOfWork.Save();

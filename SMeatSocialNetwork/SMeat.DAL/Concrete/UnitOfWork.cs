@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SMeat.MODELS.Models;
+using SMeat.DAL.Concrete;
 
 namespace SMeat.DAL
 {
@@ -35,6 +36,20 @@ namespace SMeat.DAL
                     usersRepository = new UsersRepository(_context);
                 }
                 return usersRepository;
+            }
+        }
+
+        private IBoardsRepository boardsRepository;
+
+        public IBoardsRepository BoardsRepository
+        {
+            get
+            {
+                if (boardsRepository == null)
+                {
+                    boardsRepository = new BoardsRepository(_context);
+                }
+                return boardsRepository;
             }
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMeat.DAL.Abstract
 {
-    interface IBoardsRepository : IGenericRepository<Board>
+    public interface IBoardsRepository : IGenericRepository<Board>
     {
     }
 }

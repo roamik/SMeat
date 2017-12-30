@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SMeat.DAL;
+using SMeat.MODELS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SMeat.API.Controllers
@@ -9,11 +13,26 @@ namespace SMeat.API.Controllers
     [Route("api/[controller]")]
     public class BoardsController : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> Boards()
+        private IUnitOfWork _unitOfWork;
+        public BoardsController(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
-            return Ok();
+            _unitOfWork = unitOfWork;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetBoards([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
+        {
+            Expression<Func<Board, bool>> filter = null;
+            if (searchBy != null)
+            {
+                filter = (b => b.Name.Contains(searchBy));
+            }
+
+            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(filter: filter, count: count, page: page);
+            var boardsCount = await _unitOfWork.BoardsRepository.CountAsync(filter: filter);
+
+            return Ok(boards);
         }
     }
 }
