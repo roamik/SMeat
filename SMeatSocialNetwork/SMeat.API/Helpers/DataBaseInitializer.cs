@@ -10,7 +10,7 @@ namespace SMeat.API.Helpers
 {
     public class DataBaseInitializer : IDataBaseInitializer
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public DataBaseInitializer(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -41,7 +41,7 @@ namespace SMeat.API.Helpers
 
                 foreach (var location in locations)
                 {
-                    await _unitOfWork.BoardsRepository.AddAsync(location);
+                    await _unitOfWork.LocationsRepository.AddAsync(location);
                 }
 
                 await _unitOfWork.Save();

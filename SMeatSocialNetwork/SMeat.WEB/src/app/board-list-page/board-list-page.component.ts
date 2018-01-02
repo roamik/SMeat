@@ -9,7 +9,7 @@ import { Board } from '../_models/board';
 })
 export class BoardListPageComponent implements OnInit {
 
-  boards: Board[];
+  boards: Board[]; 
 
   constructor() { }
 

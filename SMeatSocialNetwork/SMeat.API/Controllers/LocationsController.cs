@@ -18,7 +18,7 @@ namespace SMeat.API.Controllers
     [Route("api/[controller]")]
     public class LocationsController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public LocationsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -32,11 +32,11 @@ namespace SMeat.API.Controllers
             Expression<Func<Location, bool>> filter = null;
             if (searchBy != null)
             {
-               filter = (l => l.City.Contains(searchBy));
+               filter = l => l.City.Contains(searchBy);
             }
 
-            var locations = await _unitOfWork.BoardsRepository.GetPagedAsync(filter:filter, count: count, page: page);
-            var locationsCount = await _unitOfWork.BoardsRepository.CountAsync(filter:filter);
+            var locations = await _unitOfWork.LocationsRepository.GetPagedAsync(filter:filter, count: count, page: page);
+            var locationsCount = await _unitOfWork.LocationsRepository.CountAsync(filter:filter);
 
             //return Ok(new { Items = locations, TotalCount = locationsCount, CurrentPage = page });
 

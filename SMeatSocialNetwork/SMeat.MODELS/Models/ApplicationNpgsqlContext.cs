@@ -24,7 +24,10 @@ namespace SMeat.MODELS
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            
             optionsBuilder.UseNpgsql(_options?.Value?.DefaultConnectionNpgsql ??
-                "Server=ec2-107-22-211-182.compute-1.amazonaws.com;Port=5432;Database=d9fqhn7q9nokge;User Id=zrfxlosldmeqmq;Password=733fc919fb34e7fef9bcc25fc18f07913290f321180cf3432e20d6c6e6a66067;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;");
+            //prod
+            //"Server=ec2-107-22-211-182.compute-1.amazonaws.com;Port=5432;Database=d9fqhn7q9nokge;User Id=zrfxlosldmeqmq;Password=733fc919fb34e7fef9bcc25fc18f07913290f321180cf3432e20d6c6e6a66067;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;");
+            //local
+            "Server=localhost;Port=5432;Database=SMSNv1;User Id=postgres;Password=admin"); 
         }
         #endregion
 

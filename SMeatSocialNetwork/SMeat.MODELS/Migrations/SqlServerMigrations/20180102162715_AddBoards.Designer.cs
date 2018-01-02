@@ -9,17 +9,18 @@ using SMeat.MODELS;
 using SMeat.MODELS.Models.Enums;
 using System;
 
-namespace SMeat.MODELS.Migrations.NpgsqlMigrations
+namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
-    [DbContext(typeof(ApplicationNpgsqlContext))]
-    partial class ApplicationNpgsqlContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationContext))]
+    [Migration("20180102162715_AddBoards")]
+    partial class AddBoards
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("SMeat.MODELS.Models.Board", b =>
                 {
@@ -205,7 +206,8 @@ namespace SMeat.MODELS.Migrations.NpgsqlMigrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("WorkplaceId");
 
@@ -278,7 +280,8 @@ namespace SMeat.MODELS.Migrations.NpgsqlMigrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
                 });
