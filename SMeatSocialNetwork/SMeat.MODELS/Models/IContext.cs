@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace SMeat.MODELS
 {
+    //its a interface to put multiply contexts as IContext to provide DI
+    //all method signatures are from basic context
     public interface IContext : IDisposable
     {        
         DatabaseFacade Database { get; }

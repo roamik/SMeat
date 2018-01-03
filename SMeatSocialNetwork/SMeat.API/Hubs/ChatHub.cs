@@ -1,18 +1,18 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using SMeat.DAL;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
- 
-namespace SMeatSocialNetwork.API.Hubs
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using SMeat.DAL;
+using SMeat.DAL.Abstract;
+
+namespace SMeat.API.Hubs
 {
     [Authorize]
     public class ChatHub : Hub
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public ChatHub(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -30,7 +30,7 @@ namespace SMeatSocialNetwork.API.Hubs
         }
 
 
-        public async override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
             var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
@@ -42,7 +42,16 @@ namespace SMeatSocialNetwork.API.Hubs
             await base.OnConnectedAsync();
         }
 
-        public async override Task OnDisconnectedAsync(Exception exception)
+        public async Task OnReconnectedAsync () {
+            var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            if ( user != null ) {
+                var userObject = new { UserName = user.UserName, Name = user.Name, LastName = user.LastName, Id = user.Id };
+                await Clients.All.InvokeAsync("OnReconnected", Context.ConnectionId, userObject);
+            }
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
             var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);

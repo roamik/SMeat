@@ -1,32 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SMeat.MODELS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SMeat.DAL.Abstract;
+using SMeat.MODELS;
 
-namespace SMeat.DAL
+namespace SMeat.DAL.Concrete
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private IApplicationContext context;
-        private DbSet<T> dbSet;
+        private readonly IApplicationContext _context;
+        private readonly DbSet<T> _dbSet;
         public GenericRepository(IApplicationContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<T>();
+           _context = context;
+           _dbSet = context.Set<T>();
         }
 
-        public virtual IQueryable<T> Data { get { return dbSet; } }
+        public virtual IQueryable<T> Data => _dbSet;
 
         public virtual IQueryable<T> GetAsync(List<Expression<Func<T, bool>>> filters = null, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = _dbSet;
             if (includes != null)
             {
-                foreach (Expression<Func<T, object>> include in includes)
+                foreach (var include in includes)
                 {
                     query = query.Include(include);
                 }
@@ -81,31 +81,31 @@ namespace SMeat.DAL
 
         public virtual Task<T> GetByIdAsync(object id)
         {
-            return dbSet.FindAsync(id);
+            return _dbSet.FindAsync(id);
         }
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            return (await dbSet.AddAsync(entity)).Entity;
+            return (await _dbSet.AddAsync(entity)).Entity;
         }
 
         public virtual void Delete(T obj)
         {
-            T entityToDelete = dbSet.Find(obj);
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            var entityToDelete = _dbSet.Find(obj);
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                dbSet.Attach(entityToDelete);
+                _dbSet.Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
+            _dbSet.Remove(entityToDelete);
         }
 
         public virtual T Update(T entity)
         {
-            if (context.Entry(entity).State == EntityState.Detached)
+            if (_context.Entry(entity).State == EntityState.Detached)
             {
-                dbSet.Attach(entity);
+               _dbSet.Attach(entity);
             }
-            context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
     }

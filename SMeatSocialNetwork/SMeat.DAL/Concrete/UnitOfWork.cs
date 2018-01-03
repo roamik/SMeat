@@ -1,100 +1,82 @@
-﻿using SMeat.DAL.Abstract;
-using SMeat.MODELS;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using SMeat.DAL.Abstract;
+using SMeat.MODELS;
 using SMeat.MODELS.Models;
-using SMeat.DAL.Concrete;
 
-namespace SMeat.DAL
+namespace SMeat.DAL.Concrete
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private IApplicationContext _context;
-
-        private UserManager<User> _userManager;
-
-        private SignInManager<User> _signInManager;
+        private readonly IApplicationContext _context;
 
         public UnitOfWork(IApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
-        private IUsersRepository usersRepository;
+        private IUsersRepository _usersRepository;
 
         public IUsersRepository UsersRepository
         {
             get
             {
-                if (usersRepository == null)
+                if (_usersRepository == null)
                 {
-                    usersRepository = new UsersRepository(_context);
+                    _usersRepository = new UsersRepository(_context);
                 }
-                return usersRepository;
+                return _usersRepository;
             }
         }
 
-        private IBoardsRepository boardsRepository;
+        private IBoardsRepository _boardsRepository;
 
         public IBoardsRepository BoardsRepository
         {
             get
             {
-                if (boardsRepository == null)
+                if (_boardsRepository == null)
                 {
-                    boardsRepository = new BoardsRepository(_context);
+                    _boardsRepository = new BoardsRepository(_context);
                 }
-                return boardsRepository;
+                return _boardsRepository;
             }
         }
 
-        private ILocationsRepository locationsRepository;
+        private ILocationsRepository _locationsRepository;
 
         public ILocationsRepository LocationsRepository
         {
             get
             {
-                if (locationsRepository == null)
+                if (_locationsRepository == null)
                 {
-                    locationsRepository = new LocationsRepository(_context);
+                    _locationsRepository = new LocationsRepository(_context);
                 }
-                return locationsRepository;
+                return _locationsRepository;
             }
         }
 
-        private IWorkplacesRepository workplacesRepository;
+        private IWorkplacesRepository _workplacesRepository;
 
         public IWorkplacesRepository WorkplacesRepository
         {
             get
             {
-                if (workplacesRepository == null)
+                if (_workplacesRepository == null)
                 {
-                    workplacesRepository = new WorkplacesRepository(_context);
+                    _workplacesRepository = new WorkplacesRepository(_context);
                 }
-                return workplacesRepository;
+                return _workplacesRepository;
             }
         }
 
-        public UserManager<User> UserManager
-        {
-            get
-            {
-                return _userManager;
-            }
-        }
-        public SignInManager<User> SignInManager
-        {
-            get
-            {
-                return _signInManager;
-            }
-        }
+        public UserManager<User> UserManager { get; }
+
+        public SignInManager<User> SignInManager { get; }
 
         public async Task<int> Save()
         {
@@ -102,11 +84,10 @@ namespace SMeat.DAL
         }
 
         // IDisposable
-        bool disposed = false;
-
+        readonly bool _disposed = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {

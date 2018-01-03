@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SMeat.MODELS.Models;
-using System.Threading.Tasks;
-using SMeat.DAL.Abstract;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using SMeat.MODELS.Models;
 
-namespace SMeat.DAL
+namespace SMeat.DAL.Abstract
 {
     public interface IUnitOfWork
     {

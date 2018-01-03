@@ -1,13 +1,10 @@
 ﻿using SMeat.DAL.Abstract;
 using SMeat.MODELS;
 using SMeat.MODELS.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SMeat.DAL
+namespace SMeat.DAL.Concrete
 {
-    class UsersRepository : GenericRepository<User>, IUsersRepository
+    public class UsersRepository : GenericRepository<User>, IUsersRepository
     {
         public UsersRepository(IApplicationContext context) : base(context) { }
     }

@@ -1,17 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using SMeat.MODELS.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using SMeat.DAL;
-using SMeat.MODELS.Models.BindingModels;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
+using SMeat.DAL.Abstract;
 
 namespace SMeat.API.Controllers
 {

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SMeat.DAL;
+using SMeat.DAL.Abstract;
 using SMeat.MODELS.Models;
 
-namespace SMeatSocialNetwork.API.Controllers
+namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public ValuesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

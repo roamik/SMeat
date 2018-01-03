@@ -1,24 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using SMeat.MODELS.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using SMeat.DAL;
-using SMeat.MODELS.Models.BindingModels;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
+using SMeat.DAL.Abstract;
 
 namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
     public class WorkplacesController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public WorkplacesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

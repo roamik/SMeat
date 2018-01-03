@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using SMeat.DAL;
+﻿using SMeat.DAL;
 using SMeat.MODELS.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using SMeat.DAL.Abstract;
 
 namespace SMeat.API.Helpers
 {

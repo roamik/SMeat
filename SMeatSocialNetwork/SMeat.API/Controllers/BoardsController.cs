@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using SMeat.DAL;
 using SMeat.MODELS.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using SMeat.DAL.Abstract;
 
 namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
     public class BoardsController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public BoardsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

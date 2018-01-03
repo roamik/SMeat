@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SMeat.DAL;
+using SMeat.DAL.Abstract;
 using SMeat.MODELS.Models;
 using SMeat.MODELS.Models.BindingModels;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using SMeat.API;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authorization;
 
-namespace SMeatSocialNetwork.API.Controllers
+namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private IUnitOfWork _unitOfWork;
-        private IOptions<JWTOptions> _options;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IOptions<JWTOptions> _options;
 
         public AccountController(IUnitOfWork unitOfWork, IOptions<JWTOptions> options)
         {
@@ -37,7 +37,6 @@ namespace SMeatSocialNetwork.API.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _unitOfWork.UserManager.FindByEmailAsync(model.Email);
-
                 if (user != null)
                 {
                     var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
@@ -91,7 +90,6 @@ namespace SMeatSocialNetwork.API.Controllers
                 else
                 {
                     var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name };
-
                     var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
