@@ -1,0 +1,37 @@
+<div *ngIf="chat" class="content">
+  <div class="contact-profile">
+    <img src="https://source.unsplash.com/random/100x100" alt="" />
+    <p>{{chat?.text}}
+    </p>
+    <div class="social-media">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+      <i class="fa fa-instagram" aria-hidden="true"></i>
+    </div>
+    
+  </div>
+  <div class="messages" infiniteScroll [infiniteScrollThrottle]="100" immediateCheck="true" [infiniteScrollDisabled]="loading" (scrolledUp)="onScrollUp()" [scrollWindow]="false">
+      <div *ngIf="loading" class="message-spiner">
+          <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+        </div>
+    <div class="message-container">
+      <div *ngFor="let message of chat?.messages" [ngClass]="message.userId === user.id ? 'sent' : 'replies'">
+        <img src="https://source.unsplash.com/random/100x100" alt="" />
+        <p ngbTooltip="{{message?.dateTime}}" [placement]="message.userId === user.id ? 'right' : 'left'">{{message.text}}</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="message-input">
+    <div class="wrap">
+      <form #form="ngForm" (ngSubmit)="form.valid && sendMessage()">
+        <input type="text" [(ngModel)]="message.text" #text="ngModel" name="text" (keyup.enter)="form.submit()" required placeholder="Write your message..." />
+        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+        <button class="submit">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+    </form>
+    </div>  
+  </div>
+</div>

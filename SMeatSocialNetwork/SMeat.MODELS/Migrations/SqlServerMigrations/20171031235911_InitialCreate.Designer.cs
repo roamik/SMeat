@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SMeat.MODELS;
 
-namespace SMeat.MODELS.Migrations
+namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
     [Migration("20171031235911_InitialCreate")]

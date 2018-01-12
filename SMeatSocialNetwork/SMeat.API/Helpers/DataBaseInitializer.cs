@@ -1,8 +1,10 @@
 ﻿using SMeat.DAL;
-using SMeat.MODELS.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SMeat.DAL.Abstract;
+using System.Linq;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.API.Helpers
 {
@@ -22,7 +24,8 @@ namespace SMeat.API.Helpers
         {
             var locationsCount = await _unitOfWork.BoardsRepository.CountAsync(filters: null);
             var workplacesCount = await _unitOfWork.WorkplacesRepository.CountAsync(filters: null);
-
+            var chatsCount = await _unitOfWork.ChatsRepository.CountAsync(filters: null);
+            var users = await _unitOfWork.UsersRepository.GetAsync().ToListAsync( );
             if (locationsCount == 0)
             {
                 var locations = new List<Location>
@@ -62,6 +65,22 @@ namespace SMeat.API.Helpers
                 foreach (var workplace in workplaces)
                 {
                     await _unitOfWork.WorkplacesRepository.AddAsync(workplace);
+                }
+
+                await _unitOfWork.Save();
+            }
+
+            
+            if ( chatsCount == 0 ) {
+                var chats = new List<Chat>
+                {
+                    new Chat { Text = "test1", UserId = users.FirstOrDefault()?.Id, UserChats = users.Select( c=> new UserChat { UserId = c.Id}).ToList()},
+                    new Chat { Text = "test2", UserId = users.FirstOrDefault()?.Id, UserChats = users.Select( c=> new UserChat { UserId = c.Id}).ToList()},
+                    new Chat { Text = "test3", UserId = users.FirstOrDefault()?.Id, UserChats = users.Select( c=> new UserChat { UserId = c.Id}).ToList()}
+                };
+
+                foreach ( var chat in chats ) {
+                    await _unitOfWork.ChatsRepository.AddAsync(chat);
                 }
 
                 await _unitOfWork.Save();

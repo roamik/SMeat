@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using SMeat.DAL;
-using SMeat.MODELS.Models.BindingModels;
 using System.IdentityModel.Tokens.Jwt;
 using SMeat.DAL.Abstract;
+using SMeat.MODELS.BindingModels;
 
 namespace SMeat.API.Controllers
 {

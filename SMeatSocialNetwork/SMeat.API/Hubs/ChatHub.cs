@@ -1,11 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using SMeat.DAL;
 using SMeat.DAL.Abstract;
+using SMeat.MODELS.DTO;
+using SMeat.MODELS.Entities;
+using StackExchange.Redis;
 
 namespace SMeat.API.Hubs
 {
@@ -13,21 +21,36 @@ namespace SMeat.API.Hubs
     public class ChatHub : Hub
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ChatHub(IUnitOfWork unitOfWork)
-        {
+        private readonly IRedisConnectionFactory _cache;
+        private readonly IMapper _mapper;
+        public ChatHub(IUnitOfWork unitOfWork, IRedisConnectionFactory cache, IMapper mapper ) {
             _unitOfWork = unitOfWork;
+            _cache = cache;
+            _mapper = mapper;
         }
         
-        public async Task SendAsync(string message)
+        public async Task SendAsync(Message message)
         {
             var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
-            if (user != null)
-            {
-               var userObject = new { UserName = user.UserName, Name = user.Name, LastName = user.LastName, Id = user.Id };
-                await Clients.All.InvokeAsync("OnSend", Context.ConnectionId, userObject, message);
+            if (user != null) {
+                message.UserId = user.Id;
+                message.DateTime = DateTimeOffset.UtcNow;
+                await _unitOfWork.MessagesRepository.AddAsync(message);
+                await _unitOfWork.Save();
+                await Clients.Group(message.ChatId).InvokeAsync("OnSend", Context.ConnectionId, _mapper.Map<UserDTO>(user), _mapper.Map<MessageDTO>(message));
             }            
         }
+
+        public async Task ConnectToChatAsync ( string chatId ) {
+            var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            if ( user != null ) {
+                await Groups.AddAsync( Context.ConnectionId, chatId );
+                await Clients.Group(chatId).InvokeAsync("OnConnectToChat", Context.ConnectionId, _mapper.Map<UserDTO>(user));
+            }
+        }
+
 
 
         public override async Task OnConnectedAsync()
@@ -36,8 +59,9 @@ namespace SMeat.API.Hubs
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             if (user != null)
             {
-                var userObject = new { UserName = user.UserName, Name = user.Name, LastName = user.LastName, Id = user.Id };
-                await Clients.All.InvokeAsync("OnConnected", Context.ConnectionId, userObject);
+                await Clients.Client(Context.ConnectionId).InvokeAsync("OnConnected", Context.ConnectionId, _mapper.Map<UserDTO>(user));
+                await _cache.Database.StringSetAsync( user.Id, Context.ConnectionId );
+                await _cache.Database.ListRightPushAsync("chats", user.Id);
             }
             await base.OnConnectedAsync();
         }
@@ -46,8 +70,7 @@ namespace SMeat.API.Hubs
             var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             if ( user != null ) {
-                var userObject = new { UserName = user.UserName, Name = user.Name, LastName = user.LastName, Id = user.Id };
-                await Clients.All.InvokeAsync("OnReconnected", Context.ConnectionId, userObject);
+                await Clients.All.InvokeAsync("OnReconnected", Context.ConnectionId, _mapper.Map<UserDTO>(user));
             }
         }
 
@@ -57,8 +80,9 @@ namespace SMeat.API.Hubs
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             if (user != null)
             {
-                var userObject = new { UserName = user.UserName, Name = user.Name, LastName = user.LastName, Id = user.Id };
-                await Clients.All.InvokeAsync("OnDisconnected", Context.ConnectionId, userObject, exception.Message);
+                await Clients.All.InvokeAsync("OnDisconnected", Context.ConnectionId, _mapper.Map<UserDTO>(user), exception.Message);
+                await _cache.Database.SetRemoveAsync(user.Id, Context.ConnectionId);
+                await _cache.Database.ListRemoveAsync("chats", user.Id);
             }
             await base.OnDisconnectedAsync(exception);
         }

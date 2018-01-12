@@ -1,3 +1,4 @@
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
@@ -12,6 +13,7 @@ import { BadrequestInterceptor } from "./_interceptors/badrequest.interceptor";
 
 import { NgSelectModule } from "@ng-select/ng-select";
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { ToasterModule, ToasterService } from "angular2-toaster";
@@ -26,8 +28,11 @@ import { AuthenticationService } from "./_services/authentication.service";
 import { UsersService } from "./_services/users.service";
 import { LocationsService } from "./_services/locations.service";
 import { WorkplacesService } from "./_services/workplaces.service";
+import { ChatsService } from "./_services/chats.service";
 import { HomePageService } from "./home-page/home-page.service";
-import { CustomTosterService } from "./_services/customToaster.service";
+import { BaseTosterService } from "./_services/base-toaster.service";
+
+import { ChatHub } from "./_hubs/chats.hub";
 
 import { EnumToArrayHelper } from "./_helpers/EnumToArrayHelper";
 
@@ -48,8 +53,11 @@ import { BoardCreationPageComponent } from "./board-creation-page/board-creation
 import { UnsignedPageComponent } from "./unsigned-page/unsigned-page.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { BoardViewComponent } from "./board-view/board-view.component";
+import { ChatPreviewComponent } from './chat-preview/chat-preview.component';
+import { ChatContentComponent } from './chat-content/chat-content.component';
 
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MessagesService } from "./_services/messages.service.";
 
 
 
@@ -70,8 +78,6 @@ const appRoutes: Routes = [
   { path: "chats/:id", component: ChatPageComponent, canActivate: [AuthGuard] },
   { path: "boards/:id", component: BoardPageComponent, canActivate: [AuthGuard] },
   { path: "unsigned", component: UnsignedPageComponent },
-
-
   {
     path: "",
     redirectTo: "/home",
@@ -104,15 +110,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     BoardCreationPageComponent,
     UnsignedPageComponent,
     NavbarComponent,
-    BoardViewComponent
+    BoardViewComponent,
+    ChatPreviewComponent,
+    ChatContentComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot(),
     BrowserModule,
     HttpModule,
-
     ToasterModule,
-
     BrowserAnimationsModule,
     MatSidenavModule,
     MatButtonModule,
@@ -120,6 +127,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     NgSelectModule,
     HttpClientModule,
+    InfiniteScrollModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -150,9 +158,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersService,
     LocationsService,
     WorkplacesService,
-    CustomTosterService,
-
-      EnumToArrayHelper
+    MessagesService,
+    ChatsService,
+    BaseTosterService,
+    EnumToArrayHelper,
+    //ChatHub
   ],
   bootstrap: [
     AppComponent

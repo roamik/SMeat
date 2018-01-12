@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SMeat.DAL.Abstract;
 using SMeat.MODELS;
-using SMeat.MODELS.Models;
+using SMeat.MODELS.DTO;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Concrete
 {
@@ -43,6 +44,30 @@ namespace SMeat.DAL.Concrete
                     _boardsRepository = new BoardsRepository(_context);
                 }
                 return _boardsRepository;
+            }
+        }
+
+        private IChatsRepository _chatsRepository;
+        public IChatsRepository ChatsRepository 
+        {
+            get 
+            {
+                if ( _chatsRepository == null ) {
+                    _chatsRepository = new ChatsRepository(_context);
+                }
+                return _chatsRepository;
+            }
+        }
+
+        private IMessagesRepository _messagesRepository;
+        public IMessagesRepository MessagesRepository 
+        {
+            get 
+            {
+                if ( _messagesRepository == null ) {
+                    _messagesRepository = new MessagesRepository(_context);
+                }
+                return _messagesRepository;
             }
         }
 

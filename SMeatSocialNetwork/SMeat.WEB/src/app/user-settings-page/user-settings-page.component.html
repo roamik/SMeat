@@ -1,6 +1,5 @@
 <form #form="ngForm" (ngSubmit)="form.valid && updateUserInfo()">
-  <pre>{{form.value | json}}</pre>
-  <toaster-container [toasterconfig]="config1"></toaster-container>
+  <pre>{{form.value | json}}</pre>  
   <div id="body">
     <div class="row field">
       <div id="name" class="col-xs-6 nameBlock">

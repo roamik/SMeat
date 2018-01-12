@@ -1,3 +1,5 @@
+
+
 export class Board {
 
     id: string;
@@ -5,10 +7,16 @@ export class Board {
     text: string;
     likes: number;
     dislikes: number;
-    // replies: Reply[]; <- Implement this
 
-    constructor() 
-    {
-
+    constructor(id?: string, name?: string, text?: string, likes?: number, dislikes?: number) {
+        this.id = id;
+        this.name = name;
+        this.text = text;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
+
 }
+
+
+

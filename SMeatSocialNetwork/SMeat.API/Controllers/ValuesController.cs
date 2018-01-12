@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SMeat.DAL;
 using SMeat.DAL.Abstract;
-using SMeat.MODELS.Models;
+using SMeat.MODELS.DTO;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.API.Controllers
 {

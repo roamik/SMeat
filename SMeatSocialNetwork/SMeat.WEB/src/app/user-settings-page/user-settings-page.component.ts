@@ -10,7 +10,7 @@ import { RelationshipType } from "../_enums/relations";
 import { WorkPlace } from "../_models/workplace";
 import { WorkplacesService } from "../_services/workplaces.service";
 import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
-import { CustomTosterService } from "../_services/customToaster.service";
+import { BaseTosterService } from "../_services/base-toaster.service";
 
 @Component({
   selector: 'app-user-settings-page',
@@ -24,12 +24,9 @@ export class UserSettingsPageComponent implements OnInit {
     private workplaceService: WorkplacesService,
     private enumSelector: EnumToArrayHelper,
     private router: Router,
-    private tosterService: CustomTosterService) {  }
+    private tosterService: BaseTosterService) {  }
 
-  customTosterService = this.tosterService;
-
-  config1 = this.customTosterService.config1;
-
+  
   public locations: Array<Location> = [];
 
   public workplaces: Array<WorkPlace> = [];
@@ -64,27 +61,26 @@ export class UserSettingsPageComponent implements OnInit {
   user: User = new User();
 
   ngOnInit() {
-
     this.getUserInfo();
     this.getLocations();
     this.getWorkplaces();
   }
 
   updateUserInfo() {
-
     this.usersService.update(this.user)
       .subscribe(
-      result => {
-        this.tosterService.popToastSuccess();
-      },
-      error => {
-      });
+        success => {
+          this.tosterService.success();
+        },
+        error => {
+          this.tosterService.error();
+        });
   }
 
   getUserInfo() {
     this.usersService.getMyInfo().subscribe(
       user => { this.user = user },
-      error => { }
+      error => { this.tosterService.error("getMyInfo"); }
     )
   }
 
@@ -95,6 +91,7 @@ export class UserSettingsPageComponent implements OnInit {
         this.locations = locations;
       },
       error => {
+        this.tosterService.error("locations");
       });
   }
 
@@ -105,6 +102,7 @@ export class UserSettingsPageComponent implements OnInit {
         this.workplaces = workplaces;
       },
       error => {
+        this.tosterService.error("workplaces");
       });
   }
 }

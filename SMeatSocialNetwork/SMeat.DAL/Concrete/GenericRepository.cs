@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SMeat.DAL.Abstract;
 using SMeat.MODELS;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Concrete
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
-    {
+    public class GenericRepository<T> : IGenericRepository<T> where T : class {
         private readonly IApplicationContext _context;
         private readonly DbSet<T> _dbSet;
         public GenericRepository(IApplicationContext context)
@@ -51,6 +51,7 @@ namespace SMeat.DAL.Concrete
                 .ToListAsync();
         }
 
+
         public virtual Task<List<T>> GetPagedAsync(Expression<Func<T, bool>> filter = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<T, object>>[] includes)
         {
             return GetPagedAsync(filters: filter != null ? new List<Expression<Func<T, bool>>> { filter } : null, /*orderBy: orderBy,*/ count: count, page: page, includes: includes);
@@ -82,6 +83,9 @@ namespace SMeat.DAL.Concrete
         public virtual Task<T> GetByIdAsync(object id)
         {
             return _dbSet.FindAsync(id);
+        }
+        public virtual Task<T> GetByIdAsync ( string id, params Expression<Func<T, object>>[] includes) {
+            return FirstOrDefaultAsync( filter: i => i is Entity && (i as Entity).Id == id, includes: includes);
         }
 
         public virtual async Task<T> AddAsync(T entity)

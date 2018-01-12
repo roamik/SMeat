@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace SMeat.MODELS.Migrations
+namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     public partial class AddIdentityToModel : Migration
     {

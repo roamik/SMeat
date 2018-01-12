@@ -9,7 +9,6 @@ using SMeat.MODELS;
 using Microsoft.EntityFrameworkCore;
 using SMeat.DAL;
 using Microsoft.AspNetCore.Identity;
-using SMeat.MODELS.Models;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +23,10 @@ using Newtonsoft.Json;
 using SMeat.API.Hubs;
 using SMeat.DAL.Abstract;
 using SMeat.DAL.Concrete;
+using AutoMapper;
+using SMeat.MODELS.DTO;
+using SMeat.MODELS.Entities;
+using SMeat.MODELS.Options;
 
 namespace SMeat.API
 {
@@ -48,6 +51,7 @@ namespace SMeat.API
         {
             services.Configure<AppConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
+            services.Configure<RedisConfiguration>(Configuration.GetSection("Redis"));
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSqlServer")));
@@ -68,9 +72,6 @@ namespace SMeat.API
             });
             // Add framework services.
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-
-
 
             services.AddScoped<IApplicationContext, ApplicationContext>();
             services.AddIdentity<User, Role>()
@@ -154,6 +155,8 @@ namespace SMeat.API
                 options.DefaultPolicy = policy;
             });
 
+            services.AddAutoMapper();
+
             services.AddMvc(config =>
             {
                 config.Filters.Add(new AuthorizeFilter(policy));
@@ -163,9 +166,20 @@ namespace SMeat.API
             .AddJsonOptions(options => {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
+                options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+
             });
             // Add Database Initializer
             services.AddScoped<IDataBaseInitializer, DataBaseInitializer>();
+            services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = "127.0.0.1:10001";
+                option.InstanceName = "redisService1";
+            });
+
             services.AddSignalR();
         }
 
@@ -204,8 +218,11 @@ namespace SMeat.API
 
             app.UseSignalR(routes =>
             {
+                
                 routes.MapHub<ChatHub>("chat");
             });
+
+           
         }
     }
 }

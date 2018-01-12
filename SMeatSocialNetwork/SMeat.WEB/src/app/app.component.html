@@ -2,10 +2,11 @@
   <navbar></navbar>
   <div class="container">
     <router-outlet></router-outlet>
-
     <footer class="block">
       <p id="footerText">SMeat (c) 2017</p>
-    </footer>
+    </footer>    
+    <toaster-container [toasterconfig]="baseToasterConfig"></toaster-container>
   </div>
 </mat-sidenav-container>
+
 

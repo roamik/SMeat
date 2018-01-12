@@ -23,7 +23,6 @@ export class ProfilePageComponent implements OnInit {
   user: User = new User();
 
   ngOnInit() {
-
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id']; // (+) converts string 'id' to a number
 

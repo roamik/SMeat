@@ -1,4 +1,5 @@
-﻿using SMeat.MODELS.Models;
+﻿using SMeat.MODELS.DTO;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Abstract
 {

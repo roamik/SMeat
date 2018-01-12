@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SMeat.DAL;
-using SMeat.MODELS.Models;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using SMeat.DAL.Abstract;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.API.Controllers
 {

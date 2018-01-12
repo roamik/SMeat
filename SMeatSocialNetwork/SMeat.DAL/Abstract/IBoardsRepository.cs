@@ -1,4 +1,4 @@
-﻿using SMeat.MODELS.Models;
+﻿using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Abstract
 {

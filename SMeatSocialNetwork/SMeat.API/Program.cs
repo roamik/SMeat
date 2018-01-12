@@ -13,8 +13,9 @@ namespace SMeat.API
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
-                .Build();
 
+                .Build();
+            
             host.Run();
         }
     }
