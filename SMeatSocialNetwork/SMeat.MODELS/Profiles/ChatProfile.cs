@@ -8,7 +8,8 @@ using SMeat.MODELS.Entities;
 namespace SMeat.MODELS.Profiles {
     public class ChatProfile : Profile {
         public ChatProfile () {
-            CreateMap<Chat, ChatDTO>().MaxDepth( 1 );
+            CreateMap<Chat, ChatDTO>()
+                .MaxDepth(1);
         }
     }
 }

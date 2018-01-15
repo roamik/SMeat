@@ -17,7 +17,7 @@
     <div class="message-container">
       <div *ngFor="let message of chat?.messages" [ngClass]="message.userId === user.id ? 'sent' : 'replies'">
         <img src="https://source.unsplash.com/random/100x100" alt="" />
-        <p ngbTooltip="{{message?.dateTime}}" [placement]="message.userId === user.id ? 'right' : 'left'">{{message.text}}</p>
+        <p ngbTooltip="{{message?.dateTime | momentCalendar}}" [placement]="message.userId === user.id ? 'right' : 'left'">{{message.text}}</p>
       </div>
     </div>
   </div>

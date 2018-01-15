@@ -11,6 +11,7 @@ import { ChatHub } from '../_hubs/chats.hub';
 import { Message } from '../_models/message';
 import { MessagesService } from '../_services/messages.service.';
 import { Page } from '../_models/page';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chat-list-page',
@@ -19,7 +20,18 @@ import { Page } from '../_models/page';
   styleUrls: ['./chat-list-page.component.css']
 })
 export class ChatListPageComponent implements OnInit { 
-  chats: Chat[] = [];
+  _chats: Chat[] = [];
+  get chats() : Chat[]{    
+    return this._chats.sort((left, right) => { 
+      let lastLeft = _.last(left.messages) || null;
+      var lastRight = _.last(right.messages) || null;
+      return moment.utc(moment.utc(lastRight.dateTime)).diff(lastLeft.dateTime)
+    })
+  }
+  // get chatsDates() : any[]{
+  //   return _.map(this._chats, (chat)=> { var last = _.last(chat.messages); return last != null ? moment(last.dateTime).toDate() : null})
+  //   .sort((left, right) => { return moment.utc(right).diff(moment.utc(left)) });
+  // }
   selectedChat: Chat;
   user: User;
   loading: boolean = false;
@@ -54,9 +66,9 @@ export class ChatListPageComponent implements OnInit {
     this.chatsService.getChats(this.chatsPage, this.chatsCount, this.chatsSearchBy)
     .subscribe(
       chats => {
-        //(chat:Chat) => { var last = _.last(chat.messages); return last != null ? last.dateTime : null })
-        this.chats = _.sortBy(_.concat(chats, this.chats));
-        this.selectedChat = _.last(this.chats);
+        //(chat:Chat) => { )
+        this._chats = _.concat(chats, this._chats);
+        this.selectedChat = _.first(this.chats);
       },
       error => {
         this.tosterService.error("getUserChats");
@@ -79,9 +91,6 @@ export class ChatListPageComponent implements OnInit {
   
 
   sendMessage(message): void {
-         this.chatHub.sendMessage(message).subscribe(
-             sucsses => { this.tosterService.success("Success", "Message send!") },
-             error => { this.tosterService.error() }
-         )
+         this.chatHub.sendMessage(message);
     }
 }

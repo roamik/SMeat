@@ -20,7 +20,7 @@ import { ToasterModule, ToasterService } from "angular2-toaster";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { AngularFontAwesomeModule } from "angular-font-awesome";
-import { AppComponent } from "./app.component";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppService } from "./app.service";
 import { AuthGuard } from "./_guards/auth.guard";
@@ -29,6 +29,7 @@ import { UsersService } from "./_services/users.service";
 import { LocationsService } from "./_services/locations.service";
 import { WorkplacesService } from "./_services/workplaces.service";
 import { ChatsService } from "./_services/chats.service";
+import { MessagesService } from "./_services/messages.service.";
 import { HomePageService } from "./home-page/home-page.service";
 import { BaseTosterService } from "./_services/base-toaster.service";
 
@@ -36,6 +37,7 @@ import { ChatHub } from "./_hubs/chats.hub";
 
 import { EnumToArrayHelper } from "./_helpers/EnumToArrayHelper";
 
+import { AppComponent } from "./app.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { ProfilePageComponent } from "./profile-page/profile-page.component";
@@ -56,11 +58,9 @@ import { BoardViewComponent } from "./board-view/board-view.component";
 import { ChatPreviewComponent } from './chat-preview/chat-preview.component';
 import { ChatContentComponent } from './chat-content/chat-content.component';
 
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MessagesService } from "./_services/messages.service.";
 
-
-
+import { OrderByPipe } from './_pipes/order-by.pipe';
+import { MomentFormatPipe, MomentCalendarPipe } from './_pipes/moment.pipe';
 
 const appRoutes: Routes = [
   { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -112,7 +112,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     BoardViewComponent,
     ChatPreviewComponent,
-    ChatContentComponent
+    ChatContentComponent,
+    OrderByPipe,
+    MomentCalendarPipe,
+    MomentFormatPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -141,16 +144,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     useClass: TokenInterceptor,
     multi: true
   },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizeInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BadrequestInterceptor,
-      multi: true
-    },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: UnauthorizeInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BadrequestInterceptor,
+    multi: true
+  },
     AppService,
     HomePageService,
     AuthenticationService,

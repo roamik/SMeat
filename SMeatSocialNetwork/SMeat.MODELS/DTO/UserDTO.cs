@@ -4,6 +4,9 @@ using SMeat.MODELS.Enums;
 
 namespace SMeat.MODELS.DTO {
     public class UserDTO {
+
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string LastName { get; set; }
@@ -36,7 +39,7 @@ namespace SMeat.MODELS.DTO {
 
         public virtual List<UserChatDTO> UserChats { get; set; }
 
-        public virtual List<MessageDTO> Messages { get; set; }
+        //public virtual List<MessageDTO> Messages { get; set; }
 
         public virtual List<ContactsDTO> ContactsTo { get; set; }
 

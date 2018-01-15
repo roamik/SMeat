@@ -29,11 +29,11 @@ export class ChatHub extends BaseHub {
   }
 
   sendMessage(message:Message): Observable<Message> {
-    return this.hubConnection.invoke("SendAsync", message).asObservable();    
+    return this.hubConnection.invoke("SendAsync", message);    
   }
 
   connectToChat(chatId): Observable<any> {
-    return this.hubConnection.invoke("ConnectToChatAsync", chatId).asObservable();    
+    return this.hubConnection.invoke("ConnectToChatAsync", chatId);    
   }
 
   started(): Observable<any> {

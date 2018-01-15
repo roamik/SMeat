@@ -1,5 +1,6 @@
 import { Message } from "./message";
 import { User } from "./user";
+import * as _ from "lodash";
 
 export class Chat {
     id: string;
@@ -8,6 +9,9 @@ export class Chat {
     user: User;    
     userId: string;
     dateTime: string;
+    get lastMessageDate() : string {
+        return _.last(this.messages).dateTime;
+    }
     constructor(id?: string, name?: string, messages?: Message[], user?: User, userId?: string, dateTime?: string) {
         this.id= id;
         this.name=name;
