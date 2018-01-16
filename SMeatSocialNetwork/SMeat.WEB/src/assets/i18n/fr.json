@@ -10,11 +10,17 @@
 	"BTN_PROFILE_TEXT": "Profil",
 	"BTN_REGISTER_TEXT": "Registre",
 	"BTN_SETTINGS_TEXT": "Paramètres",
+	"BTN_CREATE": "Créer",
+	"BTN_NEW_LOCATION": "Nouvel emplacement",
+	"BTN_NEW_WORKPLACE": "Nouveau lieu de travail",
 	
 	"CITY_TEXT": "Ville",
 	"COMPANY_TEXT": "Compagnie",
 	"COUNTRY_TEXT": "Pays",
 	"ComplicatedRelation": "C'est compliqué",
+	"TEXT_NEW_LOCATION":"Nouvel emplacement",
+	"TEXT_CLOSE":"Fermer",
+	"POSITION_TEXT":"Position",
 	
 	"ERR_EMAIL_INVALID": "Le courriel est invalide",
 	"ERR_EMAIL_REQUIRED": "S'il vous plaît entrer votre email",
@@ -27,6 +33,10 @@
 	"ERR_NAME_REQUIRED": "Le nom est requis",
 	"ERR_PASSWORD_INVALID": "Mot de passe invalide(8 caractères minimum)!",
 	"ERR_PASSWORD_REQUIRED": "S'il vous plait entrez votre mot de passe!",
+	"ERR_CITY_REQUIRED": "La ville est requise!",
+	"ERR_CITY_MIN_LENGTH": "Nom de la ville min. 4 symboles!",
+	"ERR_COUNTRY_REQUIRED": "Pays requis!",
+	"ERR_COUNTRY_MIN_LENGTH": "Nom du pays min. 4 symboles!",
 	
 	"FemaleGender": "Femelle",
 	"InRelationRelation": "En relation",

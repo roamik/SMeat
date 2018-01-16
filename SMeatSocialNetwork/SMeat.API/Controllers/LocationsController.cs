@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using SMeat.DAL.Abstract;
 using AutoMapper;
 using SMeat.MODELS.Entities;
+using SMeat.MODELS.BindingModels;
 
 namespace SMeat.API.Controllers
 {
@@ -14,9 +15,11 @@ namespace SMeat.API.Controllers
     public class LocationsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public LocationsController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public LocationsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,6 +39,23 @@ namespace SMeat.API.Controllers
             //return Ok(new { Items = locations, TotalCount = locationsCount, CurrentPage = page });
 
             return Ok(locations);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddLocation([FromBody] LocationCreateBindingModel model)
+        {
+            if (!ModelState.IsValid || model == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //var location = new Location { City = model.City, Country = model.Country};
+            var location = _mapper.Map<Location>(model);// the same behaviour as commented above
+
+            await _unitOfWork.LocationsRepository.AddAsync(location);
+            await _unitOfWork.Save();
+            return Ok(location);
         }
     }
 }

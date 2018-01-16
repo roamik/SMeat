@@ -1,5 +1,6 @@
 {
 	"ABOUT_TEXT": "Про користувача",
+	"TEXT_NEW_LOCATION":"Додати місце",
 	
 	"BTN_APPLY_TEXT": "Підтвердити",
 	"BTN_BOARDS_TEXT": "Дошки",
@@ -11,11 +12,15 @@
 	"BTN_PROFILE_TEXT": "Профіль",
 	"BTN_REGISTER_TEXT": "Реєстрація",
 	"BTN_SETTINGS_TEXT": "Налаштування",
+	"BTN_CREATE": "Створити",
+	"BTN_NEW_LOCATION": "Нове місце",
+	"BTN_NEW_WORKPLACE": "Додати місце роботи",
 	
 	"CITY_TEXT": "Місто",
 	"COMPANY_TEXT": "Компанія",
 	"COUNTRY_TEXT": "Країна",
 	"ComplicatedRelation": "Все складно",
+	"POSITION_TEXT":"Посада",
 	
 	"ERR_EMAIL_INVALID": "Email введено не коректно!",
 	"ERR_EMAIL_REQUIRED": "Введіть Ваш email!",
@@ -28,6 +33,10 @@
 	"ERR_NAME_REQUIRED": "Введіть Ваше ім'я",
 	"ERR_PASSWORD_INVALID": "Пароль введено не вірно(мін. 8 символів)!",
 	"ERR_PASSWORD_REQUIRED": "Введіть Ваш пароль!",
+	"ERR_CITY_REQUIRED": "Місто є обов'язковим!",
+	"ERR_CITY_MIN_LENGTH": "Назва міста повинна містити мін. 4 символи!",
+	"ERR_COUNTRY_REQUIRED": "Країна є обов'язковою!",
+	"ERR_COUNTRY_MIN_LENGTH": "Назва країни повинна містити мін. 4 символи!",
 	
 	"FemaleGender": "Жінка",
 	"InRelationRelation": "У відносинах",
@@ -48,6 +57,7 @@
 	"PLACEHOLDER_SELECT_CITY_TEXT": "Вкажіть місто",
 	"PLACEHOLDER_SELECT_WORKPLACE_TEXT": "Вкажіть місце роботи",
 	"PLACEHOLDER_TYPE_IN_GENDER_TEXT": "Введіть Вашу стать",
+	"TEXT_CLOSE":"Закрити",
 	
 	"RELATIONSHIP_TEXT": "Сімейний стан",
 	"STREET_TEXT": "Вулиця",

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { User } from "../_models/user";
 import { Location } from "../_models/location";
@@ -11,6 +11,7 @@ import { WorkPlace } from "../_models/workplace";
 import { WorkplacesService } from "../_services/workplaces.service";
 import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
 import { BaseTosterService } from "../_services/base-toaster.service";
+import { BsModalRef, BsModalService } from "ngx-bootstrap";
 
 @Component({
   selector: 'app-user-settings-page',
@@ -31,6 +32,7 @@ export class UserSettingsPageComponent implements OnInit {
 
   public workplaces: Array<WorkPlace> = [];
 
+  private bodyText: string;
 
   public genders: any = this.enumSelector.enumSelector(GenderType);
 
@@ -64,6 +66,26 @@ export class UserSettingsPageComponent implements OnInit {
     this.getUserInfo();
     this.getLocations();
     this.getWorkplaces();
+  }
+
+  onNewLocationAdded(location: Location) {
+    if (location != null) {
+      this.locations.push(location);
+      this.locations = [...this.locations];
+      this.user.location = location;
+      this.user.locationId = location.id;
+    }
+  }
+
+  onNewWorkplaceAdded(workplace: WorkPlace) {
+    if (workplace != null) {
+      this.workplaces.push(workplace);
+      this.workplaces = [...this.workplaces];
+      this.user.workplace = workplace;
+      this.user.workplaceId = workplace.id;
+      this.user.workplace.location = workplace.location;
+      this.user.workplace.locationId = workplace.locationId;
+    }
   }
 
   updateUserInfo() {

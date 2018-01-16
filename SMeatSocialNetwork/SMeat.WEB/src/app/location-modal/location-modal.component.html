@@ -1,0 +1,43 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 style="color:black" class="modal-title pull-left">{{'TEXT_NEW_LOCATION' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm" (ngSubmit)="form.valid && addLocation()">
+      <div class="row field">
+        <h4 style="color:black">{{'CITY_TEXT' | translate}}:*</h4>
+        <input class="locationCity" type="text" name="city" maxlength="10" minlength="4" placeholder="{{'CITY_TEXT' | translate}}" [(ngModel)]="location.city" #city="ngModel" required>
+        <div class="pull-left" *ngIf="city.invalid && (city.touched || form.submited)">
+          <small class="text-danger" *ngIf="city.errors.required">
+            {{'ERR_CITY_REQUIRED' | translate}}.
+          </small>
+          <div class="text-danger" *ngIf="city.errors.minlength">
+            {{'ERR_CITY_MIN_LENGTH' | translate}}.
+          </div>
+        </div>
+      </div>
+      <div class="row field">
+        <h4 style="color:black">{{'COUNTRY_TEXT' | translate}}:*</h4>
+        <input class="location-country" type="text" name="country" maxlength="10" minlength="4" placeholder="{{'COUNTRY_TEXT' | translate}}" [(ngModel)]="location.country" #country="ngModel" required>
+        <div class="pull-left" *ngIf="country.invalid && (country.touched || form.submited)">
+          <small class="text-danger" *ngIf="country.errors.required">
+            {{'ERR_COUNTRY_REQUIRED' | translate}}.
+          </small>
+          <div class="text-danger" *ngIf="country.errors.minlength">
+            {{'ERR_COUNTRY_MIN_LENGTH' | translate}}.
+          </div>
+        </div>
+      </div>
+      <div class="row field">
+        <h4 style="color:black">{{'STREET_TEXT' | translate}}:</h4>
+        <input class="location-country" type="text" name="street" maxlength="10" minlength="4" placeholder="{{'STREET_TEXT' | translate}}" [(ngModel)]="location.street" #street="ngModel" required>
+      </div>
+      <div class="row field">
+        <button type="button" [disabled]="!form.valid" class="btn-default btn_custom center-block" (click)="addLocation()">{{'BTN_CREATE' | translate}}</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

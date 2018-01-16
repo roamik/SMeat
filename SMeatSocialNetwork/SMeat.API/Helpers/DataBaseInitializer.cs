@@ -22,7 +22,7 @@ namespace SMeat.API.Helpers
         //Warning!!! to avoid duplicates - check if data already exists
         public async Task Initialize()
         {
-            var locationsCount = await _unitOfWork.BoardsRepository.CountAsync(filters: null);
+            var locationsCount = await _unitOfWork.LocationsRepository.CountAsync(filters: null);
             var workplacesCount = await _unitOfWork.WorkplacesRepository.CountAsync(filters: null);
             var chatsCount = await _unitOfWork.ChatsRepository.CountAsync(filters: null);
             var users = await _unitOfWork.UsersRepository.GetAsync().ToListAsync( );

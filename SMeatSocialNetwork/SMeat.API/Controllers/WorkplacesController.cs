@@ -2,20 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Authorization;
-using SMeat.DAL;
 using System.Linq.Expressions;
 using SMeat.DAL.Abstract;
 using SMeat.MODELS.Entities;
+using SMeat.MODELS.BindingModels;
+using AutoMapper;
 
 namespace SMeat.API.Controllers
 {
     [Route("api/[controller]")]
     public class WorkplacesController : Controller
     {
+        
         private readonly IUnitOfWork _unitOfWork;
-        public WorkplacesController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public WorkplacesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -35,6 +39,23 @@ namespace SMeat.API.Controllers
             //return Ok(new { Items = workplaces, TotalCount = workplacesCount, CurrentPage = page });
 
             return Ok(workplaces);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddWorkplace([FromBody] WorkplaceCreateBindingModel model)
+        {
+            if (!ModelState.IsValid || model == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // var workplace = new Workplace { CompanyName = model.CompanyName, Position = model.Position, LocationId = model.LocationId};
+            var workplace = _mapper.Map<Workplace>(model);// the same behaviour as commented above
+
+            await _unitOfWork.WorkplacesRepository.AddAsync(workplace);
+            await _unitOfWork.Save();
+            return Ok(workplace);
         }
     }
 }

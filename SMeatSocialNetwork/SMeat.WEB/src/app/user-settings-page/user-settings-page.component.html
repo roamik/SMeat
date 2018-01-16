@@ -1,5 +1,5 @@
 <form #form="ngForm" (ngSubmit)="form.valid && updateUserInfo()">
-  <pre>{{form.value | json}}</pre>  
+  <pre>{{user | json}}</pre>
   <div id="body">
     <div class="row field">
       <div id="name" class="col-xs-6 nameBlock">
@@ -44,6 +44,31 @@
         </ng-template>
       </ng-select>
     </div>
+
+    <div class="row field">
+      <button type="button" class="btn-default btn_custom" (click)="locationModal.open()">{{'BTN_NEW_LOCATION' | translate}}</button>
+    </div>
+
+    <div class="field">
+      <ng-select name="workplace" [items]="workplaces"
+                 bindLabel="companyName"
+                 bindValue="id"
+                 placeholder="{{'PLACEHOLDER_SELECT_WORKPLACE_TEXT' | translate}}"
+                 [(ngModel)]="user.workplaceId">
+        <ng-template ng-label-tmp let-item="item">
+          {{item.companyName}}, {{item.location.city}}{{item.location.street?',':''}} {{item.location.street}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          <div><b>{{'COMPANY_TEXT' | translate}}:</b> {{item.companyName}}</div>
+          <small *ngIf="!item.street">{{'COUNTRY_TEXT' | translate}}: {{item.location.country}}</small>
+          <small *ngIf="item.street">{{'COUNTRY_TEXT' | translate}}: {{item.location.country}} | {{'STREET_TEXT' | translate}}: {{item.location.street}}</small>
+        </ng-template>
+      </ng-select>
+    </div>
+    <div class="row field">
+      <button type="button" class="btn-default btn_custom" (click)="workplaceModal.open()">{{'BTN_NEW_WORKPLACE' | translate}}</button>
+    </div>
+
     <div class="row field">
       <ng-select name="gender" [items]="genders"
                  required
@@ -81,35 +106,12 @@
         </ng-template>
       </ng-select>
     </div>
-    <div class="field">
-      <ng-select name="workplace" [items]="workplaces"
-                 bindLabel="companyName"
-                 bindValue="id"
-                 placeholder="{{'PLACEHOLDER_SELECT_WORKPLACE_TEXT' | translate}}"
-                 [(ngModel)]="user.workplaceId">
-        <ng-template ng-label-tmp let-item="item">
-          {{item.companyName}}, {{item.location.city}}{{item.location.street?',':''}} {{item.location.street}}
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item">
-          <div><b>{{'COMPANY_TEXT' | translate}}:</b> {{item.companyName}}</div>
-          <small *ngIf="!item.street">{{'COUNTRY_TEXT' | translate}}: {{item.location.country}}</small>
-          <small *ngIf="item.street">{{'COUNTRY_TEXT' | translate}}: {{item.location.country}} | {{'STREET_TEXT' | translate}}: {{item.location.street}}</small>
-        </ng-template>
-      </ng-select>
-    </div>
-    <div class="field">
-      <!--<ng-select [allowClear]="true"
-                 [items]="colors"
-                 [disabled]="disabled"
-                 (data)="refreshValue($event)"
-                 (selected)="selected($event)"
-                 (removed)="removed($event)"
-                 (typed)="typed($event)"
-                 placeholder="Template color">
-      </ng-select>-->
-    </div>
 
 
-    <button [disabled]="!form.touched" class="btn-default btn_custom center-block">{{'BTN_APPLY_TEXT' | translate}}</button>
+    <button type="submit" [disabled]="!form.valid || !form.touched" class="btn-default btn_custom center-block">{{'BTN_APPLY_TEXT' | translate}}</button>
   </div>
 </form>
+
+<location-modal #locationModal (change)="onNewLocationAdded($event)"></location-modal>
+<workplace-modal #workplaceModal (change)="onNewWorkplaceAdded($event)"></workplace-modal>
+

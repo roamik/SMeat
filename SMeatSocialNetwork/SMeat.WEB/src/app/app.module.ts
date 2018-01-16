@@ -10,6 +10,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common
 import { TokenInterceptor } from "./_interceptors/token.interceptor";
 import { UnauthorizeInterceptor } from "./_interceptors/unauthorize.interceptor";
 import { BadrequestInterceptor } from "./_interceptors/badrequest.interceptor";
+import { ModalModule } from 'ngx-bootstrap';
 
 import { NgSelectModule } from "@ng-select/ng-select";
 
@@ -55,6 +56,8 @@ import { BoardCreationPageComponent } from "./board-creation-page/board-creation
 import { UnsignedPageComponent } from "./unsigned-page/unsigned-page.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { BoardViewComponent } from "./board-view/board-view.component";
+import { LocationModalComponent } from './location-modal/location-modal.component';
+import { WorkplaceModalComponent } from './workplace-modal/workplace-modal.component';
 import { ChatPreviewComponent } from './chat-preview/chat-preview.component';
 import { ChatContentComponent } from './chat-content/chat-content.component';
 
@@ -110,6 +113,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BoardCreationPageComponent,
     UnsignedPageComponent,
     NavbarComponent,
+    LocationModalComponent,
+    WorkplaceModalComponent,
     BoardViewComponent,
     ChatPreviewComponent,
     ChatContentComponent,
@@ -118,8 +123,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MomentFormatPipe
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+      RouterModule.forRoot(appRoutes),
     NgbModule.forRoot(),
+      ModalModule.forRoot(),
     BrowserModule,
     HttpModule,
     ToasterModule,

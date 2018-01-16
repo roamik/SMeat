@@ -23,5 +23,9 @@ export class WorkplacesService {
   getWorkplaces(page: number, count: number, searchBy?: string): Observable<WorkPlace[]> {
     var url = 'api/workplaces/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
     return this.http.get<WorkPlace[]>(this.BASEURL + url);
+    }
+
+  add(model): Observable<WorkPlace> {
+    return this.http.post<WorkPlace>(this.BASEURL + 'api/workplaces', model);
   }
 }

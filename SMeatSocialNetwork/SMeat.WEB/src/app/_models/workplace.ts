@@ -1,3 +1,5 @@
+
+import { Location } from "../_models/location";
 export class WorkPlace {
   id: string;
   position: string;
