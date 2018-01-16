@@ -1,4 +1,5 @@
-import { User } from "./user";
+import { User } from "./user"; 
+
 import { MessageStatus } from "../_enums/message-status";
  
 export class Message {
@@ -9,9 +10,11 @@ export class Message {
     status: MessageStatus;    
     dateTime: string;
     chatId: string;
+    tempId: string;
 
-    constructor(id?: string, text?: string, userId?: string, user?: User, status?: MessageStatus, dateTime?: string, chatId?: string) {
+    constructor(id?: string, text?: string, userId?: string, user?: User, status?: MessageStatus, dateTime?: string, chatId?: string,  tempId?: string) {
         this.id = id;
+        this.tempId = tempId;
         this.text = text;
         this.userId = userId;
         this.user = user;

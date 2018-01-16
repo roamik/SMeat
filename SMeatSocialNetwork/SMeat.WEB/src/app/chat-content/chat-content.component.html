@@ -10,15 +10,25 @@
     </div>
     
   </div>
-  <div class="messages" infiniteScroll [infiniteScrollThrottle]="100" immediateCheck="true" [infiniteScrollDisabled]="loading" (scrolledUp)="onScrollUp()" [scrollWindow]="false">
+  <div class="messages" infiniteScroll [infiniteScrollThrottle]="20" immediateCheck="true" [infiniteScrollDisabled]="loading" (scrolledUp)="onScrollUp()" [scrollWindow]="false">
       <div *ngIf="loading" class="message-spiner">
           <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
         </div>
     <div class="message-container">
       <div *ngFor="let message of chat?.messages" [ngClass]="message.userId === user.id ? 'sent' : 'replies'">
         <img src="https://source.unsplash.com/random/100x100" alt="" />
-        <p ngbTooltip="{{message?.dateTime | momentCalendar}}" [placement]="message.userId === user.id ? 'right' : 'left'">{{message.text}}</p>
+        <ng-template #tooltip>
+          <span *ngIf="!message?.tempId">{{message?.dateTime | momentCalendar}}</span>
+          <span *ngIf="message?.tempId">sending</span>
+        </ng-template>
+        <p [ngbTooltip]="tooltip" [placement]="message.userId === user.id ? 'right' : 'left'">
+          {{message.text}}
+          <span *ngIf="message?.tempId">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
+        </p>
       </div>
+      <div #endOfMessages></div>
     </div>
   </div>
 
@@ -26,7 +36,7 @@
   <div class="message-input">
     <div class="wrap">
       <form #form="ngForm" (ngSubmit)="form.valid && sendMessage()">
-        <input type="text" [(ngModel)]="message.text" #text="ngModel" name="text" (keyup.enter)="form.submit()" required placeholder="Write your message..." />
+        <input type="text" [(ngModel)]="message.text" #text="ngModel" name="text" (keyup.enter)="form.valid && sendMessage()" required placeholder="Write your message..." />
         <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
         <button class="submit">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>

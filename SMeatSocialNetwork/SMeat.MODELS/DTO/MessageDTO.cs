@@ -6,6 +6,8 @@ namespace SMeat.MODELS.DTO {
 
         public string Id { get; set; }
 
+        public string TempId { get; set; }
+
         public DateTimeOffset? DateTime { get; set; }
 
         public string Text { get; set; }

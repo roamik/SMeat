@@ -29,16 +29,20 @@ namespace SMeat.API.Hubs
             _mapper = mapper;
         }
         
-        public async Task SendAsync(Message message)
+        public async Task SendAsync(MessageDTO messageDTO)
         {
             var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             if (user != null) {
+                var message = _mapper.Map<Message>( messageDTO );
+                var tempId = messageDTO.TempId;
                 message.UserId = user.Id;
                 message.DateTime = DateTimeOffset.UtcNow;
+                messageDTO = _mapper.Map<MessageDTO>( message );
+                messageDTO.TempId = tempId;
                 await _unitOfWork.MessagesRepository.AddAsync(message);
                 await _unitOfWork.Save();
-                await Clients.Group(message.ChatId).InvokeAsync("OnSend", Context.ConnectionId, _mapper.Map<UserDTO>(user), _mapper.Map<MessageDTO>(message));
+                await Clients.Group(message.ChatId).InvokeAsync("OnSend", Context.ConnectionId, _mapper.Map<UserDTO>(user), messageDTO);
             }            
         }
 
@@ -50,8 +54,6 @@ namespace SMeat.API.Hubs
                 await Clients.Group(chatId).InvokeAsync("OnConnectToChat", Context.ConnectionId, _mapper.Map<UserDTO>(user));
             }
         }
-
-
 
         public override async Task OnConnectedAsync()
         {
@@ -66,13 +68,13 @@ namespace SMeat.API.Hubs
             await base.OnConnectedAsync();
         }
 
-        public async Task OnReconnectedAsync () {
-            var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
-            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
-            if ( user != null ) {
-                await Clients.All.InvokeAsync("OnReconnected", Context.ConnectionId, _mapper.Map<UserDTO>(user));
-            }
-        }
+        //public override async Task OnReconectAsync() {
+        //    var userId = Context.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+        //    var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+        //    if ( user != null ) {
+        //        await Clients.All.InvokeAsync("OnReconnected", Context.ConnectionId, _mapper.Map<UserDTO>(user));
+        //    }
+        //}
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {

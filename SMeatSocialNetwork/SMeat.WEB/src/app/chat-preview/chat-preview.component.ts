@@ -37,6 +37,7 @@ export class ChatPreviewComponent implements OnInit {
   get preview(): Message {
     return _.last(this.chat.messages);
   };
+  
 
   ngOnInit() {
     this.chatHub.started().subscribe(
@@ -52,7 +53,14 @@ export class ChatPreviewComponent implements OnInit {
   onHubConnected() {
     this.chatHub.onSend((connectionId: string, user: User, message: Message) => {
         this.tosterService.info("HUB", "send");
-        this.chat.messages.push(message);
+        var lastMessageIndex = _.findIndex(this.chat.messages, (mess) => { return mess.tempId === message.tempId });
+        message.tempId = null;
+        if(lastMessageIndex !== -1){
+          this.chat.messages[lastMessageIndex] = message;
+        }
+        else{
+          this.chat.messages.push(message);
+        }
         if(!this.isSelected && message.userId !== this.user.id ){
           this.unreadCount += 1;
         }
@@ -67,6 +75,13 @@ export class ChatPreviewComponent implements OnInit {
     });
 
     this.chatHub.onDisconnected((connectionId: string, user: User, error: string) => {
+      this.tosterService.info("HUB", "disconnected")
+      // this.messages.push({
+      //   type: 'server', error: error, user: this.getUser(user), message: `user ${user.lastName} disconnected`
+      // });
+    });
+
+    this.chatHub.onNewUserAdded((connectionId: string, user: User, error: string) => {
       this.tosterService.info("HUB", "disconnected")
       // this.messages.push({
       //   type: 'server', error: error, user: this.getUser(user), message: `user ${user.lastName} disconnected`

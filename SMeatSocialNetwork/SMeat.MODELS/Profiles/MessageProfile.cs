@@ -6,6 +6,7 @@ namespace SMeat.MODELS.Profiles {
     public class MessageProfile : Profile {
         public MessageProfile () {
             CreateMap<Message, MessageDTO>().MaxDepth(1);
+            CreateMap<MessageDTO, Message>().MaxDepth(1);
         }
     }
 }

@@ -5,13 +5,18 @@ import { User } from "../_models/user";
 import { AuthGuard } from "../_guards/auth.guard";
 import { Message } from '../_models/message';
 
-@Injectable()
+@Injectable()  
+
 export class ChatHub extends BaseHub {
 
   constructor(protected guard: AuthGuard) {
     super("chat", guard);
   }
   
+  onNewUserAdded(fn:(connectionId: string, user: User, error: string) => void) {
+    this.hubConnection.on("onNewUserAdded", fn);
+  }
+
   onDisconnected(fn:(connectionId: string, user: User, error: string) => void) {
     this.hubConnection.on("OnDisconnected", fn);
   }
