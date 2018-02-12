@@ -27,6 +27,8 @@ using AutoMapper;
 using SMeat.MODELS.DTO;
 using SMeat.MODELS.Entities;
 using SMeat.MODELS.Options;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Sockets;
 
 namespace SMeat.API
 {
@@ -216,13 +218,16 @@ namespace SMeat.API
             //Generate EF Core Seed Data
             ((DataBaseInitializer)dbInitializer).Initialize().Wait();
 
-            app.UseSignalR(routes =>
-            {
-                
-                routes.MapHub<ChatHub>("chat");
+            app.UseSignalR(routes => {
+                routes.MapHub<ChatHub>("chat", options =>
+                {
+                    options.Transports = TransportType.All;
+                    options.LongPolling.PollTimeout = TimeSpan.FromSeconds(10);
+                    options.WebSockets.CloseTimeout = TimeSpan.FromSeconds(10);
+                });
             });
 
-           
+
         }
     }
 }

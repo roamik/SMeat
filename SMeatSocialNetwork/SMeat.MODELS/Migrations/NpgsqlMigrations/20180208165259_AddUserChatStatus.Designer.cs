@@ -12,9 +12,10 @@ using System;
 namespace SMeat.MODELS.Migrations.NpgsqlMigrations
 {
     [DbContext(typeof(ApplicationNpgsqlContext))]
-    partial class ApplicationNpgsqlContextModelSnapshot : ModelSnapshot
+    [Migration("20180208165259_AddUserChatStatus")]
+    partial class AddUserChatStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

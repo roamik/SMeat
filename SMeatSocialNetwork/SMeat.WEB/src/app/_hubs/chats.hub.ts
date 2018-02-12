@@ -1,9 +1,11 @@
 import { Inject, Injectable } from "@angular/core";
 import { BaseHub } from "../_hubs/base.hub";
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/fromPromise';
 import { User } from "../_models/user";
 import { AuthGuard } from "../_guards/auth.guard";
 import { Message } from '../_models/message';
+import { UserStatusType } from "../_enums/user-status";
 
 @Injectable()  
 
@@ -33,16 +35,27 @@ export class ChatHub extends BaseHub {
     this.hubConnection.on("OnConnectToChat", fn);
   }
 
+  onUserStatusChange(fn:(connectionId: string, userId: string, status: UserStatusType) => void) {
+    this.hubConnection.on("OnUserStatusChange", fn);
+  }
+
   sendMessage(message:Message): Observable<Message> {
-    return this.hubConnection.invoke("SendAsync", message);    
+    return Observable.fromPromise(this.hubConnection.invoke("SendAsync", message));    
   }
 
   connectToChat(chatId): Observable<any> {
-    return this.hubConnection.invoke("ConnectToChatAsync", chatId);    
+    return Observable.fromPromise(this.hubConnection.invoke("ConnectToChatAsync", chatId));    
+  }
+
+  changeUserStatus(status, chatId) {
+    return Observable.fromPromise(this.hubConnection.invoke("UserStatusChangeAsync", status, chatId));
   }
 
   started(): Observable<any> {
     return this.starting;
   }
 
+  closed(): Observable<any> {
+    return this.closing;
+  }
 }

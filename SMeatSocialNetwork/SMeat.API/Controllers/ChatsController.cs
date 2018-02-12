@@ -13,6 +13,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using SMeat.MODELS.DTO;
 using SMeat.MODELS.Entities;
+using SMeat.MODELS.Enums;
 
 namespace SMeat.API.Controllers
 {
@@ -20,11 +21,13 @@ namespace SMeat.API.Controllers
     public class ChatsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRedisConnectionFactory _cache;
         private readonly IMapper _mapper;
-        public ChatsController ( IUnitOfWork unitOfWork, IMapper mapper )
+        public ChatsController ( IUnitOfWork unitOfWork, IRedisConnectionFactory cache, IMapper mapper )
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -46,10 +49,14 @@ namespace SMeat.API.Controllers
                 filters.Add(b => b.Text.Contains(searchBy));
             }
 
-            var chats = await _unitOfWork.ChatsRepository.GetPagedFullAsync(filters, count: count, page: page, includes: c => c.User);
+            var chats = await _unitOfWork.ChatsRepository.GetPagedFullAsync(filters, count, page, c => c.User);
             //var chatsCount = await _unitOfWork.ChatsRepository.CountAsync(filter: filter);
             foreach ( var chat in chats ) {
                 chat.Messages = await _unitOfWork.MessagesRepository.GetPagedAsync(c=>c.ChatId == chat.Id, 25, includes: c => c.User );
+                foreach ( var userChat in chat.UserChats ) {
+                    var st = Enum.TryParse<UserStatusType>(await _cache.Database.StringGetAsync($"uc{userChat.UserId}{userChat.ChatId}"), out var status) ? status : 0;
+                    userChat.Status = st;
+                }
             }
             return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats));
         }

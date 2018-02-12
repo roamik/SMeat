@@ -8,6 +8,8 @@ import * as _ from "lodash";
 import { ChatHub } from '../_hubs/chats.hub';
 import { AuthGuard } from '../_guards/auth.guard';
 import { User } from '../_models/user';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { UserStatusType } from '../_enums/user-status';
 
 @Component({
   selector: 'chat-preview',
@@ -15,7 +17,8 @@ import { User } from '../_models/user';
   templateUrl: './chat-preview.component.html',
   styleUrls: ["../chat-list-page/chat-list-page.component.css"]
 })
-export class ChatPreviewComponent implements OnInit {
+export class ChatPreviewComponent implements OnInit, OnDestroy{
+  
   
   unreadCount: number = 0;
   _isLoaded: boolean;
@@ -81,8 +84,18 @@ export class ChatPreviewComponent implements OnInit {
       // });
     });
 
-    this.chatHub.onNewUserAdded((connectionId: string, user: User, error: string) => {
-      this.tosterService.info("HUB", "disconnected")
+    // this.chatHub.onNewUserAdded((connectionId: string, user: User, error: string) => {
+    //   this.tosterService.info("HUB", "disconnected")
+    //   // this.messages.push({
+    //   //   type: 'server', error: error, user: this.getUser(user), message: `user ${user.lastName} disconnected`
+    //   // });
+    // });
+
+    this.chatHub.onUserStatusChange((connectionId: string, userId: string, status: UserStatusType) => {      
+      var userChatIndex = _.findIndex(this.chat.userChats, (userChat) => { return userChat.userId === userId });
+      if(userChatIndex !== -1){
+        this.chat.userChats[userChatIndex].status = status;
+      }
       // this.messages.push({
       //   type: 'server', error: error, user: this.getUser(user), message: `user ${user.lastName} disconnected`
       // });
@@ -91,5 +104,9 @@ export class ChatPreviewComponent implements OnInit {
     this.chatHub.connectToChat(this.chat.id).subscribe(
       sucsses => { this.tosterService.success("Success", `connectToChat! ${this.chat.id}`) },
       error => { this.tosterService.error() });
+  }
+
+  ngOnDestroy(): void {
+    this.chatHub.close();
   }
 }

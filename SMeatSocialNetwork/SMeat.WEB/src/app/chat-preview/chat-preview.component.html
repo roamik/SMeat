@@ -1,11 +1,11 @@
 <div class="contact" [ngClass]="{active : isSelected === true}">
   <span *ngIf="unreadCount > 0" class="badge badge-danger pull-right" style="margin-right: 10px;">{{unreadCount}}</span>
   <div class="wrap">
-    <span class="contact-status online"></span>
-    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="{{chat.name}}" />
+    <!-- <span *ngIf="chat" ></span>class="contact-status online" -->
+    <img [src]="chat ? 'http://emilcarlsson.se/assets/harveyspecter.png' :''" alt="{{chat?.name}}" />
     <div class="meta">
-      <p class="name">{{chat.text}}</p>
-      <p class="preview">{{preview?.text}}</p>
+      <p class="name">{{chat?.text}}</p>
+      <p class="preview">{{preview?.text}}</p>     
     </div>
   </div>
 </div>

@@ -24,6 +24,8 @@ namespace SMeat.MODELS.Entities
 
         public string Status { get; set; }
 
+        //public UserStatusType Status { get; set; }
+
         public RelationshipType RelationshipType { get; set; }
 
         public GenderType GenderType { get; set; }
@@ -56,5 +58,7 @@ namespace SMeat.MODELS.Entities
         public virtual List<Contacts> ContactsTo { get; set; }
 
         public virtual List<Contacts> ContactsFrom { get; set; }
+
+       
     }
 }

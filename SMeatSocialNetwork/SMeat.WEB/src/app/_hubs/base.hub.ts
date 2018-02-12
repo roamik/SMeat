@@ -19,13 +19,14 @@ export class BaseHub {
   protected starting: Observable<any>;
   protected connectionState: Observable<ConnectionState>;
   protected error: Observable<string>;
+  protected closing: Observable<string>;
   
   protected connectionStateSubject = new Subject<ConnectionState>();
   protected startingSubject = new Subject<any>();
   protected errorSubject = new Subject<any>();
-
-  protected hubConnection: any;
-  protected hubProxy: any;
+  protected closeSubject = new Subject<any>();
+  protected hubConnection: HubConnection;
+  //protected hubProxy: HubProxy;
 
   constructor(protected readonly hubName: string, protected guard: AuthGuard) {
     this.BASEURL = environment.baseApi;
@@ -36,6 +37,7 @@ export class BaseHub {
     this.connectionState = this.connectionStateSubject.asObservable();
     this.error = this.errorSubject.asObservable();
     this.starting = this.startingSubject.asObservable();
+    this.closing = this.closeSubject.asObservable();
     
     // this.hubConnection = (window as any).$.hubConnection();
     // this.hubConnection.logging = true;
@@ -47,6 +49,9 @@ export class BaseHub {
 
     var hubUrl: string = this.BASEURL + hubName + "?token=" + this.guard.token;
     this.hubConnection = new HubConnection(hubUrl);
+    this.hubConnection.onclose(() => {
+      this.closeSubject.next();
+    });    
     // this.hubConnection.stateChanged((state: any) => {
     //   let newState = ConnectionState.Connecting;
     //   switch (state.newState) {
@@ -73,9 +78,7 @@ export class BaseHub {
     //   }, 5000); // Restart connection after 5 seconds.
     // });
 
-    // this.hubConnection.error((error: any) => {
-    //   this.errorSubject.next(error);
-    // });
+     
   }
 
   start(): void {
@@ -87,4 +90,8 @@ export class BaseHub {
         this.startingSubject.error(error);
       });
   }
+  public close(): void {
+    this.hubConnection.stop();
+  }
+
 }

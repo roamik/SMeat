@@ -186,38 +186,41 @@ html, body, material-app, mat-sidenav-container, .my-content {
 			display: none;
 		}
   }
-  #frame #sidepanel #profile .wrap #status-options {
-		position: absolute;
-		opacity: 0;
-		visibility: hidden;
-		width: 150px;
-		margin: 70px 0 0 0;
+  #frame #sidepanel .popover {
+	display: block;	
+	background: transparent;
+	box-shadow: unset;
+	border: none;
+  }
+
+  #frame #sidepanel .popover .arrow {
+	display: none;
+  }
+  #frame #sidepanel .popover .popover-body {
+	  padding: 0;
+  }
+  #frame #sidepanel .popover .popover-body #status-options {
+		width:150px;
+		height:180px;
 		border-radius: 6px;
-		z-index: 99;
+		z-index: 1060;
 		line-height: initial;
 		background:#810000;
 		-moz-transition: 0.3s all ease;
 		-o-transition: 0.3s all ease;
 		-webkit-transition: 0.3s all ease;
 		transition: 0.3s all ease;
+		box-shadow: 0 5px 10px rgba(0,0,0,.2);
+		border: 1px solid rgba(0,0,0,.2);
   }
   @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options {
-			width: 58px;
-			margin-top: 57px;
+		#frame #sidepanel .popover .popover-body #status-options  {
+			width:45px;
+			margin-left: 5px;
+			margin-right: 5px;
 		}
   }
-  #frame #sidepanel #profile .wrap #status-options.active {
-		opacity: 1;
-		visibility: visible;
-		margin: 75px 0 0 0;
-  }
-  @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options.active {
-			margin-top: 62px;
-		}
-  }
-  #frame #sidepanel #profile .wrap #status-options:before {
+  #frame #sidepanel .popover .popover-body #status-options:before {
 		content: '';
 		position: absolute;
 		width: 0;
@@ -225,31 +228,26 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		border-left: 6px solid transparent;
 		border-right: 6px solid transparent;
 		border-bottom: 8px solid #810000;
-		margin: -8px 0 0 24px;
+		margin: -8px 0 0 24px; 
   }
-  @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options:before {
-			margin-left: 23px;
-		}
-  }
-  #frame #sidepanel #profile .wrap #status-options  {
+  
+  /*
+  #frame #sidepanel  .popover .popover-body #status-options  {
 		overflow: hidden;
 		border-radius: 6px;
   }
-  #frame #sidepanel #profile .wrap #status-options  {
-		padding: 15px 0 30px 18px;
+  #frame #sidepanel .popover .popover-body #status-options  {
+		padding: 15px;
 		display: block;
 		cursor: pointer;
   }
   @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options  {
-			padding: 15px 0 35px 22px;
+		#frame #sidepanel .popover .popover-body #status-options  {
+			padding: 5px 5px 5px 5px;
 		}
   }
-  #frame #sidepanel #profile .wrap #status-options :hover {
-		background: #810000;
-  }
-  #frame #sidepanel #profile .wrap #status-options  span.status-circle {
+  
+  /* #frame #sidepanel .popover .popover-body #status-options span.status-circle {
 		position: absolute;
 		width: 10px;
 		height: 10px;
@@ -257,12 +255,12 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		margin: 5px 0 0 0;
   }
   @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options  span.status-circle {
+		#frame #sidepanel .popover .popover-body #status-options  span.status-circle {
 			width: 14px;
 			height: 14px;
 		}
   }
-  #frame #sidepanel #profile .wrap #status-options  span.status-circle:before {
+  #frame #sidepanel .popover .popover-body #status-options  span.status-circle:before {
 		content: '';
 		position: absolute;
 		width: 14px;
@@ -273,44 +271,76 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		z-index: 0;
   }
   @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options  span.status-circle:before {
+		#frame #sidepanel .popover .popover-body #status-options  span.status-circle:before {
 			height: 18px;
 			width: 18px;
 		}
-  }
-  #frame #sidepanel #profile .wrap #status-options  p {
+  } */
+  
+  #frame #sidepanel .popover .popover-body #status-options  p {
 		padding-left: 12px;
   }
   @media screen and (max-width: 735px) {
-		#frame #sidepanel #profile .wrap #status-options  p {
+		#frame #sidepanel .popover .popover-body #status-options  p {
 			display: none;
 		}
   }
-  #frame #sidepanel #profile .wrap #status-options #status-online span.status-circle {
-		background: #2ecc71;
+  #frame #sidepanel .popover .popover-body #status-options .status-button {
+	margin: 0;
+	padding: 15px 9px 30px 9px;
+	height: 0;
+    border: 0;
+	display:block;	
+	text-align: left;
   }
-  #frame #sidepanel #profile .wrap #status-options #status-online.active span.status-circle:before {
+  #frame #sidepanel .popover .popover-body #status-options .status-button .status {	
+	margin-left: 35px;
+  }
+  
+  #frame #sidepanel .popover .popover-body #status-options .status-button:hover {
+	background: #660000;
+  }
+
+  @media screen and (max-width: 735px) {
+	#frame #sidepanel .popover .popover-body #status-options .status-button  {
+		margin: 0;
+		padding: 15px 2 30px 2px;
+		border: 0;
+		display: block;		
+		text-align: center;
+	}
+	#frame #sidepanel .popover .popover-body #status-options .status-button span  {
+		display: none;
+	}	
+	#frame #sidepanel .popover .popover-body #status-options .status-button .status {	
+		margin-left: 0px;
+	  }
+  }
+  #frame #sidepanel .popover .popover-body #status-options #status-online .status-circle {
+		color: #2ecc71;
+  }
+  #frame #sidepanel .popover .popover-body #status-options #status-online.active .status-circle:before {
 		border: 1px solid #2ecc71;
+  } 
+  #frame #sidepanel .popover .popover-body #status-options #status-away .status-circle {
+		color: #f1c40f;
   }
-  #frame #sidepanel #profile .wrap #status-options #status-away span.status-circle {
-		background: #f1c40f;
-  }
-  #frame #sidepanel #profile .wrap #status-options #status-away.active span.status-circle:before {
+   #frame #sidepanel .popover .popover-body #status-options #status-away.active .status-circle:before {
 		border: 1px solid #f1c40f;
+  } 
+  #frame #sidepanel .popover .popover-body #status-options #status-busy .status-circle {
+		color: #e74c3c;
   }
-  #frame #sidepanel #profile .wrap #status-options #status-busy span.status-circle {
-		background: #e74c3c;
-  }
-  #frame #sidepanel #profile .wrap #status-options #status-busy.active span.status-circle:before {
+   #frame #sidepanel .popover .popover-body #status-options #status-busy.active .status-circle:before {
 		border: 1px solid #e74c3c;
+  } 
+  #frame #sidepanel .popover .popover-body #status-options #status-offline .status-circle {
+		color: #95a5a6;
   }
-  #frame #sidepanel #profile .wrap #status-options #status-offline span.status-circle {
-		background: #95a5a6;
-  }
-  #frame #sidepanel #profile .wrap #status-options #status-offline.active span.status-circle:before {
+   #frame #sidepanel .popover .popover-body #status-options #status-offline.active .status-circle:before {
 		border: 1px solid #95a5a6;
-  }
-  #frame #sidepanel #profile .wrap #expanded {
+  } 
+  /* #frame #sidepanel #profile .wrap #expanded {
 		padding: 100px 0 0 0;
 		display: block;
 		line-height: initial !important;
@@ -333,7 +363,7 @@ html, body, material-app, mat-sidenav-container, .my-content {
   #frame #sidepanel #profile .wrap #expanded input:focus {
 		outline: none;
 		background: #810000;
-  }
+  } */
   #frame #sidepanel #search {
 		border-top: 1px solid #810000;
 		border-bottom: 1px solid #810000;
@@ -377,6 +407,13 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		overflow-y: scroll;
 		overflow-x: hidden;
   }
+
+  #frame #sidepanel #contacts .message-spiner {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+	transform: translate(50%, 50%);
+}
   @media screen and (max-width: 735px) {
 		#frame #sidepanel #contacts {
 			height: calc(100% - 149px);
@@ -453,6 +490,19 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		float: left;
 		margin-right: 10px;
   }
+
+.contact-profile .tooltip .tooltip-inner .chat-users-tooltip  {
+	text-align:left;
+}
+#frame .content .contact-profile i.online {
+	color: #2ecc71;
+}
+#frame .content .contact-profile i.away {
+	color: #f1c40f;
+}
+#frame .content .contact-profile i.busy {
+	color: #e74c3c;
+}
   @media screen and (max-width: 735px) {
 		#frame #sidepanel #contacts .contact .wrap img {
 			margin-right: 0px;
@@ -615,12 +665,8 @@ html, body, material-app, mat-sidenav-container, .my-content {
 	}
 
 	#frame .content .messages .message-spiner {
-		height: 1px;
-		/* width: 1px;
-		margin-right: auto;
-		margin-left: auto;*/
-		text-align: center;
-		margin-top: 1px;		
+		margin-top: 1px;
+		transform: translate(50%);
 	}
 
 	#frame .content .messages .message-container {
@@ -630,7 +676,11 @@ html, body, material-app, mat-sidenav-container, .my-content {
   /* #frame .content .messages :nth-last-child(1) {
 	margin-bottom: 20px;
   } */
+  #frame .content .messages .sent {
+	width: 100%;
+	}
   #frame .content .messages .sent img {
+		float: left;
 		margin: 6px 8px 0 0;
   }
   #frame .content .messages .sent p {
@@ -657,7 +707,7 @@ html, body, material-app, mat-sidenav-container, .my-content {
 		border-radius: 50%;
 		float: left;
   }
-  #frame .content .messages  p {
+  #frame .content .messages p {
 		display: inline-block;
 		padding: 10px 15px;
 		border-radius: 20px;

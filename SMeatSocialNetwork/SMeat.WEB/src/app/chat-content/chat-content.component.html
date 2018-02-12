@@ -1,27 +1,31 @@
 <div *ngIf="chat" class="content">
   <div class="contact-profile">
     <img src="https://source.unsplash.com/random/100x100" alt="" />
-    <p>{{chat?.text}}
-    </p>
+    <ng-template #chatTooltip>
+        <div class="chat-users-tooltip" *ngFor="let userChat of chat?.userChats">
+            <i class="fa fa-circle fa-xs" [ngClass]="{'online':userChat?.status == 1, 'busy':userChat?.status == 2, 'away':userChat?.status == 3}"></i>        
+          {{userChat?.user?.lastName}} {{userChat?.user?.name}}
+        </div>
+      </ng-template>
+    <a [ngbTooltip]="chatTooltip" [placement]="chat?.userChats?.lengh > 2 ? 'right' : 'bottom-left'">{{chat?.text}}</a>    
     <div class="social-media">
       <i class="fa fa-facebook" aria-hidden="true"></i>
       <i class="fa fa-twitter" aria-hidden="true"></i>
       <i class="fa fa-instagram" aria-hidden="true"></i>
     </div>
-    
   </div>
   <div class="messages" infiniteScroll [infiniteScrollThrottle]="20" immediateCheck="true" [infiniteScrollDisabled]="loading" (scrolledUp)="onScrollUp()" [scrollWindow]="false">
       <div *ngIf="loading" class="message-spiner">
           <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
         </div>
     <div class="message-container">
-      <div *ngFor="let message of chat?.messages" [ngClass]="message.userId === user.id ? 'sent' : 'replies'">
+      <div *ngFor="let message of chat?.messages" [ngClass]="message.userId === user.id ? 'sent' : 'replies'" style="position:relative">
         <img src="https://source.unsplash.com/random/100x100" alt="" />
-        <ng-template #tooltip>
+        <ng-template #messageTooltip>
           <span *ngIf="!message?.tempId">{{message?.dateTime | momentCalendar}}</span>
           <span *ngIf="message?.tempId">sending</span>
         </ng-template>
-        <p [ngbTooltip]="tooltip" [placement]="message.userId === user.id ? 'right' : 'left'">
+        <p [ngbTooltip]="messageTooltip" [placement]="message.userId === user.id ? 'right' : 'left'">
           {{message.text}}
           <span *ngIf="message?.tempId">
             <i class="fa fa-spinner fa-spin"></i>

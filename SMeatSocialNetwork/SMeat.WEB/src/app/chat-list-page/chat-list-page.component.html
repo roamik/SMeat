@@ -48,36 +48,50 @@
 
 <div id="frame">
 	<div id="sidepanel">
-		<div id="profile">
+		<div id="profile" [ngbPopover]="statusChangePopoverContent" #statusChangePopover="ngbPopover" placement="bottom-left" triggers="manual">
 			<div class="wrap">
-				<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
-				<p>Mike Ross</p>
-				<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
-				<div id="status-options">
-					<ul>
-						<li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
-						<li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
-						<li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
-						<li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
-					</ul>
-				</div>
-				<div id="expanded">
-					<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="mikeross" />
-					<label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="ross81" />
-					<label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="mike.ross" />
-				</div>
+				<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" (click)="statusChangePopover.toggle()" [ngClass]="{'offline':selectedUserChat?.status == 0,'online':selectedUserChat?.status == 1, 'busy':selectedUserChat?.status == 2, 'away':selectedUserChat?.status == 3}"
+				/>
+				<p>{{user?.lastName}} {{user?.name}}</p>
+				<i class="fa fa-chevron-down expand-button" (click)="statusChangePopover.toggle()" aria-hidden="true"></i>
 			</div>
+			<ng-template #statusChangePopoverContent>
+				<div id="status-options">
+					<div>
+						<div class="status-button status" id="status-online" (click)="changeStatus(1)">
+							<i class="fa fa-xs status-circle status"  [ngClass]="{'fa-circle': selectedUserChat?.status == 1,'fa-circle-o': selectedUserChat?.status != 1} "></i>
+							<span>Online</span>
+						</div>
+						<div class="status-button status" id="status-away" (click)="changeStatus(3)">
+							<i class="fa fa-xs status-circle status" [ngClass]="{'fa-circle': selectedUserChat?.status == 3,'fa-circle-o': selectedUserChat?.status != 3} "></i>
+							<span>Away</span>
+						</div>
+						<div class="status-button status" id="status-busy" (click)="changeStatus(2)">
+							<i class="fa fa-xs status-circle status"  [ngClass]="{'fa-circle': selectedUserChat?.status == 2,'fa-circle-o': selectedUserChat?.status != 2}"></i>
+							<span>Busy</span>
+						</div>
+						<div class="status-button status" id="status-offline" (click)="changeStatus(0)">
+							<i class="fa fa-xs status-circle status"  [ngClass]="{'fa-circle': selectedUserChat?.status == 0,'fa-circle-o': selectedUserChat?.status != 0}"></i>
+							<span>Offline</span>
+						</div>
+					</div>
+				</div>
+			</ng-template>
 		</div>
 		<div id="search">
-			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+			<label for="">
+				<i class="fa fa-search" aria-hidden="true"></i>
+			</label>
 			<input type="text" placeholder="Search chats..." />
 		</div>
 		<div id="contacts">
+			<div *ngIf="!chats.length && loaders['chats']">
+				<div class="message-spiner">
+					<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+				</div>
+			</div>
 			<div *ngFor="let chat of chats">
-				<chat-preview [chat]="chat" [user]="user" [isSelected]="selectedChat?.id === chat.id" (click)="selectedChat = chat"></chat-preview>			
+				<chat-preview [chat]="chat" [user]="user" [isSelected]="selectedChat?.id === chat.id" (click)="selectedChat = chat"></chat-preview>
 				<!-- <li class="contact active">
 					<div class="wrap">
 						<span class="contact-status busy"></span>
@@ -171,9 +185,15 @@
 			</div>
 		</div>
 		<div id="bottom-bar">
-			<button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Create chat</span></button>
-			<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+			<button id="addcontact">
+				<i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+				<span>Create chat</span>
+			</button>
+			<button id="settings">
+				<i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+				<span>Settings</span>
+			</button>
 		</div>
 	</div>
-	<chat-content [chat]="selectedChat" [user]="user" [loading]="loading" (newMessage)="sendMessage($event)" (newPage)="getNextMessages(selectedChat, $event)" ></chat-content>
+	<chat-content [chat]="selectedChat" [user]="user" [loading]="loaders['messages']" (newMessage)="sendMessage($event)" (newPage)="getNextMessages(selectedChat, $event)"></chat-content>
 </div>
