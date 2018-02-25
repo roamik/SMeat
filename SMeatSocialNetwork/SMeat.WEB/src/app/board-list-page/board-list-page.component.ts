@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Board } from '../_models/board';
 
@@ -9,9 +9,18 @@ import { Board } from '../_models/board';
 })
 export class BoardListPageComponent implements OnInit {
 
-  boards: Board[]; 
+  @Input() boards: Board[]; 
 
-  constructor() { }
+  constructor() { 
+    this.boards = [
+      new Board('testID', 'test title', 'test text'),
+      new Board('testID', 'test titlewwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwww', 'test text'),
+      new Board('testID', 'test title', 'test text'),
+      new Board('testID', 'test title sdsf sdfszef sefszefse', 'test text'),
+      new Board('testID', 'test title 234124124', 'test text'),
+      new Board('testID', 'test title2', 'test text2')
+    ];
+  }
 
   ngOnInit() {
   }

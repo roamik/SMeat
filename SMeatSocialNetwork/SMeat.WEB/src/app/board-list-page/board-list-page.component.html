@@ -1,8 +1,12 @@
-<h1 class="name textOutline">Available boards:</h1>
-<div id="topForm">
-	<a id="addBtnLink" routerLink="/boards/create"><button class="btn-default btn_custom">New board</button></a>
-</div>
+<div class="containerEdit">
 
-<div id="boardList">
-	<app-board-view *ngFor="let board of boards" [model]="board"></app-board-view>
+	<h1 class="name textOutline">Available boards:</h1>
+	<div id="topForm">
+		<a id="addBtnLink" routerLink="/boards/create"><button class="btn-default btn_custom">New board</button></a>
+	</div>
+
+	<div id="boardList">
+		<app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
+	</div>
+
 </div>

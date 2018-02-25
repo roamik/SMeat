@@ -51,7 +51,6 @@ namespace SMeat.DAL.Concrete
                 .ToListAsync();
         }
 
-
         public virtual Task<List<T>> GetPagedAsync(Expression<Func<T, bool>> filter = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<T, object>>[] includes)
         {
             return GetPagedAsync(filters: filter != null ? new List<Expression<Func<T, bool>>> { filter } : null, /*orderBy: orderBy,*/ count: count, page: page, includes: includes);

@@ -8,11 +8,22 @@ import { Board } from "../_models/board";
 })
 
 export class BoardViewComponent implements OnInit {
+  @Input() board: Board;
 
-  @Input() model: Board;
-  constructor() { }
+  constructor() {
+    
+  }
+
+  voyeUp(): boolean {
+    this.board.voteUp();
+    return false;
+  }
+
+  voteDown(): boolean {
+    this.board.voteDown();
+    return false;
+  }
 
   ngOnInit() {
-
   }
 }

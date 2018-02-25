@@ -12,17 +12,12 @@ h1{
 	display: inline-block;
 }
 
-#boardList a {
-	color: white;
-	font-weight: 800;
-	background: #D39797;
-	display: block;
-	margin: 1em 1em;
-	padding: 0.5em 0.5em;
-	border: 2px solid rgba(0,0,0,.5);
-	border-radius: 8px;
+#boardList
+{
+	width: 100%;
 }
-#boardList a p {
+
+#boardList p {
 	display: inline-block;
 	text-shadow:
 		-1px -1px 0 #000,
@@ -35,24 +30,6 @@ h1{
 	float: right;
 }
 
-#groupList {
+#boardList {
 	display: block;
-}
-#groupList div a img {
-	width: 5em;
-	margin: 2px;
-	display: inline-block;
-	border: 2px solid rgba(0,0,0,.5);
-	border-radius: 8px;
-}
-
-.group {
-	background: #D39797;
-	display: block;
-	margin: 1em 0;
-	padding: 0.5em;
-	border: 2px solid rgba(0,0,0,.5);
-	border-radius: 8px;
-	font-weight: 800;
-	color: white;
 }

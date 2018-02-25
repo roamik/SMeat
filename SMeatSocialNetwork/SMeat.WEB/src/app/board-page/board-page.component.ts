@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { Board } from '../_models/board';
+
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
@@ -8,7 +10,11 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class BoardPageComponent implements OnInit {
 
-  constructor() { }
+  board: Board;
+
+  constructor() { 
+    
+  }
 
   ngOnInit() {
   }
