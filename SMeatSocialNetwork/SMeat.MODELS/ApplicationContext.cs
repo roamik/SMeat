@@ -20,8 +20,9 @@ namespace SMeat.MODELS
         }
 
         protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder ) {
-             optionsBuilder.UseSqlServer(_options?.Value?.DefaultConnectionSqlServer ??
-                 "Server = (localdb)\\mssqllocaldb; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");           
+            optionsBuilder.UseSqlServer(_options?.Value?.DefaultConnectionSqlServer ??
+                //"Server = (localdb)\\mssqllocaldb; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");    
+                "Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
         }
         #endregion
 

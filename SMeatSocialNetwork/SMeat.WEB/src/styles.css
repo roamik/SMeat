@@ -41,13 +41,15 @@ hr {
 	text-decoration: none;
 }
 
-.textOutline {
-	text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
+.txtFieldText
+{
+  color: white;
 }
+
+.textOutline {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
 html, body, material-app, mat-sidenav-container, .my-content {
   margin: 0;
   width: 100%;

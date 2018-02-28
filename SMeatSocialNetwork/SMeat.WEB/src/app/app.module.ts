@@ -28,6 +28,7 @@ import { AuthGuard } from "./_guards/auth.guard";
 import { AuthenticationService } from "./_services/authentication.service";
 import { UsersService } from "./_services/users.service";
 import { LocationsService } from "./_services/locations.service";
+import { BoardsService } from "./_services/boards.service";
 import { WorkplacesService } from "./_services/workplaces.service";
 import { ChatsService } from "./_services/chats.service";
 import { MessagesService } from "./_services/messages.service.";
@@ -170,6 +171,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ChatsService,
         EnumToArrayHelper,
         HomePageService,
+        BoardsService,
         LocationsService,
         MessagesService,
         UsersService,

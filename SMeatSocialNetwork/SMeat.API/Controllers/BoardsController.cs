@@ -18,6 +18,7 @@ namespace SMeat.API.Controllers
             _unitOfWork = unitOfWork;
         }
         
+        // TO DO: Paging!
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetBoards([FromQuery] string searchBy)

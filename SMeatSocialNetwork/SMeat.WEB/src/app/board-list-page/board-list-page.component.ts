@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Board } from '../_models/board';
+import { BoardsService } from "../_services/boards.service";
 
 @Component({
   selector: 'board-list-page',
@@ -11,18 +12,26 @@ export class BoardListPageComponent implements OnInit {
 
   @Input() boards: Board[]; 
 
-  constructor() { 
+  boardPage: number = 0;
+  boardCount: number = 100;
+  boardeSearchBy: string;
+
+  constructor(private boardsService: BoardsService) {
+
     this.boards = [
-      new Board('testID', 'test title', 'test text'),
-      new Board('testID', 'test titlewwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwww', 'test text'),
-      new Board('testID', 'test title', 'test text'),
-      new Board('testID', 'test title sdsf sdfszef sefszefse', 'test text'),
-      new Board('testID', 'test title 234124124', 'test text'),
-      new Board('testID', 'test title2', 'test text2')
+      new Board('testID', 'test title', 'test text')
     ];
+
   }
 
   ngOnInit() {
   }
 
+  getBoards() {
+    this.boardsService.getBoards(this.boardPage, this.boardCount, this.boardeSearchBy)
+      .subscribe(
+      boards => {
+        this.boards = boards;
+      });
+  }
 }

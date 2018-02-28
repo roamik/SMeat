@@ -30,16 +30,19 @@
 	border-top: 2px solid rgba(0,0,0,.3);
 }
 
-
+#boardList .row
+{
+  margin: 14px 0px;
+}
 #boardList a {
-	color: white;
-	font-weight: 800;
-	background: #D39797;
-	display: block;
-	margin: 1em 1em;
-	padding: 0.5em 0.5em;
-	border: 2px solid rgba(0,0,0,.5);
-	border-radius: 8px;
+  color: white;
+  font-weight: 800;
+  background: #D39797;
+  display: block;
+  margin: 1em 1em;
+  padding: 0.5em 0.5em;
+  border: 2px solid rgba(0,0,0,.5);
+  border-radius: 8px;
 }
 #boardList a p {
 	display: inline-block;
