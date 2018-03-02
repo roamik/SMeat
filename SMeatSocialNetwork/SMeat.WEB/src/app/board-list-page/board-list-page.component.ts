@@ -18,13 +18,10 @@ export class BoardListPageComponent implements OnInit {
 
   constructor(private boardsService: BoardsService) {
 
-    this.boards = [
-      new Board('testID', 'test title', 'test text')
-    ];
-
   }
 
   ngOnInit() {
+    this.getBoards();
   }
 
   getBoards() {
