@@ -21,6 +21,10 @@ export class BoardsService {
     this.BASEURL = environment.baseApi;
   }
   
+  getById(id: string): Observable<Board> {
+    return this.http.get<Board>(this.BASEURL + 'api/boards/' + id);
+  }
+
   getBoards(page: number, count: number, searchBy?: string): Observable<Board[]> {
     var url = 'api/boards/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
     return this.http.get<Board[]>(this.BASEURL + url);

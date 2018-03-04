@@ -5,18 +5,18 @@
 
 		<h3 class="text-center">Board name:</h3>
 		<div class="textBlock">
-			<input type="text" name="boardName" placeholder="Board name">
-		</div>
+			<input type="text" name="boardName" placeholder="Board name" [(ngModel)]="board.name" required>
+    </div>
 		
 		<hr>
 
 		<h3 class="text-center">Discussion:</h3>
 		<div class="textBlock">
-			<textarea class="discussion center-block" placeholder="Describe the subject here..."></textarea>
-		</div>
+			<textarea class="discussion center-block" placeholder="Describe the subject here..." [(ngModel)]="board.text" required></textarea>
+    </div>
 
 		<div>
-			<button class="btn_custom center-block">Create</button>
+			<button (click)="addBoard()" class="btn_custom center-block">Create</button>
 		</div>
 
 	</div>

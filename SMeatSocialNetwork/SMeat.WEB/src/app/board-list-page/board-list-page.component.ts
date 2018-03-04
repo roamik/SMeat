@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { Board } from '../_models/board';
 import { BoardsService } from "../_services/boards.service";

@@ -6,45 +6,49 @@ input {
 }
 
 #OPMessage {
-	background: #810000;
+  margin: 0 0;
+  margin-bottom: 1em;
+  background: #810000;
 }
 #OPMessage h4 {
 	margin: .5em 3em;
 }
 
 .message {
-	margin-bottom: 1em;
-	background: #D39797;
-	border: 2px solid rgba(0,0,0,.7);
-	border-radius: 8px;
-	text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
+  margin: 0em 1em;
+  margin-bottom: 1em;
+  background: #D39797;
+  border: 2px solid rgba(0,0,0,.7);
+  border-radius: 8px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .message h6 {
+  margin-left: 1em;
 	font-style: italic;
-	margin: .5em 2em;
 }
 .message h6 a {
 	font-style: italic;
 	color: white;
 }
 .message p {
-	margin: 1em;
-	padding: .5em 0;
+	padding: 1em 1em;
 	border: 2px solid rgba(0,0,0,.5);
 	border-left: none;
 	border-right: none;
 }
 
-.replyList a {
-	color: white;
-	font-size: 10px;
-	font-weight: 800;
-	margin: 0 0;
+.replyList
+{
+  margin: 0em 1em;
 }
-.replyList a:first-of-type {
-	margin-left: 2em;
+.replyList a {
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+#postMessage
+{
+  width: 100%;
+  color: black;
 }

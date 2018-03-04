@@ -1,10 +1,6 @@
-<div class="containerEdit">
-	
-
-
 <div id="OPMessage" class="message">
-	<h4>Title</h4>
-	<p>OP text goes here</p>
+	<h4>{{ board.Name }}</h4>
+	<p>{{ board.Text }}</p>
 	<div class="replyList">
 		<a href="">[Reply ID]</a>
 		<a href="">[Reply ID]</a>
@@ -40,9 +36,6 @@
 </div>
 
 <div>
-	<input type="text" name="postMessage" placeholder="Enter repty to board">
-	<button class="btn_custom center-block">Submit</button>
-</div>
-
-
+  <textarea id="postMessage" rows="4" cols="50" name="postMessage" placeholder="Enter repty to board"></textarea>
+  <button class="btn_custom center-block">Submit</button>
 </div>

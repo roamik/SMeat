@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using SMeat.DAL.Abstract;
 using SMeat.MODELS.Entities;
+using AutoMapper;
+using SMeat.MODELS.BindingModels;
 
 namespace SMeat.API.Controllers
 {
@@ -13,11 +15,27 @@ namespace SMeat.API.Controllers
     public class BoardsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public BoardsController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public BoardsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        
+
+        [HttpGet]
+        [Authorize]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetBoardByIdAsync(string id)
+        {
+            var board = await _unitOfWork.BoardsRepository.GetByIdAsync(id);
+            if (board == null)
+            {
+                return BadRequest("User not found!");
+            }
+
+            return Ok(new { Id = board.Id, Name = board.Name, Text = board.Text, Likes = board.Likes, Dislikes = board.Dislikes });
+        }
+
         [HttpGet]
         [Authorize]
         [Route("paged")]
@@ -33,6 +51,22 @@ namespace SMeat.API.Controllers
             var boardsCount = await _unitOfWork.BoardsRepository.CountAsync(filter: filter);
 
             return Ok(boards);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddBoard([FromBody] BoardCreateBindingModel model)
+        {
+            if (!ModelState.IsValid || model == null)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var board = _mapper.Map<Board>(model);
+
+            await _unitOfWork.BoardsRepository.AddAsync(board);
+            await _unitOfWork.Save();
+            return Ok(board);
         }
     }
 }
