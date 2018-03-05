@@ -27,7 +27,7 @@ namespace SMeat.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetBoardByIdAsync(string id)
         {
-            var board = await _unitOfWork.BoardsRepository.GetByIdAsync(id);
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
             if (board == null)
             {
                 return BadRequest("User not found!");

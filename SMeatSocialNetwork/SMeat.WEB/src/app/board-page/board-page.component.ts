@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 
 import { Board } from '../_models/board';
+import { Reply } from '../_models/reply';
 import { BoardsService } from "../_services/boards.service";
 import { RouterModule, ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,8 @@ export class BoardPageComponent implements OnInit {
 
     id: string;
     private sub: any;
-    board: Board;
+    board: Board = new Board();
+    replies: Reply[];
 
     constructor(private boardsService: BoardsService, private route: ActivatedRoute) { 
     }

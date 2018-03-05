@@ -21,8 +21,8 @@ namespace SMeat.MODELS
 
         protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder ) {
             optionsBuilder.UseSqlServer(_options?.Value?.DefaultConnectionSqlServer ??
-                "Server = (localdb)\\mssqllocaldb; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");    
-                //"Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
+                //"Server = (localdb)\\mssqllocaldb; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");    
+                "Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
         }
         #endregion
 
@@ -50,6 +50,8 @@ namespace SMeat.MODELS
         {
             
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<BoardReply>().HasKey(e => new { e.BoardId, e.ReplyId });
 
             modelBuilder.Entity<Board>() //Chat 1 = > N Messages (Chat has many messages and one message has 1 chat)
                  .HasMany(b => b.Replies)
