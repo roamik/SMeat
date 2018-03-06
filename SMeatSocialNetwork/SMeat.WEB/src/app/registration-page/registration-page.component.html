@@ -1,74 +1,122 @@
 <form #f="ngForm" (ngSubmit)="register()" novalidate>
 
-	<div class="fieldWrap">
-		<h1>Account Info</h1>
-		<h5>These fields are required</h5>
-		<hr>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Name: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="text" name="name" [(ngModel)]="model.name" #name="ngModel" ngModel required/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Last Name: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Email: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="text" name="mail" placeholder="Email@somewhere.yeah" [(ngModel)]="model.email" #email="ngModel" ngModel required/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Password: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="password" name="pass" placeholder="Make this super secret" [(ngModel)]="model.password" #password="ngModel" ngModel required/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Repeat Password: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="password" name="repPass" placeholder="Not [password1234]">
-			</div>
-		</div>
-	</div>
+  <div class="fieldWrap">
+    <h1>Account Info</h1>
+    <h5>These fields are required</h5>
+    <hr>
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Name: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="text" name="name" minlength="4" maxlength="10" [(ngModel)]="model.name" #name="ngModel" ngModel required />
 
-	<div class="fieldWrap">
-		<h1>Profile Details</h1>
-		<hr>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Gender: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="radio" name="gender" value="male"> Male<br>
-  				<input type="radio" name="gender" value="female"> Female<br>
-  				<input type="radio" name="gender" value="other"> Other
-  					<input id="customGenderTextField" type="text" name="otherGender" placeholder="Custom gender">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<p class="boldLables text-right">Date of birth: </p>
-			</div>
-			<div class="col-xs-6">
-				<input type="password" name="birth" placeholder="dd/mm/yyyy">
-			</div>
-		</div>
-	</div>
+        <div class="md-errors-spacer" *ngIf="name.invalid && (name.touched || f.submited)">
+          <small class="md-errors-spacer" *ngIf="name.errors.required">
+            Name is required.
+          </small>
+          <div class="md-errors-spacer" *ngIf="name.errors.minlength">
+            Name is min. 4 char. long!.
+          </div>
+        </div>
 
-	<button class="btn-default btn_custom center-block" type="submit">Register</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Last Name: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="text" name="lastName" minlength="4" maxlength="10" [(ngModel)]="model.lastName" #lastName="ngModel" ngModel required />
+
+        <div class="md-errors-spacer" *ngIf="lastName.invalid && (lastName.touched || f.submited)">
+          <small class="md-errors-spacer" *ngIf="lastName.errors.required">
+            Last name is required.
+          </small>
+          <div class="md-errors-spacer" *ngIf="lastName.errors.minlength">
+            Last name is min. 4 char. long!.
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Email: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="text" name="email" placeholder="Email@somewhere.yeah" [(ngModel)]="model.email" #email="ngModel" ngModel required
+               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+
+        <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+          <div *ngIf="f.submitted && email.errors && email.errors.required">
+            {{'ERR_EMAIL_REQUIRED' | translate}}
+          </div>
+          <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+            {{'ERR_EMAIL_INVALID' | translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Password: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="password" name="password" placeholder="Make this super secret" [(ngModel)]="model.password" #password="ngModel" ngModel required
+               pattern="^(?=.*[a-z])(?=.*[A-Z])?(?=.*\d)(?=.*[$@$!%*?&-])?[A-Za-z\d$@$!%*?&-]{8,}$" />
+
+        <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+          <div *ngIf="f.submitted && password.errors && password.errors.required">
+            {{'ERR_PASSWORD_REQUIRED' | translate}}
+          </div>
+          <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+            {{'ERR_PASSWORD_INVALID' | translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Repeat Password: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="password" name="repPass" placeholder="">
+      </div>
+    </div>
+  </div>
+
+  <div class="fieldWrap">
+    <h1>Profile Details</h1>
+    <hr>
+    <div class="row field">
+      <div class="center-block">
+        <ng-select name="gender" [items]="genders"
+                   required
+                   bindValue="value"
+                   placeholder="{{'PLACEHOLDER_GENDER_TEXT' | translate}}"
+                   [(ngModel)]="model.gender" #gender="ngModel">
+          <ng-template ng-label-tmp ng-option-tmp let-item="item">
+            {{item.title | translate}}
+          </ng-template>
+        </ng-select>
+        <div class="pull-left" *ngIf="gender.invalid && (gender.touched || f.submited)">
+          <small class="text-danger" *ngIf="gender.errors.required">
+            {{'ERR_GENDER_REQUIRED' | translate}}.
+          </small>
+        </div>
+      </div>
+    </div>
+    <!--<div class="row">
+      <div class="col-xs-6">
+        <p class="boldLables text-right">Date of birth: </p>
+      </div>
+      <div class="col-xs-6">
+        <input type="password" name="birth" placeholder="dd/mm/yyyy">
+      </div>
+    </div>-->
+  </div>
+
+  <button class="btn-default btn_custom center-block" type="submit">Register</button>
 </form>

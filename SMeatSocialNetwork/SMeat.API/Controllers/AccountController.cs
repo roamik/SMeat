@@ -71,7 +71,7 @@ namespace SMeat.API.Controllers {
             if ( await _unitOfWork.UserManager.FindByNameAsync(model.Email) != null ) {
                 ModelState.AddModelError("Email", "ERR_USER_ALREADY_EXISTS");
             } else {
-                var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name };
+                var user = new User { UserName = model.Email, Email = model.Email, LastName = model.LastName, Name = model.Name, GenderType  = model.Gender};
                 var result = await _unitOfWork.UserManager.CreateAsync(user, model.Password);
                 if ( !result.Succeeded ) { return BadRequest("Could not create token"); }
                 var claims = new[]

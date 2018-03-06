@@ -3,6 +3,8 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { EnumToArrayHelper } from '../_helpers/EnumToArrayHelper';
+import { GenderType } from '../_enums/genders';
 
 @Component({
   selector: 'app-registration-page',
@@ -12,26 +14,29 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 export class RegistrationPageComponent implements OnInit {
 
-	model: any = {};
-	loading = false;
-	returnUrl: string;
+  model: any = {};
+  loading = false;
+  returnUrl: string;
 
-    constructor(
-        private http: Http,
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService) {}
+  public genders: any = this.enumSelector.enumSelector(GenderType);
+
+  constructor(
+    private enumSelector: EnumToArrayHelper,
+    private http: Http,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   register() {
-      this.loading = true;
-      this.authenticationService.register(this.model)
-          .subscribe(
-          data => {
-              this.router.navigate(['/home']);
-          },
-          error => {
-              this.loading = false;
-          });
+    this.loading = true;
+    this.authenticationService.register(this.model)
+      .subscribe(
+      data => {
+        this.router.navigate(['/home']);
+      },
+      error => {
+        this.loading = false;
+      });
   }
 
   ngOnInit() {

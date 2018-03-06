@@ -5,6 +5,17 @@
 	padding: 1em 1em;
 }
 
+.row {
+  padding: 0.2em;
+}
+
+.field {
+  margin: .5em 0em;
+  padding: 0 1em;
+  width: 100%;
+  color:black;
+}
+
 h1, h5 {
 	text-align: center;
 	color: black;
@@ -24,8 +35,4 @@ input {
 		1px -1px 0 #000,
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
-}
-
-#customGenderTextField {
-	display: none;
 }

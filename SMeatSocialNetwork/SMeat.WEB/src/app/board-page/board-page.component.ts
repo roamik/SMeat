@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Board } from '../_models/board';
 import { Reply } from '../_models/reply';
 import { BoardsService } from "../_services/boards.service";
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board-page',
