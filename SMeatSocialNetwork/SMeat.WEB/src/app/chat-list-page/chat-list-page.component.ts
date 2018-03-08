@@ -24,9 +24,9 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
   _chats: Chat[] = [];
   get chats(): Chat[] {
     return this._chats.sort((left, right) => {
-      let lastLeft = _.last(left.messages) || null;
-      let lastRight = _.last(right.messages) || null;
-      return moment.utc(moment.utc(lastRight.dateTime)).diff(lastLeft.dateTime)
+      let lastLeft = _.last(left.messages) || { dateTime: null };
+      let lastRight = _.last(right.messages) || { dateTime: null };
+      return moment.utc(moment.utc(lastRight.dateTime)).diff(lastLeft.dateTime);
     })
   }
   selectedChat: Chat;

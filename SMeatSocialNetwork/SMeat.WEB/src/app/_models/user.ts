@@ -19,8 +19,12 @@ export class User {
   workplaceId: string;
   workplace: WorkPlace;
   status: string;
+  currentUserId: string;
 
-  constructor(id?: string, userName?: string, firstName?: string, name?: string, lastName?: string, userAbout?: string, gender?: GenderType, status?: string, relationship?: RelationshipType, location?: Location, locationId?: string, workplaceId?: string, workplace?: WorkPlace) {
+  constructor(id?: string, userName?: string, firstName?: string, name?: string, lastName?: string, userAbout?: string,
+    gender?: GenderType, status?: string, relationship?: RelationshipType,
+    location?: Location, locationId?: string, workplaceId?: string,
+    workplace?: WorkPlace, currentUserId?: string) {
     this.id = id;
     this.userName = userName;
     this.firstName = firstName;
@@ -34,6 +38,7 @@ export class User {
     this.workplace = workplace;
     this.workplaceId = workplaceId;
     this.status = status;
+    this.currentUserId = currentUserId;
   }
 }
 

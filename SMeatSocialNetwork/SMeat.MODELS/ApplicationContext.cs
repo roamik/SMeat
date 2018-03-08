@@ -127,13 +127,13 @@ namespace SMeat.MODELS
             modelBuilder.Entity<Contacts>().HasKey(e => new { e.FirstUserId, e.SecondUserId });
 
             modelBuilder.Entity<User>()    //Contacts N => 1 FirstUser (User)
-               .HasMany(u => u.ContactsTo)
+               .HasMany(u => u.ContactsAddedByMe)
                .WithOne(c => c.FirstUser)
                .HasForeignKey(c => c.FirstUserId)
                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()    //Contacts N => 1 SecondUser (User)
-               .HasMany(u => u.ContactsFrom)
+               .HasMany(u => u.ContactsIAddedTo)
                .WithOne(c => c.SecondUser)
                .HasForeignKey(c => c.SecondUserId)
                .OnDelete(DeleteBehavior.Restrict);

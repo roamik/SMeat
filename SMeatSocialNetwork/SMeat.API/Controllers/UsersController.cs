@@ -6,6 +6,7 @@ using SMeat.DAL;
 using System.IdentityModel.Tokens.Jwt;
 using SMeat.DAL.Abstract;
 using SMeat.MODELS.BindingModels;
+using SMeat.MODELS.Entities;
 
 namespace SMeat.API.Controllers
 {
@@ -13,6 +14,7 @@ namespace SMeat.API.Controllers
     public class UsersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public UsersController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -23,13 +25,26 @@ namespace SMeat.API.Controllers
         [Route("me")]
         public async Task<IActionResult> GetMyInfoAsync()
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)
+                ?.Value; // Get user id from token Sid claim
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return Forbid("User not found!");
             }
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, LocationId = user.LocationId, WorkplaceId = user.WorkplaceId, Gender = user.GenderType,CustomGender = user.CustomGenderType , Relationship = user.RelationshipType, Id = user.Id });
+
+            return Ok(new
+            {
+                Name = user.Name,
+                LastName = user.LastName,
+                About = user.About,
+                LocationId = user.LocationId,
+                WorkplaceId = user.WorkplaceId,
+                Gender = user.GenderType,
+                CustomGender = user.CustomGenderType,
+                Relationship = user.RelationshipType,
+                Id = user.Id
+            });
         }
 
         [HttpGet]
@@ -37,14 +52,34 @@ namespace SMeat.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetUserByIdAsync(string id)
         {
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+
+            //var userContacts = _unitOfWork.UsersRepository.GetAsync()
             var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id, //1st filterBy
-                u => u.Location, u=>u.Workplace.Location ); //include foreign entities
+                u => u.Location, u => u.Workplace.Location); //include foreign entities
             if (user == null)
             {
                 return BadRequest("User not found!");
             }
 
-            return Ok(new { Name = user.Name, LastName = user.LastName, About = user.About, Location = user.Location, Workplace = user.Workplace, Gender = user.GenderType, CustomGender = user.CustomGenderType, Relationship = user.RelationshipType, Id = user.Id });
+            if (user.Id != currentUserId)
+            {
+
+            }
+
+            return Ok(new
+            {
+                Name = user.Name,
+                LastName = user.LastName,
+                About = user.About,
+                Location = user.Location,
+                Workplace = user.Workplace,
+                Gender = user.GenderType,
+                CustomGender = user.CustomGenderType,
+                Relationship = user.RelationshipType,
+                Id = user.Id,
+                CurrentUserId = currentUserId
+            });
         }
 
 
@@ -58,7 +93,8 @@ namespace SMeat.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+            var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)
+                ?.Value;
             var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -78,6 +114,21 @@ namespace SMeat.API.Controllers
             await _unitOfWork.UserManager.UpdateAsync(user);
             await _unitOfWork.Save();
             return new NoContentResult();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> AddConnection(string id)
+        {
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var me = await _unitOfWork.UserManager.FindByIdAsync(currentUserId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(id);
+
+            user.ContactsAddedByMe.Add(new Contacts() { FirstUser = user, SecondUser = me });
+
+
+            return Ok();
         }
     }
 }

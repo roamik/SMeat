@@ -11,7 +11,7 @@ export class BaseTosterService {
   constructor(private router: Router, private toasterService: ToasterService) {    
   }
 
-  public error(title = "Error!", body = "Incorrect data inserted!") {
+  public error(title = "Error!", body = "An error occured!") {
     var toast: Toast = {
       type: 'error',
       title: title,

@@ -29,7 +29,7 @@
       <textarea placeholder="{{'PLACEHOLDER_ABOUT_TEXT' | translate}}" maxlength="300" [(ngModel)]="user.about" #about="ngModel" name="about"></textarea>
     </div>
     <div class="field">
-      <ng-select name="location" [items]="locations"
+      <ng-select class="custom" name="location" [items]="locations"
                  bindLabel="city"
                  bindValue="id"
                  placeholder="{{'PLACEHOLDER_SELECT_CITY_TEXT' | translate}}"

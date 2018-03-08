@@ -16,6 +16,7 @@ export class ProfilePageComponent implements OnInit {
 
   id: string;
   private sub: any;
+  currentUserId: string;
 
   public genders: typeof GenderType = GenderType;
   public relations: typeof RelationshipType = RelationshipType;
@@ -32,9 +33,20 @@ export class ProfilePageComponent implements OnInit {
 
   getUserInfo(id: string) {
     this.usersService.getById(id).subscribe(
-      user => { this.user = user },
+      user => {
+        this.user = user,
+          this.currentUserId = user.currentUserId;
+      },
       error => { }
     )
   }
 
+  addContact(id: string) {
+    this.usersService.addContact(id).subscribe(
+      user => {
+        
+      },
+      error => { }
+    )
+  }
 }
