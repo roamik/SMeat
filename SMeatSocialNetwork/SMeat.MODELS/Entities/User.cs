@@ -55,9 +55,9 @@ namespace SMeat.MODELS.Entities
 
         public virtual List<Message> Messages { get; set; }
 
-        public virtual List<Contacts> ContactsAddedByMe { get; set; }
+        public virtual List<Friends> ContactsAddedByMe { get; set; } = new List<Friends>();
 
-        public virtual List<Contacts> ContactsIAddedTo { get; set; }
+        public virtual List<Friends> ContactsIAddedTo { get; set; } =new List<Friends>();
 
        
     }

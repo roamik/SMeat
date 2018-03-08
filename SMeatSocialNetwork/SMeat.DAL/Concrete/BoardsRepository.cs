@@ -6,6 +6,6 @@ namespace SMeat.DAL.Concrete
 {
     public class BoardsRepository : GenericRepository<Board>, IBoardsRepository
     {
-        public BoardsRepository(IApplicationContext context) : base(context) { }
+        public BoardsRepository(ApplicationContext context) : base(context) { }
     }
 }

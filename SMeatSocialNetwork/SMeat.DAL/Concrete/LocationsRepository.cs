@@ -6,6 +6,6 @@ namespace SMeat.DAL.Concrete
 {
     public class LocationsRepository : GenericRepository<Location>, ILocationsRepository
     {
-        public LocationsRepository(IApplicationContext context) : base(context) { }
+        public LocationsRepository(ApplicationContext context) : base(context) { }
     }
 }

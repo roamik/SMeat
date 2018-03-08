@@ -8,7 +8,7 @@ namespace SMeat.MODELS
         DbSet<Reply> Replies { get; set; }
         DbSet<Board> Boards { get; set; }
         DbSet<Chat> Chats { get; set; }
-        DbSet<Contacts> Contacts { get; set; }
+        DbSet<Friends> Friends { get; set; }
         DbSet<GroupChat> GroupChats { get; set; }
         DbSet<Location> Locations { get; set; }
         DbSet<Message> Messages { get; set; }

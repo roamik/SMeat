@@ -11,9 +11,9 @@ using SMeat.MODELS.Entities;
 namespace SMeat.DAL.Concrete
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class {
-        private readonly IApplicationContext _context;
+        private readonly ApplicationContext _context;
         private readonly DbSet<T> _dbSet;
-        public GenericRepository(IApplicationContext context)
+        public GenericRepository(ApplicationContext context)
         {
            _context = context;
            _dbSet = context.Set<T>();

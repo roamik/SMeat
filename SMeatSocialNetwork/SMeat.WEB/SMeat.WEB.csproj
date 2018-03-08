@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\app\_enums\contact-confirmed.ts" />
+    <None Remove="src\app\_enums\ContactStatus.ts" />
     <None Remove="src\app\_guards\auth.guard.ts" />
     <None Remove="src\app\_guards\token.interceptor.ts" />
     <None Remove="src\app\_hubs\chats.hub.ts" />
@@ -41,7 +41,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\_enums\contact-confirmed.ts" />
+    <TypeScriptCompile Include="src\app\_enums\ContactStatus.ts" />
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
     <TypeScriptCompile Include="src\app\_hubs\chats.hub.ts" />
     <TypeScriptCompile Include="src\app\_interceptors\badrequest.interceptor.ts" />

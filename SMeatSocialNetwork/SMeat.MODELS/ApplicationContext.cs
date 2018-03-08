@@ -44,7 +44,7 @@ namespace SMeat.MODELS
 
         public DbSet<Location> Locations { get; set; }
 
-        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<Friends> Friends { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -124,18 +124,18 @@ namespace SMeat.MODELS
                .WithMany(c => c.UserChats)
                .HasForeignKey(uc => uc.ChatId);
 
-            modelBuilder.Entity<Contacts>().HasKey(e => new { e.FirstUserId, e.SecondUserId });
+            modelBuilder.Entity<Friends>().HasKey(e => new { e.UserId, e.FriendId });
 
             modelBuilder.Entity<User>()    //Contacts N => 1 FirstUser (User)
                .HasMany(u => u.ContactsAddedByMe)
-               .WithOne(c => c.FirstUser)
-               .HasForeignKey(c => c.FirstUserId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .WithOne(c => c.User)
+               .HasForeignKey(c => c.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<User>()    //Contacts N => 1 SecondUser (User)
                .HasMany(u => u.ContactsIAddedTo)
-               .WithOne(c => c.SecondUser)
-               .HasForeignKey(c => c.SecondUserId)
+               .WithOne(c => c.Friend)
+               .HasForeignKey(c => c.FriendId)
                .OnDelete(DeleteBehavior.Restrict);
 
         }

@@ -10,7 +10,7 @@ using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Concrete {
     public class MessagesRepository : GenericRepository<Message>, IMessagesRepository {
-        public MessagesRepository ( IApplicationContext context ) : base(context) { }
+        public MessagesRepository (ApplicationContext context ) : base(context) { }
 
         public Task<Message> GetByIdFullAsync ( string id, params Expression<Func<Message, object>>[] includes ) {
             var query = Data;

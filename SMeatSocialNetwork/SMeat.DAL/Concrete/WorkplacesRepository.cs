@@ -6,6 +6,6 @@ namespace SMeat.DAL.Concrete
 {
     public class WorkplacesRepository : GenericRepository<Workplace>, IWorkplacesRepository
     {
-        public WorkplacesRepository(IApplicationContext context) : base(context) { }
+        public WorkplacesRepository(ApplicationContext context) : base(context) { }
     }
 }

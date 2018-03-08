@@ -75,7 +75,7 @@ namespace SMeat.API
             // Add framework services.
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IApplicationContext, ApplicationContext>();
+            //services.AddScoped<IApplicationContext, ApplicationContext>();
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders()
