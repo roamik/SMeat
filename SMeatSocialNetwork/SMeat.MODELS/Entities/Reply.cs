@@ -20,6 +20,8 @@ namespace SMeat.MODELS.Entities
 
         public Board Board { get; set; }
 
+        public string Text { get; set; }
+
         //public int[] ReplyTo { get; set; } // an array of IDs of the replies this reply is sent to (WHAT?)
     }
 }

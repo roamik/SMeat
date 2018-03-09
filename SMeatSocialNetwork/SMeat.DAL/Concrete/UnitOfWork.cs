@@ -21,7 +21,22 @@ namespace SMeat.DAL.Concrete
       SignInManager = signInManager;
     }
 
-    private IUsersRepository _usersRepository;
+
+        private IRepliesRepository _repliesRepository;
+
+    public IRepliesRepository RepliesRepository
+    {
+        get
+        {
+            if (_repliesRepository == null)
+            {
+                    _repliesRepository = new RepliesRepository(_context);
+            }
+            return _repliesRepository;
+        }
+    }
+
+        private IUsersRepository _usersRepository;
 
     public IUsersRepository UsersRepository
     {

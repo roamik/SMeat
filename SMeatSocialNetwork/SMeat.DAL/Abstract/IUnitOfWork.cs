@@ -8,6 +8,7 @@ namespace SMeat.DAL.Abstract
     public interface IUnitOfWork
     {
         IUsersRepository UsersRepository { get; }
+        IRepliesRepository RepliesRepository { get; }
         IBoardsRepository BoardsRepository { get; }
         IChatsRepository ChatsRepository { get; }
         ILocationsRepository LocationsRepository { get; }
@@ -15,6 +16,8 @@ namespace SMeat.DAL.Abstract
         IMessagesRepository MessagesRepository { get; }
         UserManager<User> UserManager { get; }
         SignInManager<User> SignInManager { get; }
+        //object RepliesRepository { get; }
+
         Task<int> Save();
     }
 }
