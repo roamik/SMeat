@@ -25,15 +25,34 @@ namespace SMeat.API.Controllers
         [HttpGet]
         [Authorize]
         [Route("{id:guid}")]
-        public async Task<IActionResult> GetReplyByBoard(string boardId)
+        public async Task<IActionResult> GetReplyByBoard(string id)
         {
-            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == boardId);
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
             if (board == null)
             {
-                return BadRequest("User not found!");
+                return BadRequest("Board not found!");
             }
 
-            return Ok(board.Replies);
+            var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.BoardId == board.Id);
+            replies.Sort((x, y) => DateTimeOffset.Compare(y.DateTime, x.DateTime));
+            replies.Reverse();
+            return Ok(replies);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("count/{id:guid}")]
+        public async Task<IActionResult> GetReplyCountByBoard(string id)
+        {
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            if (board == null)
+            {
+                return BadRequest("Board not found!");
+            }
+
+            var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.BoardId == board.Id);
+
+            return Ok(replies.Count);
         }
 
         [HttpPost]
@@ -47,6 +66,8 @@ namespace SMeat.API.Controllers
 
             var reply = new Reply();
             reply.Text = model.Text;
+            reply.BoardId = model.BoardId;
+            reply.DateTime = new DateTimeOffset();
 
             await _unitOfWork.RepliesRepository.AddAsync(reply);
             await _unitOfWork.Save();

@@ -30,7 +30,7 @@ namespace SMeat.API.Controllers
             var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
             if (board == null)
             {
-                return BadRequest("User not found!");
+                return BadRequest("Board not found!");
             }
 
             return Ok(new { Id = board.Id, Name = board.Name, Text = board.Text, Likes = board.Likes, Dislikes = board.Dislikes });

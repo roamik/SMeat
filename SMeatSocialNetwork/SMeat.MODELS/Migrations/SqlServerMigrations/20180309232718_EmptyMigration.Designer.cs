@@ -12,9 +12,10 @@ using System;
 namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180309232718_EmptyMigration")]
+    partial class EmptyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,8 +146,6 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BoardId");
-
-                    b.Property<DateTimeOffset>("DateTime");
 
                     b.Property<string>("Text");
 

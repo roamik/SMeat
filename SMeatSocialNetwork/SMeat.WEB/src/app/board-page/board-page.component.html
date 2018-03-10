@@ -5,15 +5,10 @@
 		<a href="">[Reply ID]</a>
 	</div>
 </div>
-<div class="message">
-	<h6>[Reply ID] - reply to OP</h6>
-	<p>My random reply, lol</p>
-	<div class="replyList">
-		<a href="">[Reply ID]</a>
-	</div>
-</div>
+
+<app-reply-view *ngFor="let reply of replies" [reply]="reply"></app-reply-view>
 
 <div>
-  <textarea id="postMessage" rows="4" cols="50" name="postMessage" placeholder="Enter repty to board"></textarea>
-  <button class="btn_custom center-block">Submit</button>
+  <textarea [(ngModel)]="newReply.text" id="postMessage" rows="4" cols="50" name="postMessage" placeholder="Enter repty to board"></textarea>
+  <button (click)="addReply()" class="btn_custom center-block">Submit</button>
 </div>

@@ -11,7 +11,7 @@ import { BoardsService } from "../_services/boards.service";
 })
 export class BoardListPageComponent implements OnInit {
 
-  @Input() boards: Board[]; 
+  @Input() boards: Board[];
 
   boardPage: number = 0;
   boardCount: number = 100;

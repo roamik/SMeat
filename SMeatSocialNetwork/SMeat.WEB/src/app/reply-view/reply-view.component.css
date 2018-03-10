@@ -1,0 +1,35 @@
+.message {
+  margin: 0em 1em;
+  margin-bottom: 1em;
+  background: #D39797;
+  border: 2px solid rgba(0,0,0,.7);
+  border-radius: 8px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+  .message h6 {
+    margin-left: 1em;
+    font-style: italic;
+  }
+
+    .message h6 a {
+      font-style: italic;
+      color: white;
+    }
+
+  .message p {
+    padding: 1em 1em;
+    border: 2px solid rgba(0,0,0,.5);
+    border-left: none;
+    border-right: none;
+  }
+
+.replyList {
+  margin: 0em 1em;
+}
+
+  .replyList a {
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+  }

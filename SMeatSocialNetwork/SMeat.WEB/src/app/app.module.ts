@@ -29,6 +29,7 @@ import { AuthenticationService } from "./_services/authentication.service";
 import { UsersService } from "./_services/users.service";
 import { LocationsService } from "./_services/locations.service";
 import { BoardsService } from "./_services/boards.service";
+import { RepliesService } from "./_services/replies.service";
 import { WorkplacesService } from "./_services/workplaces.service";
 import { ChatsService } from "./_services/chats.service";
 import { MessagesService } from "./_services/messages.service.";
@@ -67,6 +68,7 @@ import { UserSettingsPageComponent } from "./user-settings-page/user-settings-pa
 import { MomentFormatPipe, MomentCalendarPipe } from './_pipes/moment.pipe';
 import { LocationModalComponent } from "./location-modal/location-modal.component";
 import { WorkplaceModalComponent } from "./workplace-modal/workplace-modal.component";
+import { ReplyViewComponent } from './reply-view/reply-view.component';
 
 const appRoutes: Routes = [
     { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -122,7 +124,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         UnsignedPageComponent,
         UserSettingsPageComponent,
         LocationModalComponent,
-        WorkplaceModalComponent
+        WorkplaceModalComponent,
+        ReplyViewComponent
     ],
     imports: [
         BrowserAnimationsModule,
