@@ -1,0 +1,7 @@
+<div class="requestArea">
+  <div class="row">
+    <img id="avatar" class="col-xs-3 col-md-2" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture" width="90" height="130">
+    <p class="col-xs-3">{{ request.friend.name }}</p>
+  </div>
+  <button class="btn btn_custom center-block" (click)="applyRequest(request.friend.id)">{{'BTN_APPLY_TEXT' | translate}}</button>
+</div>

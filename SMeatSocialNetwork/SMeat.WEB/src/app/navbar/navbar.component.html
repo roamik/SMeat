@@ -14,6 +14,7 @@
     <a routerLink="/groups" class="btn_custom">{{'BTN_GROUPS_TEXT' | translate}}</a>
     <a routerLink="/boards" class="btn_custom">{{'BTN_BOARDS_TEXT' | translate}}</a>
   </div>
+
 </mat-sidenav>
 
 
@@ -50,7 +51,7 @@
                    bindValue="value"
                    placeholder="{{'PLACEHOLDER_GENDER_TEXT' | translate}}"
                    (change)="switchLanguage()"
-                   [clearable] ="false"
+                   [clearable]="false"
                    [(ngModel)]="selectedLang" #language="ngModel">
           <ng-template ng-label-tmp ng-option-tmp let-item="item">
             <span class="flag-icon {{item.icon}} flag-icon-squared"></span> {{item.title}}
@@ -82,6 +83,10 @@
               <button [routerLink]="['/chats']" class="btn_custom">{{'BTN_MESSAGES_TEXT' | translate}}</button>
               <button [routerLink]="['/groups']" class="btn_custom">{{'BTN_GROUPS_TEXT' | translate}}</button>
               <button [routerLink]="['/boards']" class="btn_custom">{{'BTN_BOARDS_TEXT' | translate}}</button>
+            </div>
+
+            <div *ngIf="isAuthenticated" class="signed">
+              <button [routerLink]="['/requests']" class="btn_custom">{{'BTN_REQUESTS_TEXT' | translate}}</button>
             </div>
 
           </div>

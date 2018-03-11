@@ -14,6 +14,7 @@ namespace SMeat.DAL.Abstract
         ILocationsRepository LocationsRepository { get; }
         IWorkplacesRepository WorkplacesRepository { get; }
         IMessagesRepository MessagesRepository { get; }
+        IContactsRepository ContactsRepository { get; }
         UserManager<User> UserManager { get; }
         SignInManager<User> SignInManager { get; }
         //object RepliesRepository { get; }

@@ -6,6 +6,7 @@
 	"TEXT_NEW_LOCATION":"New location",
 	"TEXT_CLOSE":"Close",
 	"POSITION_TEXT":"Position",
+	"REQUESTS_TEXT":"Friend requests",
 	
 	"BTN_APPLY_TEXT": "Apply",
 	"BTN_BOARDS_TEXT": "Boards",
@@ -20,6 +21,8 @@
 	"BTN_CREATE": "Create",
 	"BTN_NEW_LOCATION": "New location",
 	"BTN_NEW_WORKPLACE": "New workplace",
+	"BTN_REQUESTS_TEXT": "Requests",
+	
 	
 	"CITY_TEXT": "City",
 	"COMPANY_TEXT": "Company",

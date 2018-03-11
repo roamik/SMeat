@@ -9,142 +9,156 @@ using SMeat.MODELS.Entities;
 
 namespace SMeat.DAL.Concrete
 {
-  public class UnitOfWork : IUnitOfWork, IDisposable
-  {
-    private readonly ApplicationContext _context;
-
-    public UnitOfWork(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-      _context = context;
-      
-      UserManager = userManager;
-      SignInManager = signInManager;
-    }
+        private readonly ApplicationContext _context;
+
+        public UnitOfWork(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _context = context;
+
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
 
 
         private IRepliesRepository _repliesRepository;
 
-    public IRepliesRepository RepliesRepository
-    {
-        get
+        public IRepliesRepository RepliesRepository
         {
-            if (_repliesRepository == null)
+            get
             {
+                if (_repliesRepository == null)
+                {
                     _repliesRepository = new RepliesRepository(_context);
+                }
+                return _repliesRepository;
             }
-            return _repliesRepository;
         }
-    }
 
         private IUsersRepository _usersRepository;
 
-    public IUsersRepository UsersRepository
-    {
-      get
-      {
-        if (_usersRepository == null)
+        public IUsersRepository UsersRepository
         {
-          _usersRepository = new UsersRepository(_context);
+            get
+            {
+                if (_usersRepository == null)
+                {
+                    _usersRepository = new UsersRepository(_context);
+                }
+                return _usersRepository;
+            }
         }
-        return _usersRepository;
-      }
-    }
 
-    private IBoardsRepository _boardsRepository;
+        private IBoardsRepository _boardsRepository;
 
-    public IBoardsRepository BoardsRepository
-    {
-      get
-      {
-        if (_boardsRepository == null)
+        public IBoardsRepository BoardsRepository
         {
-          _boardsRepository = new BoardsRepository(_context);
+            get
+            {
+                if (_boardsRepository == null)
+                {
+                    _boardsRepository = new BoardsRepository(_context);
+                }
+                return _boardsRepository;
+            }
         }
-        return _boardsRepository;
-      }
-    }
 
-    private IChatsRepository _chatsRepository;
-    public IChatsRepository ChatsRepository
-    {
-      get
-      {
-        if (_chatsRepository == null)
+        private IContactsRepository _contactsRepository;
+
+        public IContactsRepository ContactsRepository
         {
-          _chatsRepository = new ChatsRepository(_context);
+            get
+            {
+                if (_contactsRepository == null)
+                {
+                    _contactsRepository = new ContactsRepository(_context);
+                }
+                return _contactsRepository;
+            }
         }
-        return _chatsRepository;
-      }
-    }
 
-    private IMessagesRepository _messagesRepository;
-    public IMessagesRepository MessagesRepository
-    {
-      get
-      {
-        if (_messagesRepository == null)
+          private IChatsRepository _chatsRepository;
+        public IChatsRepository ChatsRepository
         {
-          _messagesRepository = new MessagesRepository(_context);
+            get
+            {
+                if (_chatsRepository == null)
+                {
+                    _chatsRepository = new ChatsRepository(_context);
+                }
+                return _chatsRepository;
+            }
         }
-        return _messagesRepository;
-      }
-    }
 
-    private ILocationsRepository _locationsRepository;
-
-    public ILocationsRepository LocationsRepository
-    {
-      get
-      {
-        if (_locationsRepository == null)
+        private IMessagesRepository _messagesRepository;
+        public IMessagesRepository MessagesRepository
         {
-          _locationsRepository = new LocationsRepository(_context);
+            get
+            {
+                if (_messagesRepository == null)
+                {
+                    _messagesRepository = new MessagesRepository(_context);
+                }
+                return _messagesRepository;
+            }
         }
-        return _locationsRepository;
-      }
-    }
 
-    private IWorkplacesRepository _workplacesRepository;
+        private ILocationsRepository _locationsRepository;
 
-    public IWorkplacesRepository WorkplacesRepository
-    {
-      get
-      {
-        if (_workplacesRepository == null)
+        public ILocationsRepository LocationsRepository
         {
-          _workplacesRepository = new WorkplacesRepository(_context);
+            get
+            {
+                if (_locationsRepository == null)
+                {
+                    _locationsRepository = new LocationsRepository(_context);
+                }
+                return _locationsRepository;
+            }
         }
-        return _workplacesRepository;
-      }
-    }
 
-    public UserManager<User> UserManager { get; }
+        private IWorkplacesRepository _workplacesRepository;
 
-    public SignInManager<User> SignInManager { get; }
-
-    public async Task<int> Save()
-    {
-      return await _context.SaveChangesAsync();
-    }
-
-    // IDisposable
-    readonly bool _disposed = false;
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!_disposed)
-      {
-        if (disposing)
+        public IWorkplacesRepository WorkplacesRepository
         {
-          _context.Dispose();
+            get
+            {
+                if (_workplacesRepository == null)
+                {
+                    _workplacesRepository = new WorkplacesRepository(_context);
+                }
+                return _workplacesRepository;
+            }
         }
-      }
-    }
 
-    public void Dispose()
-    {
-      Dispose(true);
-      GC.SuppressFinalize(this);
-    }
+        public UserManager<User> UserManager { get; }
 
-  }
+        public SignInManager<User> SignInManager { get; }
+
+        public async Task<int> Save()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        // IDisposable
+        readonly bool _disposed = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
 }

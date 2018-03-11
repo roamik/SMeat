@@ -8,6 +8,6 @@ namespace SMeat.DAL.Abstract
 {
     public interface IContactsRepository : IGenericRepository<Friends>
     {
-       Task<List<Friends>> GetPagedFullAsync(List<Expression<Func<Friends, bool>>> filters = null, int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes);
+       Task<List<Friends>> GetPagedRequestsAsync(List<Expression<Func<Friends, bool>>> filters = null, int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes);
     }
 }

@@ -1,0 +1,8 @@
+<div class="containerEdit">
+
+  <h1 class="name textOutline">{{'REQUESTS_TEXT' | translate}}</h1>
+
+  <div id="requestList">
+    <request-view *ngFor="let request of requests" [request]="request"></request-view>
+  </div>
+</div>

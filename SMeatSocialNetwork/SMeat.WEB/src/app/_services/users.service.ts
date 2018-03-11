@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions, RequestOptionsArgs, Response } from '@an
 import { AuthGuard } from '../_guards/auth.guard';
 
 import { User } from '../_models/user';
+import { Request } from '../_models/request';
 import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
@@ -31,7 +32,16 @@ export class UsersService {
   }
 
   addContact(id: string): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/' + id, null);
+    return this.http.post<User>(this.BASEURL + 'api/users/add/' + id, null);
+  }
+
+  confirmContact(id: string): Observable<User> {
+    return this.http.post<User>(this.BASEURL + 'api/users/confirm' + id, null);
+  }
+
+  getRequests(page: number, count: number, searchBy?: string): Observable<Request[]> {
+    var url = 'api/users/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
+    return this.http.get<Request[]>(this.BASEURL + url);
   }
 
   //delete(id: number) {

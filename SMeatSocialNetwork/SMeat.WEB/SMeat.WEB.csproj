@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\app\_enums\ContactStatus.ts" />
+    <None Remove="src\app\_enums\requestStatus.ts" />
     <None Remove="src\app\_guards\auth.guard.ts" />
     <None Remove="src\app\_guards\token.interceptor.ts" />
     <None Remove="src\app\_hubs\chats.hub.ts" />
@@ -16,6 +16,7 @@
     <None Remove="src\app\_models\languages.ts" />
     <None Remove="src\app\_models\location.ts" />
     <None Remove="src\app\_models\relations.ts" />
+    <None Remove="src\app\_models\request.ts" />
     <None Remove="src\app\_models\user.ts" />
     <None Remove="src\app\_models\workplace.ts" />
     <None Remove="src\app\_pipes\boards.service.ts" />
@@ -42,7 +43,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\app\_enums\ContactStatus.ts" />
+    <TypeScriptCompile Include="src\app\_enums\requestStatus.ts" />
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
     <TypeScriptCompile Include="src\app\_hubs\chats.hub.ts" />
     <TypeScriptCompile Include="src\app\_interceptors\badrequest.interceptor.ts" />
@@ -53,6 +54,7 @@
     <TypeScriptCompile Include="src\app\_enums\languages.ts" />
     <TypeScriptCompile Include="src\app\_models\location.ts" />
     <TypeScriptCompile Include="src\app\_enums\relations.ts" />
+    <TypeScriptCompile Include="src\app\_models\request.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
     <TypeScriptCompile Include="src\app\_models\workplace.ts" />
     <TypeScriptCompile Include="src\app\_services\replies.service.ts" />

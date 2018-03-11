@@ -13,6 +13,8 @@
 	"BTN_CREATE": "Créer",
 	"BTN_NEW_LOCATION": "Nouvel emplacement",
 	"BTN_NEW_WORKPLACE": "Nouveau lieu de travail",
+	"BTN_REQUESTS_TEXT": "Requêtes",
+	"REQUESTS_TEXT":"Demande d'amis",
 	
 	"CITY_TEXT": "Ville",
 	"COMPANY_TEXT": "Compagnie",
