@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,6 @@ namespace SMeat.MODELS.Entities
 
         public DateTimeOffset DateTime { get; set; }
 
-        //public int[] ReplyTo { get; set; } // an array of IDs of the replies this reply is sent to (WHAT?)
+        public virtual ICollection<ReplyReply> ReplyTo { get; set; } = new List<ReplyReply>();
     }
 }

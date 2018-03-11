@@ -1,8 +1,10 @@
-<div class="message">
-  <h6>{{ reply.id }} - reply to OP</h6>
+<div id="{{ reply.id }}" class="message">
+  <input class="replyToCheckbox" type="checkbox" name="replyTo" (change)="checkReplyId($event)">
+
+  <h6>{{ reply.id }}</h6>
   <p>{{ reply.text }}</p>
 
   <div class="replyList">
-    <a href="">[Reply ID]</a>
+    <a *ngFor="let reply of replies" (click)="replyClicked.emit('#'+reply)">{{ reply }}, </a>
   </div>
 </div>

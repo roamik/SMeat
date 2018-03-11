@@ -55,6 +55,24 @@ namespace SMeat.API.Controllers
             return Ok(replies.Count);
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("to/{id:guid}")]
+        public async Task<IActionResult> GetReplyiedAt(string id)
+        {
+            var reply = await _unitOfWork.RepliesRepository.FirstOrDefaultAsync(r => r.Id == id);
+            if (reply == null)
+            {
+                return BadRequest("Reply not found!");
+            }
+
+            // TO DO: implement this method, lol
+            var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.ReplyTo.Any(r => r.ReplyToId == reply.Id));
+            var idStrings = replies.Select(r => r.Id);
+
+            return Ok(idStrings);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddReply([FromBody] ReplyCreateBindingModel model)
@@ -68,6 +86,23 @@ namespace SMeat.API.Controllers
             reply.Text = model.Text;
             reply.BoardId = model.BoardId;
             reply.DateTime = new DateTimeOffset();
+
+            for(int i = 0; i < model.ReplyId.Length; i++)
+            {
+                Reply replyTo = await _unitOfWork.RepliesRepository.FirstOrDefaultAsync(r => r.Id == model.ReplyId[i]);
+
+                if (replyTo != null)
+                {
+                    try
+                    {
+                        reply.ReplyTo.Add(new ReplyReply { ReplyTo = replyTo } );
+                    }
+                    catch (Exception e)
+                    {
+                        Exception thisEx = e;
+                    }
+                }
+            }
 
             await _unitOfWork.RepliesRepository.AddAsync(reply);
             await _unitOfWork.Save();

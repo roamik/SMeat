@@ -52,7 +52,14 @@ namespace SMeat.MODELS
             
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BoardReply>().HasKey(e => new { e.BoardId, e.ReplyId });
+            modelBuilder.Entity<ReplyReply>().HasKey(e => new { e.ReplyId, e.ReplyToId });
+
+            modelBuilder.Entity<Reply>()
+               .HasMany(u => u.ReplyTo)
+               .WithOne(c => c.Reply)
+               .HasForeignKey(c => c.ReplyId)
+               .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<Board>() //Chat 1 = > N Messages (Chat has many messages and one message has 1 chat)
                  .HasMany(b => b.Replies)

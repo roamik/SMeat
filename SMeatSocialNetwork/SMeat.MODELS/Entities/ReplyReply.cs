@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SMeat.MODELS.Entities
 {
-    class BoardReply
+    public class ReplyReply
     {
-        [ForeignKey("Board")]
-        public string BoardId { get; set; }
-
-        public virtual Board Board { get; set; }
-
         [ForeignKey("Reply")]
+        [Required]
         public string ReplyId { get; set; }
 
         public virtual Reply Reply { get; set; }
+
+        [ForeignKey("ReplyTo")]
+        [Required]
+        public string ReplyToId { get; set; }
+
+        public virtual Reply ReplyTo { get; set; }
     }
 }

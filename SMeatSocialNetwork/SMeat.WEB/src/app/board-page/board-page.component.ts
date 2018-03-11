@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { Board } from '../_models/board';
 import { Reply } from '../_models/reply';
@@ -20,7 +20,7 @@ export class BoardPageComponent implements OnInit {
     replies: Reply[];
     newReply: Reply = new Reply();
 
-  constructor(private repliesService: RepliesService, private boardsService: BoardsService, private route: ActivatedRoute) {
+    constructor(private repliesService: RepliesService, private boardsService: BoardsService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -31,7 +31,20 @@ export class BoardPageComponent implements OnInit {
         this.getReplies(this.id);
       });
     }
-  
+
+    scrollToId(id) {
+      location.hash = id;
+    }
+
+    AddReplyTo(str) {
+      this.newReply.replyId.push(str);
+    }
+
+    RemoveReplyTo(str) {
+      let index = this.newReply.replyId.indexOf(str);
+      this.newReply.replyId.splice(index, 1);
+    }
+
     getBoardInfo(id: string) {
       this.boardsService.getById(id).subscribe(
         board => { this.board = board },
@@ -52,6 +65,7 @@ export class BoardPageComponent implements OnInit {
         .subscribe(
         reply => {
           this.newReply.text = '';
+          this.newReply.replyId = [];
           this.getReplies(this.id);
         },
         error => {

@@ -1,15 +1,26 @@
-#topForm {
-	display: block;
-	min-height: 2.5em;
+#pageLabel
+{
+  margin: 0;
 }
 
-h1{
-	text-align: center;
+#addBtnLink {
+  min-height: 2.5em;
+  float: right;
+}
+
+#topBar
+{
+  margin: 0em 1.5em;
+}
+
+#topBar *
+{
+  padding: 0;
 }
 
 #searchForm {
-	width: 70%;
-	display: inline-block;
+  width: 70%;
+  display: inline-block;
 }
 
 #boardList
@@ -24,10 +35,6 @@ h1{
 		1px -1px 0 #000,
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
-}
-
-#addBtnLink {
-	float: right;
 }
 
 #boardList {

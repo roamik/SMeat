@@ -1,6 +1,6 @@
 <a class="boardArea" [routerLink]="['/boards', board.id]">
-  <div class="row">
-      <p class="col-xs-9 col-md-10">{{ board.name }} - {{ replyCount }} replies</p>
-      <p class="col-xs-3 col-md-2">{{ board.likes }} / {{ board.dislikes }}</p>
+  <div>
+    <p style="display: inline-block;">{{ board.name }} - {{ replyCount }} replies</p>
+    <p style="display: inline-block; float: right;">{{ board.likes }} / {{ board.dislikes }}</p>
   </div>
 </a>

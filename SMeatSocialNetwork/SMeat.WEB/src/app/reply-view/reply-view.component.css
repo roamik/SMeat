@@ -7,22 +7,27 @@
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-  .message h6 {
-    margin-left: 1em;
-    font-style: italic;
-  }
+.replyToCheckbox {
+  float: right;
+  margin: .5em;
+}
 
-    .message h6 a {
-      font-style: italic;
-      color: white;
-    }
+.message h6 {
+  margin-left: 1em;
+  font-style: italic;
+}
 
-  .message p {
-    padding: 1em 1em;
-    border: 2px solid rgba(0,0,0,.5);
-    border-left: none;
-    border-right: none;
-  }
+.message h6 a {
+  font-style: italic;
+  color: white;
+}
+
+.message p {
+  padding: 1em 1em;
+  border: 2px solid rgba(0,0,0,.5);
+  border-left: none;
+  border-right: none;
+}
 
 .replyList {
   margin: 0em 1em;

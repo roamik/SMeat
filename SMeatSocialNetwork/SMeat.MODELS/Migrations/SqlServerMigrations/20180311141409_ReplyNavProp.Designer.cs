@@ -12,9 +12,10 @@ using System;
 namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180311141409_ReplyNavProp")]
+    partial class ReplyNavProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +38,19 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
                     b.HasKey("Id");
 
                     b.ToTable("Boards");
+                });
+
+            modelBuilder.Entity("SMeat.MODELS.Entities.BoardReply", b =>
+                {
+                    b.Property<string>("BoardId");
+
+                    b.Property<string>("ReplyId");
+
+                    b.HasKey("BoardId", "ReplyId");
+
+                    b.HasIndex("ReplyId");
+
+                    b.ToTable("BoardReply");
                 });
 
             modelBuilder.Entity("SMeat.MODELS.Entities.Chat", b =>
@@ -135,26 +149,17 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
 
                     b.Property<DateTimeOffset>("DateTime");
 
+                    b.Property<string>("ReplyId");
+
                     b.Property<string>("Text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BoardId");
 
+                    b.HasIndex("ReplyId");
+
                     b.ToTable("Replies");
-                });
-
-            modelBuilder.Entity("SMeat.MODELS.Entities.ReplyReply", b =>
-                {
-                    b.Property<string>("ReplyId");
-
-                    b.Property<string>("ReplyToId");
-
-                    b.HasKey("ReplyId", "ReplyToId");
-
-                    b.HasIndex("ReplyToId");
-
-                    b.ToTable("ReplyReply");
                 });
 
             modelBuilder.Entity("SMeat.MODELS.Entities.Role", b =>
@@ -394,6 +399,19 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
                     b.ToTable("WorkPlaces");
                 });
 
+            modelBuilder.Entity("SMeat.MODELS.Entities.BoardReply", b =>
+                {
+                    b.HasOne("SMeat.MODELS.Entities.Board", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SMeat.MODELS.Entities.Reply", "Reply")
+                        .WithMany()
+                        .HasForeignKey("ReplyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SMeat.MODELS.Entities.Chat", b =>
                 {
                     b.HasOne("SMeat.MODELS.Entities.User", "User")
@@ -434,19 +452,10 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
                     b.HasOne("SMeat.MODELS.Entities.Board", "Board")
                         .WithMany("Replies")
                         .HasForeignKey("BoardId");
-                });
 
-            modelBuilder.Entity("SMeat.MODELS.Entities.ReplyReply", b =>
-                {
-                    b.HasOne("SMeat.MODELS.Entities.Reply", "Reply")
+                    b.HasOne("SMeat.MODELS.Entities.Reply")
                         .WithMany("ReplyTo")
-                        .HasForeignKey("ReplyId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SMeat.MODELS.Entities.Reply", "ReplyTo")
-                        .WithMany()
-                        .HasForeignKey("ReplyToId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ReplyId");
                 });
 
             modelBuilder.Entity("SMeat.MODELS.Entities.User", b =>

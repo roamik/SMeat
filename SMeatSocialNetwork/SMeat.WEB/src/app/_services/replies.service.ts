@@ -30,6 +30,11 @@ export class RepliesService {
     var url = 'api/replies/count/' + id;
     return this.http.get<number>(this.BASEURL + url);
   }
+
+  getRepliedAt(id: string): Observable<string[]> {
+    var url = 'api/replies/to/' + id;
+    return this.http.get<string[]>(this.BASEURL + url);
+  }
   
   add(model): Observable<Reply> {
     return this.http.post<Reply>(this.BASEURL + 'api/replies', model);
