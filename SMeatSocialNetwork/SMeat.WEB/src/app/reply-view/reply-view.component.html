@@ -5,6 +5,6 @@
   <p>{{ reply.text }}</p>
 
   <div class="replyList">
-    <a *ngFor="let reply of replies" (click)="replyClicked.emit('#'+reply)">{{ reply }}, </a>
+    <a *ngFor="let reply of replies, let i = index" (click)="replyClicked.emit('#'+reply)">{{ i + 1 }} </a>
   </div>
 </div>

@@ -22,6 +22,8 @@ namespace SMeat.MODELS.Entities
 
         public int Dislikes { get; set; }
 
+        public User MadeBy { get; set; }
+
         public List<Reply> Replies { get; set; }
     }
 }

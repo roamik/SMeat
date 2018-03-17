@@ -34,14 +34,7 @@
 <hr>
 
 <div id="boardList">
-	<a class="row" href="">
-		<p class="col-xs-8 col-md-9">"Sample board name" - [number of replies]</p>
-		<p class="col-xs-4 col-md-3">[Likes] / [Dislikes]</p>
-	</a>
-	<a  class="row" href="">
-		<p class="col-xs-8 col-md-9">"Sample board name 2" - [number of replies]</p>
-		<p class="col-xs-4 col-md-3">[Likes] / [Dislikes]</p>
-	</a>
+  <app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
 </div>
 
 </div>

@@ -5,6 +5,9 @@ import { UsersService } from "../_services/users.service";
 import { GenderType } from "../_enums/genders";
 import { RelationshipType } from "../_enums/relations";
 
+import { Board } from '../_models/board';
+import { BoardsService } from "../_services/boards.service";
+
 @Component({
   selector: 'profile-page',
   templateUrl: './profile-page.component.html',
@@ -12,7 +15,7 @@ import { RelationshipType } from "../_enums/relations";
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private usersService: UsersService) { }
+  constructor(private route: ActivatedRoute, private usersService: UsersService, private boardsService: BoardsService) { }
 
   id: string;
   private sub: any;
@@ -22,6 +25,8 @@ export class ProfilePageComponent implements OnInit {
   public relations: typeof RelationshipType = RelationshipType;
 
   user: User = new User();
+
+  boards: Board[];
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -36,9 +41,18 @@ export class ProfilePageComponent implements OnInit {
       user => {
         this.user = user,
           this.currentUserId = user.currentUserId;
+          this.getBoards(this.currentUserId);
       },
       error => { }
     )
+  }
+
+  getBoards(id: string) {
+    this.boardsService.getMyBoards(id)
+      .subscribe(
+      boards => {
+        this.boards = boards;
+      });
   }
 
   addContact(id: string) {

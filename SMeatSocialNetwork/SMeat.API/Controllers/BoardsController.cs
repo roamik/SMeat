@@ -8,6 +8,8 @@ using SMeat.DAL.Abstract;
 using SMeat.MODELS.Entities;
 using AutoMapper;
 using SMeat.MODELS.BindingModels;
+using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SMeat.API.Controllers
 {
@@ -38,6 +40,26 @@ namespace SMeat.API.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("my/{id:guid}")]
+        public async Task<IActionResult> GetMyBoardsAsync(string id)
+        {
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id);
+            if (currentUser == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(b => b.MadeBy == currentUser);
+            if (currentUser == null)
+            {
+                return BadRequest("No boards found.");
+            }
+
+            return Ok(boards);
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("paged")]
         public async Task<IActionResult> GetBoards([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
         {
@@ -63,6 +85,10 @@ namespace SMeat.API.Controllers
             }
             
             var board = _mapper.Map<Board>(model);
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+            board.MadeBy = currentUser;
 
             await _unitOfWork.BoardsRepository.AddAsync(board);
             await _unitOfWork.Save();
