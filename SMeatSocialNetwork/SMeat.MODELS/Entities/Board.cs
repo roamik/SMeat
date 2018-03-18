@@ -18,12 +18,12 @@ namespace SMeat.MODELS.Entities
 
         public string Text { get; set; }
 
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
-
         public User MadeBy { get; set; }
 
         public List<Reply> Replies { get; set; }
+
+        public List<BoardLike> Likes { get; set; } = new List<BoardLike>();
+
+        public List<BoardDislike> Dislikes { get; set; } = new List<BoardDislike>();
     }
 }

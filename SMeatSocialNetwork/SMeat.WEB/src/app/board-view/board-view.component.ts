@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Board } from "../_models/board";
 
 import { RepliesService } from "../_services/replies.service";
+import { BoardsService } from "../_services/boards.service";
 
 @Component({
   selector: "app-board-view",
@@ -14,7 +15,7 @@ export class BoardViewComponent implements OnInit {
   @Input() board: Board;
   replyCount: number = 0;
 
-  constructor(private repliesService: RepliesService) {
+  constructor(private boardsService: BoardsService, private repliesService: RepliesService) {
     
   }
 
@@ -22,14 +23,17 @@ export class BoardViewComponent implements OnInit {
     this.getCount();
   }
 
-  voyeUp(): boolean {
-    this.board.voteUp();
-    return false;
+  like(id: string) {
+    this.boardsService.likeBoards(id)
+      .subscribe(board => {
+        this.board = board;
+      });
   }
-
-  voteDown(): boolean {
-    this.board.voteDown();
-    return false;
+  dislike(id: string) {
+    this.boardsService.dislikeBoards(id)
+      .subscribe(board => {
+        this.board = board;
+      });
   }
 
   getCount() {

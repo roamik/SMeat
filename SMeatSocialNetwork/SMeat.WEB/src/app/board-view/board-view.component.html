@@ -1,10 +1,10 @@
 <div class="boardArea">
   <div>
     <a [routerLink]="['/boards', board.id]" style="color: white;">{{ board.name }} - {{ replyCount }} replies</a>
-    <p style="display: inline-block; float: right;">{{ board.likes }} / {{ board.dislikes }}</p>
+    <p style="display: inline-block; float: right;">{{ board.likes.length }} / {{ board.dislikes.length }}</p>
     <div>
-      <button class="btn_custom" type="button">Like</button>
-      <button class="btn_custom" type="button">Dislike</button>
+      <button (click)="like(board.id)" class="btn_custom" type="button">Like</button>
+      <button (click)="dislike(board.id)" class="btn_custom" type="button">Dislike</button>
     </div>
   </div>
 </div>

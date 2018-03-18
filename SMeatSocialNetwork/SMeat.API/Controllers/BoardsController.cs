@@ -40,6 +40,45 @@ namespace SMeat.API.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("like/{id:guid}")]
+        public async Task<IActionResult> Like(string id)
+        {
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            if (board == null)
+            {
+                return BadRequest("Board not found!");
+            }
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            board.Likes.Add(new BoardLike { LikeFrom = currentUser });
+            
+            await _unitOfWork.Save();
+            return Ok(board);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("dislike/{id:guid}")]
+        public async Task<IActionResult> Dislike(string id)
+        {
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            if (board == null)
+            {
+                return BadRequest("Board not found!");
+            }
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            board.Dislikes.Add(new BoardDislike { DislikeFrom = currentUser });
+
+            return Ok(board);
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("my/{id:guid}")]
         public async Task<IActionResult> GetMyBoardsAsync(string id)
         {

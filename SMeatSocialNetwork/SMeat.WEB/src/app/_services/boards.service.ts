@@ -33,7 +33,16 @@ export class BoardsService {
     var url = 'api/boards/my/' + id;
     return this.http.get<Board[]>(this.BASEURL + url);
   }
-  
+
+  likeBoards(id: string): Observable<Board> {
+    var url = 'api/boards/like/' + id;
+    return this.http.get<Board>(this.BASEURL + url);
+  }
+  dislikeBoards(id: string): Observable<Board> {
+    var url = 'api/boards/dislike/' + id;
+    return this.http.get<Board>(this.BASEURL + url);
+  }
+
   add(model): Observable<Board> {
     return this.http.post<Board>(this.BASEURL + 'api/boards', model);
   }

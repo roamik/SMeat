@@ -54,6 +54,9 @@ namespace SMeat.MODELS
 
             modelBuilder.Entity<ReplyReply>().HasKey(e => new { e.ReplyId, e.ReplyToId });
 
+            modelBuilder.Entity<BoardLike>().HasKey(e => new { e.BoardId, e.LikeFromId });
+            modelBuilder.Entity<BoardDislike>().HasKey(e => new { e.BoardId, e.DislikeFromId });
+
             modelBuilder.Entity<Reply>()
                .HasMany(u => u.ReplyTo)
                .WithOne(c => c.Reply)
@@ -61,7 +64,7 @@ namespace SMeat.MODELS
                .OnDelete(DeleteBehavior.Restrict);
 
 
-            modelBuilder.Entity<Board>() //Chat 1 = > N Messages (Chat has many messages and one message has 1 chat)
+            modelBuilder.Entity<Board>() 
                  .HasMany(b => b.Replies)
                  .WithOne(m => m.Board)
                  .HasForeignKey(m => m.BoardId);
