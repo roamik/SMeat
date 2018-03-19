@@ -22,8 +22,8 @@ namespace SMeat.MODELS
         protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder ) {
             optionsBuilder.UseSqlServer(_options?.Value?.DefaultConnectionSqlServer ??
                 //"Server = ROAMPC; Database = SMSNv1; Trusted_Connection = True; MultipleActiveResultSets = true");    
-                //"Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
-                "Server=FI-PC\\SQLEXPRESS;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
+                "Server=localhost;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
+                //"Server=FI-PC\\SQLEXPRESS;Database=SMSNv1;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=sa;Password=55331100;");
         }
         #endregion
 
@@ -56,6 +56,18 @@ namespace SMeat.MODELS
 
             modelBuilder.Entity<BoardLike>().HasKey(e => new { e.BoardId, e.LikeFromId });
             modelBuilder.Entity<BoardDislike>().HasKey(e => new { e.BoardId, e.DislikeFromId });
+
+            modelBuilder.Entity<Board>()   
+               .HasMany(u => u.Likes)
+               .WithOne(c => c.Board)
+               .HasForeignKey(c => c.BoardId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Board>()    
+               .HasMany(u => u.Dislikes)
+               .WithOne(c => c.Board)
+               .HasForeignKey(c => c.BoardId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Reply>()
                .HasMany(u => u.ReplyTo)

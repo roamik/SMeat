@@ -52,6 +52,9 @@ namespace SMeat.API.Controllers
             var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
             var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
 
+            var existingLike = board.Likes.FirstOrDefault( b => b.LikeFromId == currentUserId);
+            if(existingLike != null) return BadRequest("Like already there!");
+
             board.Likes.Add(new BoardLike { LikeFrom = currentUser });
             
             await _unitOfWork.Save();

@@ -1,5 +1,6 @@
 <div class="boardArea">
   <div>
+    {{ board.likes.toString() }}
     <a [routerLink]="['/boards', board.id]" style="color: white;">{{ board.name }} - {{ replyCount }} replies</a>
     <p style="display: inline-block; float: right;">{{ board.likes.length }} / {{ board.dislikes.length }}</p>
     <div>
