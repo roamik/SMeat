@@ -27,6 +27,11 @@ export class RegistrationPageComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService) { }
 
+  checkReg() {
+    if (this.model.password === this.model.passwordRep) this.register();
+    this.model.passwordRepError = true;
+  }
+
   register() {
     this.loading = true;
     this.authenticationService.register(this.model)

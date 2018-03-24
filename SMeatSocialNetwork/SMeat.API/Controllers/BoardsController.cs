@@ -29,13 +29,13 @@ namespace SMeat.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetBoardByIdAsync(string id)
         {
-            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id, b => b.Likes, b => b.Dislikes);
             if (board == null)
             {
                 return BadRequest("Board not found!");
             }
-
-            return Ok(new { Id = board.Id, Name = board.Name, Text = board.Text, Likes = board.Likes, Dislikes = board.Dislikes });
+            
+            return Ok(board);
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace SMeat.API.Controllers
         [Route("like/{id:guid}")]
         public async Task<IActionResult> Like(string id)
         {
-            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id, b => b.Likes, b => b.Dislikes );
             if (board == null)
             {
                 return BadRequest("Board not found!");
@@ -53,10 +53,15 @@ namespace SMeat.API.Controllers
             var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
 
             var existingLike = board.Likes.FirstOrDefault( b => b.LikeFromId == currentUserId);
-            if(existingLike != null) return BadRequest("Like already there!");
+            if (existingLike != null) {
+                board.Likes.Remove(existingLike);
+            }
+            else {
+                board.Likes.Add(new BoardLike { LikeFrom = currentUser });
+                var existingDislike = board.Dislikes.FirstOrDefault(b => b.DislikeFromId == currentUserId);
+                if (existingDislike != null) board.Dislikes.Remove(existingDislike);
+            }
 
-            board.Likes.Add(new BoardLike { LikeFrom = currentUser });
-            
             await _unitOfWork.Save();
             return Ok(board);
         }
@@ -66,7 +71,7 @@ namespace SMeat.API.Controllers
         [Route("dislike/{id:guid}")]
         public async Task<IActionResult> Dislike(string id)
         {
-            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id);
+            var board = await _unitOfWork.BoardsRepository.FirstOrDefaultAsync(b => b.Id == id, b => b.Likes, b => b.Dislikes);
             if (board == null)
             {
                 return BadRequest("Board not found!");
@@ -75,8 +80,17 @@ namespace SMeat.API.Controllers
             var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
             var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
 
-            board.Dislikes.Add(new BoardDislike { DislikeFrom = currentUser });
+            var existingDislike = board.Dislikes.FirstOrDefault(b => b.DislikeFromId == currentUserId);
+            if (existingDislike != null) {
+                board.Dislikes.Remove(existingDislike);
+            }
+            else {
+                board.Dislikes.Add(new BoardDislike { DislikeFrom = currentUser });
+                var existingLike = board.Likes.FirstOrDefault(b => b.LikeFromId == currentUserId);
+                if (existingLike != null) board.Likes.Remove(existingLike);
+            }
 
+            await _unitOfWork.Save();
             return Ok(board);
         }
 
@@ -111,8 +125,10 @@ namespace SMeat.API.Controllers
                 filter = (b => b.Name.Contains(searchBy));
             }
 
-            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(filter: filter, count: count, page: page);
+            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(filter: filter, count: count, page: page, b => b.Likes, b => b.Dislikes);
             var boardsCount = await _unitOfWork.BoardsRepository.CountAsync(filter: filter);
+
+            boards = boards.OrderByDescending(b => b.Likes.Count - b.Dislikes.Count).ToList();
 
             return Ok(boards);
         }
