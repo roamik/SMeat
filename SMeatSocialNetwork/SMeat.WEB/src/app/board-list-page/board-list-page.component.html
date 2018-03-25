@@ -12,7 +12,7 @@
   </div>
 
 	<div id="boardList">
-		<app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
+		<app-board-view *ngFor="let board of boards" [board]="board" [curUserId]="curUserId"></app-board-view>
 	</div>
 
 </div>

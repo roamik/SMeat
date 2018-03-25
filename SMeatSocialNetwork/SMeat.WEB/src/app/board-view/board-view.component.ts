@@ -15,6 +15,8 @@ export class BoardViewComponent implements OnInit {
   @Input() board: Board;
   replyCount: number = 0;
 
+  @Input() curUserId: number;
+
   constructor(private boardsService: BoardsService, private repliesService: RepliesService) {
     
   }
@@ -38,13 +40,13 @@ export class BoardViewComponent implements OnInit {
 
   liked() {
     for (let i = 0; i < this.board.likes.length; i++) {
-      if (this.board.likes[i].likeFromId === (<any>window).smeat.userId) return true;
+      if (this.board.likes[i].likeFromId === this.curUserId) return true;
     }
     return false;
   }
   disliked() {
     for (let i = 0; i < this.board.dislikes.length; i++) {
-      if (this.board.dislikes[i].dislikeFromId === (<any>window).smeat.userId) return true;
+      if (this.board.dislikes[i].dislikeFromId === this.curUserId) return true;
     }
     return false;
   }

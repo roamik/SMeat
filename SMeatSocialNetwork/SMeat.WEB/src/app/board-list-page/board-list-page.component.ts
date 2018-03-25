@@ -14,6 +14,8 @@ export class BoardListPageComponent implements OnInit {
 
   @Input() boards: Board[];
 
+  curUserId: number;
+
   boardPage: number = 0;
   boardCount: number = 100;
   boardeSearchBy: string;
@@ -38,8 +40,7 @@ export class BoardListPageComponent implements OnInit {
   getUserInfo() {
     this.usersService.getMyInfo().subscribe(
       user => {
-        if ((<any>window).smeat === undefined) (<any>window).smeat = {};
-        (<any>window).smeat.userId = user.id;
+        this.curUserId = user.id;
       }
     )
   }
