@@ -15,35 +15,38 @@ export class BoardViewComponent implements OnInit {
   @Input() board: Board;
   replyCount: number = 0;
 
-  liked: boolean;
-  disliked: boolean;
-
   constructor(private boardsService: BoardsService, private repliesService: RepliesService) {
     
   }
 
   ngOnInit() {
     this.getCount();
-    this.checkLikesDislikes();
   }
 
   like(id: string) {
     this.boardsService.likeBoards(id)
       .subscribe(board => {
         this.board = board;
-        this.liked = true;
       });
   }
   dislike(id: string) {
     this.boardsService.dislikeBoards(id)
       .subscribe(board => {
         this.board = board;
-        this.disliked = true;
       });
   }
 
-  checkLikesDislikes() {
-
+  liked() {
+    for (let i = 0; i < this.board.likes.length; i++) {
+      if (this.board.likes[i].likeFromId === (<any>window).smeat.userId) return true;
+    }
+    return false;
+  }
+  disliked() {
+    for (let i = 0; i < this.board.dislikes.length; i++) {
+      if (this.board.dislikes[i].dislikeFromId === (<any>window).smeat.userId) return true;
+    }
+    return false;
   }
 
   getCount() {

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 
 import { Board } from '../_models/board';
 import { BoardsService } from "../_services/boards.service";
+import { UsersService } from "../_services/users.service";
 
 @Component({
   selector: 'board-list-page',
@@ -17,11 +18,12 @@ export class BoardListPageComponent implements OnInit {
   boardCount: number = 100;
   boardeSearchBy: string;
 
-  constructor(private boardsService: BoardsService) {
+  constructor(private boardsService: BoardsService, private usersService: UsersService) {
 
   }
 
   ngOnInit() {
+    this.getUserInfo();
     this.getBoards();
   }
 
@@ -31,5 +33,14 @@ export class BoardListPageComponent implements OnInit {
       boards => {
         this.boards = boards;
       });
+  }
+  
+  getUserInfo() {
+    this.usersService.getMyInfo().subscribe(
+      user => {
+        if ((<any>window).smeat === undefined) (<any>window).smeat = {};
+        (<any>window).smeat.userId = user.id;
+      }
+    )
   }
 }

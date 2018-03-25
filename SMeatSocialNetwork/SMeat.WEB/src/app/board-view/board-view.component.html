@@ -1,7 +1,7 @@
 <div class="boardArea">
   <div>
     <a [routerLink]="['/boards', board.id]" style="color: white;">{{ board.name }} - {{ replyCount }} replies</a>
-    <p style="display: inline-block; float: right;"><span [ngClass]="{ 'textOutline': liked }">{{ board.likes.length }}</span> / <span [ngClass]="{ 'textOutline': disliked }">{{ board.dislikes.length }}</span></p>
+    <p style="display: inline-block; float: right;"><span [ngClass]="{ 'textOutline': liked() }">{{ board.likes.length }}</span> / <span [ngClass]="{ 'textOutline': disliked() }">{{ board.dislikes.length }}</span></p>
     <div>
       <button (click)="like(board.id)" class="btn_custom" type="button">Like</button>
       <button (click)="dislike(board.id)" class="btn_custom" type="button">Dislike</button>
