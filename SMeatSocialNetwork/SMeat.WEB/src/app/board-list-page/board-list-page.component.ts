@@ -14,7 +14,7 @@ export class BoardListPageComponent implements OnInit {
 
   @Input() boards: Board[];
 
-  curUserId: number;
+  curUserId: string;
 
   boardPage: number = 0;
   boardCount: number = 100;

@@ -34,9 +34,10 @@ namespace SMeat.API.Controllers
             }
 
             var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.BoardId == board.Id);
-            replies.Sort((x, y) => DateTimeOffset.Compare(y.DateTime, x.DateTime));
-            replies.Reverse();
-            return Ok(replies);
+            /*replies.Sort((x, y) => DateTimeOffset.Compare(y.DateTime, x.DateTime));
+            replies.Reverse();*/
+
+            return Ok(replies.OrderBy(r => r.DateTime).ToList());
         }
 
         [HttpGet]
@@ -85,7 +86,7 @@ namespace SMeat.API.Controllers
             var reply = new Reply();
             reply.Text = model.Text;
             reply.BoardId = model.BoardId;
-            reply.DateTime = new DateTimeOffset();
+            reply.DateTime = DateTimeOffset.Now;
 
             for(int i = 0; i < model.ReplyId.Length; i++)
             {
