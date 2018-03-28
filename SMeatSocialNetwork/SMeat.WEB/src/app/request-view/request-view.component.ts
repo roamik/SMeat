@@ -11,7 +11,7 @@ export class RequestViewComponent implements OnInit {
 
   @Input() request: Request;
 
-  @Input() currentUserId : any;
+  //@Input() currentUserId : any;
 
   constructor(private usersService: UsersService) { }
 
