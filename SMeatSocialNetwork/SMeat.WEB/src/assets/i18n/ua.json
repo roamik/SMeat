@@ -1,6 +1,7 @@
 {
 	"ABOUT_TEXT": "Про користувача",
 	"TEXT_NEW_LOCATION":"Додати місце",
+	"TEXT_NEW_WORKPLACE":"Місце роботи",
 	
 	"BTN_APPLY_TEXT": "Підтвердити",
 	"BTN_BOARDS_TEXT": "Дошки",
@@ -16,7 +17,7 @@
 	"BTN_NEW_LOCATION": "Нове місце",
 	"BTN_NEW_WORKPLACE": "Додати місце роботи",
 	"BTN_REQUESTS_TEXT": "Запити",
-	"BTN_CONTACTS_TEXT": "Контакти",\
+	"BTN_CONTACTS_TEXT": "Контакти",
 	"BTN_CANCEL_TEXT": "Скасувати",
 	"REQUESTS_TEXT":"Френд реквестс",
 	
@@ -41,6 +42,10 @@
 	"ERR_CITY_MIN_LENGTH": "Назва міста повинна містити мін. 4 символи!",
 	"ERR_COUNTRY_REQUIRED": "Країна є обов'язковою!",
 	"ERR_COUNTRY_MIN_LENGTH": "Назва країни повинна містити мін. 4 символи!",
+	"ERR_COMPANY_NAME_REQUIRED": "Назва компанії обов'язкова!",
+	"ERR_COMPANY_NAME_MIN_LENGTH": "Назва компанії мін. 4 символи!",
+	"ERR_POSITION_REQUIRED": "Вкажіть посаду!",
+	"ERR_POSITION_MIN_LENGTH": "Посада мін. 4 символи!",
 	
 	"FemaleGender": "Жінка",
 	"InRelationRelation": "У відносинах",

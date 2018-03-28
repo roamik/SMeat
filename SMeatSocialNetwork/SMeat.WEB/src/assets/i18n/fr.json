@@ -23,6 +23,7 @@
 	"COUNTRY_TEXT": "Pays",
 	"ComplicatedRelation": "C'est compliqué",
 	"TEXT_NEW_LOCATION":"Nouvel emplacement",
+	"TEXT_NEW_WORKPLACE":"Nouveau lieu de travail",
 	"TEXT_CLOSE":"Fermer",
 	"POSITION_TEXT":"Position",
 	
@@ -41,6 +42,10 @@
 	"ERR_CITY_MIN_LENGTH": "Nom de la ville min. 4 symboles!",
 	"ERR_COUNTRY_REQUIRED": "Pays requis!",
 	"ERR_COUNTRY_MIN_LENGTH": "Nom du pays min. 4 symboles!",
+	"ERR_COMPANY_NAME_REQUIRED": "Le nom de l'entreprise est requis!",
+	"ERR_COMPANY_NAME_MIN_LENGTH": "Nom de l'entreprise min. 4 symboles!",
+	"ERR_POSITION_REQUIRED": "La position est requise!",
+	"ERR_POSITION_MIN_LENGTH": "La position est min. 4 symboles!",
 	
 	"FemaleGender": "Femelle",
 	"InRelationRelation": "En relation",

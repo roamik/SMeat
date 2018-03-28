@@ -7,50 +7,69 @@
   </div>
   <div class="modal-body">
     <form #form="ngForm" (ngSubmit)="form.valid && addWorkplace()">
-      <div class="row field">
-        <h4 style="color:black">{{'COMPANY_TEXT' | translate}}:*</h4>
-        <input class="locationCity" type="text" name="company" maxlength="10" minlength="4" placeholder="{{'COMPANY_TEXT' | translate}}" [(ngModel)]="workplace.companyName" #company="ngModel" required>
-        <div class="pull-left" *ngIf="company.invalid && (company.touched || form.submited)">
-          <small class="text-danger" *ngIf="company.errors.required">
-            {{'ERR_COMPANY_NAME_REQUIRED' | translate}}.
-          </small>
-          <div class="text-danger" *ngIf="company.errors.minlength">
-            {{'ERR_COMPANY_NAME_MIN_LENGTH' | translate}}.
+      <div class="dataBlock">
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p style="color: black" class="boldLables text-right">{{'COMPANY_TEXT' | translate}}:*</p>
+          </div>
+          <div class="col-xs-6">
+            <input class="locationCity" type="text" name="company" maxlength="10" minlength="4" placeholder="{{'COMPANY_TEXT' | translate}}" [(ngModel)]="workplace.companyName" #company="ngModel" required>
+
+            <div class="pull-left" *ngIf="company.invalid && (company.touched || form.submited)">
+              <small class="text-danger" *ngIf="company.errors.required">
+                {{'ERR_COMPANY_NAME_REQUIRED' | translate}}.
+              </small>
+              <div class="text-danger" *ngIf="company.errors.minlength">
+                {{'ERR_COMPANY_NAME_MIN_LENGTH' | translate}}.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row field">
-        <h4 style="color:black">{{'POSITION_TEXT' | translate}}:*</h4>
-        <input class="location-country" type="text" name="position" maxlength="10" minlength="4" placeholder="{{'COUNTRY_TEXT' | translate}}" [(ngModel)]="workplace.position" #position="ngModel" required>
-        <div class="pull-left" *ngIf="position.invalid && (position.touched || form.submited)">
-          <small class="text-danger" *ngIf="position.errors.required">
-            {{'ERR_POSITION_REQUIRED' | translate}}.
-          </small>
-          <div class="text-danger" *ngIf="position.errors.minlength">
-            {{'ERR_POSITION_MIN_LENGTH' | translate}}.
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p style="color: black" class="boldLables text-right">{{'POSITION_TEXT' | translate}}:*</p>
+          </div>
+          <div class="col-xs-6">
+            <input class="location-country" type="text" name="position" maxlength="10" minlength="4" placeholder="{{'POSITION_TEXT' | translate}}" [(ngModel)]="workplace.position" #position="ngModel" required>
+
+            <div class="pull-left" *ngIf="position.invalid && (position.touched || form.submited)">
+              <small class="text-danger" *ngIf="position.errors.required">
+                {{'ERR_POSITION_REQUIRED' | translate}}.
+              </small>
+              <div class="text-danger" *ngIf="position.errors.minlength">
+                {{'ERR_POSITION_MIN_LENGTH' | translate}}.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="field">
-        <ng-select name="location" [items]="locations"
-                   bindLabel="city"
-                   bindValue="id"
-                   placeholder="{{'PLACEHOLDER_SELECT_CITY_TEXT' | translate}}"
-                   [(ngModel)]="workplace.locationId">
-          <ng-template ng-label-tmp let-item="item">
-            {{item.country}}, {{item.city}}{{item.street?',':''}} {{item.street}}
-          </ng-template>
-          <ng-template ng-option-tmp let-item="item">
-            <div><b>{{'CITY_TEXT' | translate}}:</b> {{item.city}}</div>
-            <small *ngIf="!item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}}</small>
-            <small *ngIf="item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}} | {{'STREET_TEXT' | translate}}: {{item.street}}</small>
-          </ng-template>
-        </ng-select>
-      </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <p style="color: black" class="boldLables text-right">{{'LOCATION_TEXT' | translate}}:</p>
+          </div>
+          <div class="col-xs-6">
+            <ng-select name="location" [items]="locations"
+                       bindLabel="city"
+                       bindValue="id"
+                       placeholder="{{'PLACEHOLDER_SELECT_CITY_TEXT' | translate}}"
+                       [(ngModel)]="workplace.locationId">
+              <ng-template ng-label-tmp let-item="item">
+                {{item.country}}, {{item.city}}{{item.street?',':''}} {{item.street}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div><b>{{'CITY_TEXT' | translate}}:</b> {{item.city}}</div>
+                <small *ngIf="!item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}}</small>
+                <small *ngIf="item.street">{{'COUNTRY_TEXT' | translate}}: {{item.country}} | {{'STREET_TEXT' | translate}}: {{item.street}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
 
-      <div class="row field">
-        <button type="button" [disabled]="!form.valid" class="btn-default btn_custom center-block" (click)="addWorkplace()">{{'BTN_CREATE' | translate}}</button>
+        <div class="row field">
+          <button type="button" [disabled]="!form.valid" class="btn-default btn_custom center-block" (click)="addWorkplace()">{{'BTN_CREATE' | translate}}</button>
+        </div>
       </div>
     </form>
   </div>
