@@ -63,6 +63,7 @@ import { ProfilePageComponent } from "./profile-page/profile-page.component";
 import { RegistrationPageComponent } from "./registration-page/registration-page.component";
 import { UnsignedPageComponent } from "./unsigned-page/unsigned-page.component";
 import { UserSettingsPageComponent } from "./user-settings-page/user-settings-page.component";
+import { ContactsPageComponent } from './contacts-page/contacts-page.component';
 
 //pipes
 import { MomentFormatPipe, MomentCalendarPipe } from './_pipes/moment.pipe';
@@ -71,6 +72,7 @@ import { WorkplaceModalComponent } from "./workplace-modal/workplace-modal.compo
 import { ReplyViewComponent } from './reply-view/reply-view.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestViewComponent } from './request-view/request-view.component';
+import { ContactViewComponent } from './contact-view/contact-view.component';
 
 const appRoutes: Routes = [
   { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -89,6 +91,7 @@ const appRoutes: Routes = [
   { path: "boards/:id", component: BoardPageComponent, canActivate: [AuthGuard] },
   { path: "unsigned", component: UnsignedPageComponent },
   { path: "requests", component: RequestsPageComponent, canActivate: [AuthGuard] },
+  { path: "contacts", component: ContactsPageComponent, canActivate: [AuthGuard] },
   {
     path: "",
     redirectTo: "/home",
@@ -130,7 +133,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     WorkplaceModalComponent,
     ReplyViewComponent,
     RequestsPageComponent,
-    RequestViewComponent
+    RequestViewComponent,
+    ContactsPageComponent,
+    ContactViewComponent
   ],
   imports: [
     BrowserAnimationsModule,

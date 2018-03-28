@@ -1,0 +1,30 @@
+#topForm {
+  display: block;
+  min-height: 2.5em;
+}
+
+h1 {
+  text-align: center;
+}
+
+#searchForm {
+  width: 70%;
+  display: inline-block;
+}
+
+#contactsList {
+  width: 100%;
+}
+
+  #contactsList p {
+    display: inline-block;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+
+#addBtnLink {
+  float: right;
+}
+
+#contactsList {
+  display: block;
+}

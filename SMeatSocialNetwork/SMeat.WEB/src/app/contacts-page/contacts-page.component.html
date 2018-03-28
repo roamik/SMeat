@@ -1,0 +1,8 @@
+<div class="containerEdit">
+
+  <h1 class="name textOutline">{{'CONTACTS_TEXT' | translate}}</h1>
+
+  <div id="contactsList">
+    <contact-view *ngFor="let contact of contacts" [contact]="contact"></contact-view>
+  </div>
+</div>

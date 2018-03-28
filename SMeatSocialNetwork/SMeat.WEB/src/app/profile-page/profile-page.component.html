@@ -1,40 +1,43 @@
 <div class="containerEdit">
 
-<div class="onoffswitch center-block">
+  <div class="onoffswitch center-block">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
     <label class="onoffswitch-label" for="myonoffswitch">
-        <span class="onoffswitch-inner"></span>
-        <span class="onoffswitch-switch"></span>
+      <span class="onoffswitch-inner"></span>
+      <span class="onoffswitch-switch"></span>
     </label>
-</div>
+  </div>
 
-<div id="profileBody" class="row">
+  <div id="profileBody" class="row">
 
-	<div class="col-md-4 col-md-push-4">
-		<p class="text-center txtFieldText textOutline">{{user.name}} {{user.lastName}}</p>
-		<img id="avatar" class="center" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture">
-	  <p class="text-center txtFieldText textOutline">Status</p>
-    <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="addContact(id)">Add to contact</button>
-	</div>
+    <div class="col-md-4 col-md-push-4">
+      <p class="text-center txtFieldText textOutline">{{user.name}} {{user.lastName}}</p>
+      <img id="avatar" class="center" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture">
+      <p class="text-center txtFieldText textOutline">Status</p>
+      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="addContact(id)">Add to contact</button>
+    </div>
 
-	<div class="col-md-4 col-md-pull-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">Gender: </span>
-    <span>{{user.gender===1 ? user.customGender: genders[user.gender]  | translate}}</span>
-    </p>
-		<p class="txtField"><span class="txtFieldText textOutline">{{'ABOUT_TEXT' | translate}}:<br /> </span>{{user.about}}</p>
-	</div>
+    <div class="col-md-4 col-md-pull-4 sideBar">
+      <p class="txtField">
+        <span class="txtFieldText textOutline">Gender: </span>
+        <span>{{user.gender===1 ? user.customGender: genders[user.gender]  | translate}}</span>
+      </p>
+      <p class="txtField"><span class="txtFieldText textOutline">{{'ABOUT_TEXT' | translate}}:<br /> </span>{{user.about}}</p>
+    </div>
 
-	<div class="col-md-4 sideBar">
-		<p class="txtField"><span class="txtFieldText textOutline">{{'RELATIONSHIP_TEXT' | translate}}: </span>{{relations[user.relationship] | translate}}</p>
-		<p class="txtField"><span class="txtFieldText textOutline">{{'LOCATION_TEXT' | translate}}: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}{{user.location.street?',':''}} {{user.location.street}}</span></p>
-		<p class="txtField"><span class="txtFieldText textOutline">{{'WORKPLACE_TEXT' | translate}}: </span><span *ngIf="user.workplace">{{user.workplace.companyName}}</span></p>
-	</div>
-</div>
+    <div class="col-md-4 sideBar">
+      <p class="txtField"><span class="txtFieldText textOutline">{{'RELATIONSHIP_TEXT' | translate}}: </span>{{relations[user.relationship] | translate}}</p>
+      <p class="txtField"><span class="txtFieldText textOutline">{{'LOCATION_TEXT' | translate}}: </span><span *ngIf="user.location">{{user.location.country}}, {{user.location.city}}{{user.location.street?',':''}} {{user.location.street}}</span></p>
+      <p class="txtField"><span class="txtFieldText textOutline">{{'WORKPLACE_TEXT' | translate}}: </span><span *ngIf="user.workplace">{{user.workplace.companyName}}</span></p>
+    </div>
+  </div>
 
-<hr>
+  <hr>
 
-<div id="boardList">
-  <app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
-</div>
+  <div id="boardList">
+    <app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
+  </div>
+
+  <request-view [currentUserId]="currentUserId"></request-view>
 
 </div>

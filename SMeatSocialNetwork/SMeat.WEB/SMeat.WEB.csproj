@@ -12,6 +12,7 @@
     <None Remove="src\app\_guards\token.interceptor.ts" />
     <None Remove="src\app\_hubs\chats.hub.ts" />
     <None Remove="src\app\_interceptors\badrequest.interceptor.ts" />
+    <None Remove="src\app\_models\friend.ts" />
     <None Remove="src\app\_models\genders.ts" />
     <None Remove="src\app\_models\languages.ts" />
     <None Remove="src\app\_models\location.ts" />
@@ -52,6 +53,7 @@
     <TypeScriptCompile Include="src\app\_helpers\EnumToArrayHelper.ts" />
     <TypeScriptCompile Include="src\app\_enums\genders.ts" />
     <TypeScriptCompile Include="src\app\_enums\languages.ts" />
+    <TypeScriptCompile Include="src\app\_models\friend.ts" />
     <TypeScriptCompile Include="src\app\_models\location.ts" />
     <TypeScriptCompile Include="src\app\_enums\relations.ts" />
     <TypeScriptCompile Include="src\app\_models\request.ts" />

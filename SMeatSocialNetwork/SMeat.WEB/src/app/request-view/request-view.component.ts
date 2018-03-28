@@ -11,7 +11,7 @@ export class RequestViewComponent implements OnInit {
 
   @Input() request: Request;
 
-  //id: string;
+  @Input() currentUserId : any;
 
   constructor(private usersService: UsersService) { }
 
@@ -20,7 +20,7 @@ export class RequestViewComponent implements OnInit {
   }
 
   applyRequest(id: string) {
-    this.usersService.addContact(id).subscribe(
+    this.usersService.confirmContact(id).subscribe(
       user => {
 
       },

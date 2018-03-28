@@ -8,6 +8,7 @@ import { Request } from '../_models/request';
 import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { Friend } from '../_models/friend';
 
 //const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
 //const BASEURL = "http://localhost:27121/";
@@ -36,12 +37,17 @@ export class UsersService {
   }
 
   confirmContact(id: string): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/confirm' + id, null);
+    return this.http.post<User>(this.BASEURL + 'api/users/confirm/' + id, null);
   }
 
   getRequests(page: number, count: number, searchBy?: string): Observable<Request[]> {
-    var url = 'api/users/paged?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
+    var url = 'api/users/requests?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
     return this.http.get<Request[]>(this.BASEURL + url);
+  }
+
+  getContacts(page: number, count: number, searchBy?: string): Observable<Friend[]> {
+    var url = 'api/users/contacts?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
+    return this.http.get<Friend[]>(this.BASEURL + url);
   }
 
   //delete(id: number) {
