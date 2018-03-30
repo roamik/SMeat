@@ -16,6 +16,8 @@ export class RequestsPageComponent implements OnInit {
   requestCount: number = 100;
   requestSearchBy: string;
 
+  currentUserId: string;
+
   constructor(private usersService: UsersService,
     private tosterService: BaseTosterService) { }
 
@@ -28,6 +30,13 @@ export class RequestsPageComponent implements OnInit {
       .subscribe(
       requests => {
         this.requests = requests;
+      },
+      error => {
+      });
+    this.usersService.getMyInfo()
+      .subscribe(
+      user => {
+        this.currentUserId = user.id;
       },
       error => {
       });

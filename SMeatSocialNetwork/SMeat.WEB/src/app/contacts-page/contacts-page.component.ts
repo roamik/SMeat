@@ -16,6 +16,8 @@ export class ContactsPageComponent implements OnInit {
   contactCount: number = 100;
   contactSearchBy: string;
 
+  currentUserId: string;
+
   constructor(private usersService: UsersService,
     private tosterService: BaseTosterService) { }
 
@@ -31,5 +33,12 @@ export class ContactsPageComponent implements OnInit {
         },
         error => {
         });
+    this.usersService.getMyInfo()
+      .subscribe(
+      user => {
+        this.currentUserId = user.id;
+      },
+      error => {
+      });
   }
 }

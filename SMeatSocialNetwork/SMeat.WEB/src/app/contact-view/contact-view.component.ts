@@ -9,6 +9,7 @@ import { Friend } from '../_models/friend';
 export class ContactViewComponent implements OnInit {
 
   @Input() contact: Friend;
+  @Input() currentUserId: string;
 
   constructor() { }
 

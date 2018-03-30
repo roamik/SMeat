@@ -3,6 +3,6 @@
   <h1 class="name textOutline">{{'REQUESTS_TEXT' | translate}}</h1>
 
   <div id="requestList">
-    <request-view *ngFor="let request of requests" [request]="request"></request-view>
+    <request-view *ngFor="let request of requests" [request]="request" [currentUserId]="currentUserId"></request-view>
   </div>
 </div>

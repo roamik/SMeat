@@ -3,6 +3,6 @@
   <h1 class="name textOutline">{{'CONTACTS_TEXT' | translate}}</h1>
 
   <div id="contactsList">
-    <contact-view *ngFor="let contact of contacts" [contact]="contact"></contact-view>
+    <contact-view *ngFor="let contact of contacts" [contact]="contact" [currentUserId]="currentUserId"></contact-view>
   </div>
 </div>
