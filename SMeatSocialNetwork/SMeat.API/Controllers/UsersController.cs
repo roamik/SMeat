@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -146,16 +147,21 @@ namespace SMeat.API.Controllers
     public async Task<IActionResult> ConfirmConnection(string id)
     {
       var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
-      var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+      var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId, u => u.ContactsIAddedTo);
       var friendUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id);
-
 
       if (friendUser == null || currentUser == null)
       {
         return BadRequest("");
       }
 
-      currentUser.ContactsAddedByMe.Add(new Friends { Friend = friendUser, Status = ContactStatus.Confirmed });
+      foreach (var item in currentUser.ContactsIAddedTo.Where(c => c.FriendId == currentUserId))
+      {
+        if (item.UserId == friendUser.Id)
+        {
+          item.Status = ContactStatus.Confirmed;
+        }
+      }
 
       await _unitOfWork.Save();
 
@@ -167,14 +173,15 @@ namespace SMeat.API.Controllers
     [Route("requests")]
     public async Task<IActionResult> GetFriendRequests([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
     {
-      Expression<Func<Friends, bool>> filter = null;
-
+      var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
 
       var requests = await _unitOfWork.ContactsRepository.GetPagedRequestsAsync(count: count, page: page);
 
-      var requestsCount = await _unitOfWork.ContactsRepository.CountAsync(filter: filter);
+      var myRequests = requests.FindAll(c => c.FriendId == currentUserId);
 
-      return Ok(requests);
+      var requestsCount = await _unitOfWork.ContactsRepository.CountAsync(filter: null);
+
+      return Ok(myRequests);
     }
 
     [HttpGet]
@@ -182,14 +189,15 @@ namespace SMeat.API.Controllers
     [Route("contacts")]
     public async Task<IActionResult> GetUserContacts([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
     {
-      Expression<Func<Friends, bool>> filter = null;
-
+      var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
 
       var contactsList = await _unitOfWork.ContactsRepository.GetPagedContactsAsync(count: count, page: page);
 
-      var requestsCount = await _unitOfWork.ContactsRepository.CountAsync(filter: filter);
+      var myContacts = contactsList.FindAll(c => c.FriendId == currentUserId || c.UserId == currentUserId);
 
-      return Ok(contactsList);
+      var requestsCount = await _unitOfWork.ContactsRepository.CountAsync(filters: null);
+
+      return Ok(myContacts);
     }
   }
 }

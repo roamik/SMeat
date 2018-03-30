@@ -24,10 +24,12 @@ namespace SMeat.DAL.Concrete
                 .ToListAsync();
         }
 
-        public async Task<List<Friends>> GetPagedContactsAsync(List<Expression<Func<Friends, bool>>> filters = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes)
+     
+
+    public async Task<List<Friends>> GetPagedContactsAsync(List<Expression<Func<Friends, bool>>> filters = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes)
         {
             return await GetAsync(filters, includes)
-                .Include(f => f.Friend).Where(s => s.Status == ContactStatus.Confirmed)
+                .Include(f => f.Friend).Include(u=>u.User).Where(s => s.Status == ContactStatus.Confirmed)
                 .Skip(page * count)
                 .Take(count)
                 .ToListAsync();
