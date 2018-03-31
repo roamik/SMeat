@@ -31,8 +31,14 @@ export class BoardPageComponent implements OnInit {
       });
     }
 
-    scrollToId(id) {
-      location.hash = id;
+  scrollToId(id) {
+      var glows = document.querySelectorAll('.message.messageGlow');
+      for (let i = 0; i < glows.length; i++) {
+        glows[i].classList.remove('messageGlow');
+      }
+    var newGlow = document.getElementById(id);
+      newGlow.classList.add('messageGlow');
+      location.hash = '#' + id;
     }
 
     AddReplyTo(str) {
