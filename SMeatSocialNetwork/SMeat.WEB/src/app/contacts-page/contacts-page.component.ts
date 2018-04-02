@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Friend } from '../_models/friend';
 import { UsersService } from '../_services/users.service';
 import { BaseTosterService } from '../_services/base-toaster.service';
+import { ContactsService } from '../_services/contacts.service';
 
 @Component({
   selector: 'app-contacts-page',
@@ -10,7 +11,7 @@ import { BaseTosterService } from '../_services/base-toaster.service';
 })
 export class ContactsPageComponent implements OnInit {
 
-  contacts: Friend[];
+  contacts: Array<Friend> = [];
 
   contactPage: number = 0;
   contactCount: number = 100;
@@ -19,6 +20,7 @@ export class ContactsPageComponent implements OnInit {
   currentUserId: string;
 
   constructor(private usersService: UsersService,
+    private contactsService: ContactsService,
     private tosterService: BaseTosterService) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class ContactsPageComponent implements OnInit {
   }
 
   getContacts() {
-    this.usersService.getContacts(this.contactPage, this.contactCount, this.contactSearchBy)
+    this.contactsService.getContacts(this.contactPage, this.contactCount, this.contactSearchBy)
       .subscribe(
         contacts => {
           this.contacts = contacts;

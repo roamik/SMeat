@@ -32,23 +32,6 @@ export class UsersService {
     return this.http.put<User>(this.BASEURL + 'api/users/me', model);
   }
 
-  addContact(id: string): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/add/' + id, null);
-  }
-
-  confirmContact(id: string): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/confirm/' + id, null);
-  }
-
-  getRequests(page: number, count: number, searchBy?: string): Observable<Request[]> {
-    var url = 'api/users/requests?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
-    return this.http.get<Request[]>(this.BASEURL + url);
-  }
-
-  getContacts(page: number, count: number, searchBy?: string): Observable<Friend[]> {
-    var url = 'api/users/contacts?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
-    return this.http.get<Friend[]>(this.BASEURL + url);
-  }
 
   //delete(id: number) {
   //  return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());

@@ -14,7 +14,9 @@
       <p class="text-center txtFieldText textOutline">{{user.name}} {{user.lastName}}</p>
       <img id="avatar" class="center" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture">
       <p class="text-center txtFieldText textOutline">Status</p>
-      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="addContact(id)">Add to contact</button>
+      <button *ngIf="currentUserId != id && !isFriend" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
+      <button *ngIf="currentUserId != id && inRequest" class="btn btn_custom center-block" disabled>Requested</button>
+      <button *ngIf="currentUserId != id && isFriend" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>
     </div>
 
     <div class="col-md-4 col-md-pull-4 sideBar">

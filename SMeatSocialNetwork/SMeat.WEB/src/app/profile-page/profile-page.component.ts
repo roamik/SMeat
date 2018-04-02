@@ -7,6 +7,8 @@ import { RelationshipType } from "../_enums/relations";
 
 import { Board } from '../_models/board';
 import { BoardsService } from "../_services/boards.service";
+import { ContactsService } from '../_services/contacts.service';
+import { AuthGuard } from '../_guards/auth.guard';
 
 @Component({
   selector: 'profile-page',
@@ -15,11 +17,16 @@ import { BoardsService } from "../_services/boards.service";
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private usersService: UsersService, private boardsService: BoardsService) { }
+  constructor(private route: ActivatedRoute,
+    private usersService: UsersService,
+    private guard: AuthGuard,
+    private contactsService: ContactsService,
+    private boardsService: BoardsService) { }
 
   id: string;
   private sub: any;
   currentUserId: string;
+  isFriend: boolean;
 
   public genders: typeof GenderType = GenderType;
   public relations: typeof RelationshipType = RelationshipType;
@@ -34,14 +41,15 @@ export class ProfilePageComponent implements OnInit {
 
       this.getUserInfo(this.id);
     });
+    this.currentUserId = this.guard.userId;
   }
 
   getUserInfo(id: string) {
     this.usersService.getById(id).subscribe(
       user => {
         this.user = user,
-          this.currentUserId = user.currentUserId;
-          this.getBoards(this.currentUserId);
+          this.getBoards(this.id),
+          this.isFriend = user.isFriend;
       },
       error => { }
     )
@@ -56,9 +64,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   addContact(id: string) {
-    this.usersService.addContact(id).subscribe(
+    this.contactsService.addContact(id).subscribe(
       user => {
-        
+
+      },
+      error => { }
+    )
+  }
+
+  removeContact(id: string) {
+    this.contactsService.removeContact(id).subscribe(
+      user => {
+
       },
       error => { }
     )

@@ -9,7 +9,7 @@ export class User {
   id: string;
   userName: string;
   firstName: string;
-  lastName: string;  
+  lastName: string;
   name: string;
   userAbout: string;
   gender: GenderType;
@@ -19,16 +19,15 @@ export class User {
   workplaceId: string;
   workplace: WorkPlace;
   status: string;
-  currentUserId: string;
+  isFriend: boolean;
 
   constructor(id?: string, userName?: string, firstName?: string, name?: string, lastName?: string, userAbout?: string,
     gender?: GenderType, status?: string, relationship?: RelationshipType,
-    location?: Location, locationId?: string, workplaceId?: string,
-    workplace?: WorkPlace, currentUserId?: string) {
+    location?: Location, locationId?: string, workplaceId?: string, workplace?: WorkPlace, isFriend?: boolean) {
     this.id = id;
     this.userName = userName;
     this.firstName = firstName;
-    this.lastName = lastName;    
+    this.lastName = lastName;
     this.name = name;
     this.userAbout = userAbout;
     this.gender = gender;
@@ -38,7 +37,7 @@ export class User {
     this.workplace = workplace;
     this.workplaceId = workplaceId;
     this.status = status;
-    this.currentUserId = currentUserId;
+    this.isFriend = isFriend;
   }
 }
 

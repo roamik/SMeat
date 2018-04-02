@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Request } from '../_models/request';
 import { UsersService } from '../_services/users.service';
+import { ContactsService } from '../_services/contacts.service';
 
 @Component({
   selector: 'request-view',
@@ -13,14 +14,15 @@ export class RequestViewComponent implements OnInit {
 
   @Input() currentUserId : string;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,
+    private contactsService: ContactsService) { }
 
   ngOnInit() {
 
   }
 
   applyRequest(id: string) {
-    this.usersService.confirmContact(id).subscribe(
+    this.contactsService.addContact(id).subscribe(
       user => {
 
       },

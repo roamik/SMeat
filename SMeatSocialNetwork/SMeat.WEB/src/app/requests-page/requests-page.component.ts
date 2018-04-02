@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from '../_services/users.service';
 import { BaseTosterService } from '../_services/base-toaster.service';
 import { Request } from '../_models/request';
+import { ContactsService } from '../_services/contacts.service';
 
 @Component({
   selector: 'requests-page',
@@ -10,7 +11,7 @@ import { Request } from '../_models/request';
 })
 export class RequestsPageComponent implements OnInit {
 
-  requests: Request[];
+  requests: Array<Request> = [];
 
   requestPage: number = 0;
   requestCount: number = 100;
@@ -19,6 +20,7 @@ export class RequestsPageComponent implements OnInit {
   currentUserId: string;
 
   constructor(private usersService: UsersService,
+    private contactsService : ContactsService,
     private tosterService: BaseTosterService) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class RequestsPageComponent implements OnInit {
   }
 
   getRequests() {
-    this.usersService.getRequests(this.requestPage, this.requestCount, this.requestSearchBy)
+    this.contactsService.getRequests(this.requestPage, this.requestCount, this.requestSearchBy)
       .subscribe(
       requests => {
         this.requests = requests;

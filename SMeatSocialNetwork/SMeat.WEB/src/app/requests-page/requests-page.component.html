@@ -1,8 +1,9 @@
 <div class="containerEdit">
 
-  <h1 class="name textOutline">{{'REQUESTS_TEXT' | translate}}</h1>
+  <h1 class="name textOutline"><b>{{'REQUESTS_TEXT' | translate}}</b></h1>
 
   <div id="requestList">
     <request-view *ngFor="let request of requests" [request]="request" [currentUserId]="currentUserId"></request-view>
+    <h1 *ngIf="requests.length === 0" class="name textOutline">{{'NO_REQUESTS_TEXT' | translate}}</h1>
   </div>
 </div>

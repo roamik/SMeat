@@ -18,7 +18,7 @@ namespace SMeat.DAL.Concrete
       public async Task<List<Friends>> GetPagedRequestsAsync(List<Expression<Func<Friends, bool>>> filters = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes)
         {
             return await GetAsync(filters, includes)
-                .Include(c => c.User).Include(f => f.Friend).Where(s => s.Status == ContactStatus.Send)
+                .Include(f => f.User).Include(f => f.Friend)
                 .Skip(page * count)
                 .Take(count)
                 .ToListAsync();
@@ -29,7 +29,7 @@ namespace SMeat.DAL.Concrete
     public async Task<List<Friends>> GetPagedContactsAsync(List<Expression<Func<Friends, bool>>> filters = null, /*Func<T, object> orderBy = null,*/ int count = 10, int page = 0, params Expression<Func<Friends, object>>[] includes)
         {
             return await GetAsync(filters, includes)
-                .Include(f => f.Friend).Include(u=>u.User).Where(s => s.Status == ContactStatus.Confirmed)
+                .Include(f => f.User).Include(f=>f.Friend)
                 .Skip(page * count)
                 .Take(count)
                 .ToListAsync();
