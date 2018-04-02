@@ -141,7 +141,11 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+            if (model.Name == "" || model.Text == "" || model.Name == null || model.Text == null)
+            {
+                return BadRequest("Empty name or text");
+            }
+
             var board = _mapper.Map<Board>(model);
 
             var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;

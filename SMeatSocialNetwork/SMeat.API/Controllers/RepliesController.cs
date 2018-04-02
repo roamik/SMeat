@@ -82,6 +82,10 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (model.Text == "" || model.Text == null)
+            {
+                return BadRequest("Empty name or text");
+            }
 
             var reply = new Reply();
             reply.Text = model.Text;
