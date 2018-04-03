@@ -65,6 +65,7 @@ import { RegistrationPageComponent } from "./registration-page/registration-page
 import { UnsignedPageComponent } from "./unsigned-page/unsigned-page.component";
 import { UserSettingsPageComponent } from "./user-settings-page/user-settings-page.component";
 import { ContactsPageComponent } from './contacts-page/contacts-page.component';
+import { UsersPageComponent } from './users-page/users-page.component';
 
 //pipes
 import { MomentFormatPipe, MomentCalendarPipe } from './_pipes/moment.pipe';
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
   { path: "unsigned", component: UnsignedPageComponent },
   { path: "requests", component: RequestsPageComponent, canActivate: [AuthGuard] },
   { path: "contacts", component: ContactsPageComponent, canActivate: [AuthGuard] },
+  { path: "users/:name", component: UsersPageComponent, canActivate: [AuthGuard] },
   {
     path: "",
     redirectTo: "/home",
@@ -136,7 +138,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RequestsPageComponent,
     RequestViewComponent,
     ContactsPageComponent,
-    ContactViewComponent
+    ContactViewComponent,
+    UsersPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

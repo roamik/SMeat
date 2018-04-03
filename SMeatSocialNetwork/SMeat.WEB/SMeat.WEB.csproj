@@ -18,6 +18,7 @@
     <None Remove="src\app\_models\location.ts" />
     <None Remove="src\app\_models\relations.ts" />
     <None Remove="src\app\_models\request.ts" />
+    <None Remove="src\app\_models\return.page.ts" />
     <None Remove="src\app\_models\user.ts" />
     <None Remove="src\app\_models\workplace.ts" />
     <None Remove="src\app\_pipes\boards.service.ts" />
@@ -59,6 +60,7 @@
     <TypeScriptCompile Include="src\app\_enums\relations.ts" />
     <TypeScriptCompile Include="src\app\_models\request.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
+    <TypeScriptCompile Include="src\app\_models\return.page.ts" />
     <TypeScriptCompile Include="src\app\_models\workplace.ts" />
     <TypeScriptCompile Include="src\app\_services\contacts.service.ts" />
     <TypeScriptCompile Include="src\app\_services\replies.service.ts" />

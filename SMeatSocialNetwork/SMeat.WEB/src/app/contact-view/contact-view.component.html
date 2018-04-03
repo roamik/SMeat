@@ -1,7 +1,7 @@
 <div class="contactArea">
   <div class="row">
     <img id="avatar" class="col-xs-3 col-md-2" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture" width="90" height="130">
-    <p *ngIf="currentUserId === contact.user.id" class="col-xs-3">{{ contact.friend.name }}</p>
-    <p *ngIf="currentUserId === contact.friend.id" class="col-xs-3">{{ contact.user.name }}</p>
+    <a [routerLink]="['/profile', contact.friend.id]" *ngIf="currentUserId === contact.user.id" class="col-xs-3">{{ contact.friend.name }}</a>
+    <a [routerLink]="['/profile', contact.user.id]" *ngIf="currentUserId === contact.friend.id" class="col-xs-3">{{ contact.user.name }}</a>
   </div>
 </div>

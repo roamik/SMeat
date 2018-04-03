@@ -9,6 +9,7 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Friend } from '../_models/friend';
+import { PageModel } from '../_models/return.page';
 
 //const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
 //const BASEURL = "http://localhost:27121/";
@@ -30,6 +31,11 @@ export class UsersService {
 
   update(model): Observable<User> {
     return this.http.put<User>(this.BASEURL + 'api/users/me', model);
+  }
+
+  getUsers(page: number, count: number, searchBy?: string): Observable<PageModel<User>> {
+    var url = 'api/users/find?page=' + page + '&count=' + count + '&searchBy=' + searchBy;
+    return this.http.get<PageModel<User>>(this.BASEURL + url);
   }
 
 

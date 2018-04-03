@@ -20,7 +20,5 @@ namespace SMeat.MODELS.Entities
     public virtual User Friend { get; set; }
 
     public ContactStatus Status { get; set; }
-
-
   }
 }

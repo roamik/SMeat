@@ -30,8 +30,8 @@ export class RequestsPageComponent implements OnInit {
   getRequests() {
     this.contactsService.getRequests(this.requestPage, this.requestCount, this.requestSearchBy)
       .subscribe(
-      requests => {
-        this.requests = requests;
+      pageModel => {
+        this.requests = pageModel.items;
       },
       error => {
       });
@@ -42,6 +42,15 @@ export class RequestsPageComponent implements OnInit {
       },
       error => {
       });
+  }
+
+  applyRequest(id: string) {
+    this.contactsService.addContact(id).subscribe(
+      user => {
+
+      },
+      error => { }
+    )
   }
 
 }

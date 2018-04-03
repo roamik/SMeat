@@ -10,6 +10,7 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Friend } from '../_models/friend';
+import { PageModel } from '../_models/return.page';
 
 //const OPTIONS: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json', withCredentials: true }, ) };
 //const BASEURL = "http://localhost:27121/";
@@ -29,9 +30,9 @@ export class ContactsService {
     return this.http.post<User>(this.BASEURL + 'api/contacts/remove/' + id, null);
   }
 
-  getRequests(page: number, count: number, searchBy?: string): Observable<Request[]> {
+  getRequests(page: number, count: number, searchBy?: string): Observable<PageModel<Request>> {
     var url = 'api/contacts/requests?page=' + page + '&count=' + count + (searchBy ? '&searchBy=' + searchBy : '');
-    return this.http.get<Request[]>(this.BASEURL + url);
+    return this.http.get<PageModel<Request>>(this.BASEURL + url);
   }
 
   getContacts(page: number, count: number, searchBy?: string): Observable<Friend[]> {

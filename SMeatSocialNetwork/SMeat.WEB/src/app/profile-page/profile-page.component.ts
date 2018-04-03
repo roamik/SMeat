@@ -66,7 +66,7 @@ export class ProfilePageComponent implements OnInit {
   addContact(id: string) {
     this.contactsService.addContact(id).subscribe(
       user => {
-
+        this.getUserInfo(this.id);
       },
       error => { }
     )

@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LanguagesEnum, LanguagesIconEnum } from "../_enums/languages";
 import { EnumToArrayHelper } from "../_helpers/EnumToArrayHelper";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -18,10 +19,16 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: any;
 
-  constructor(private guard: AuthGuard, private translate: TranslateService, private enumSelector: EnumToArrayHelper) {}
+  constructor(private guard: AuthGuard,
+    private translate: TranslateService,
+    private enumSelector: EnumToArrayHelper,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) { }
 
   selectedLang: any;
   value: any;
+  searchByWord: string;
 
 
   public languages: any = this.enumSelector.enumSelector(LanguagesEnum, LanguagesIconEnum);
