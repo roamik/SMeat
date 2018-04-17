@@ -23,7 +23,7 @@ namespace SMeat.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("{id:guid}")]
         public async Task<IActionResult> GetReplyByBoard(string id)
         {
@@ -34,14 +34,12 @@ namespace SMeat.API.Controllers
             }
 
             var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.BoardId == board.Id);
-            /*replies.Sort((x, y) => DateTimeOffset.Compare(y.DateTime, x.DateTime));
-            replies.Reverse();*/
 
             return Ok(replies.OrderBy(r => r.DateTime).ToList());
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("count/{id:guid}")]
         public async Task<IActionResult> GetReplyCountByBoard(string id)
         {
@@ -57,7 +55,7 @@ namespace SMeat.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("to/{id:guid}")]
         public async Task<IActionResult> GetReplyiedAt(string id)
         {
@@ -66,8 +64,7 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest("Reply not found!");
             }
-
-            // TO DO: implement this method, lol
+            
             var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.ReplyTo.Any(r => r.ReplyToId == reply.Id));
             var idStrings = replies.Select(r => r.Id);
 

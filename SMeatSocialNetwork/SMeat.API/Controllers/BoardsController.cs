@@ -115,7 +115,7 @@ namespace SMeat.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("paged")]
         public async Task<IActionResult> GetBoards([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
         {
