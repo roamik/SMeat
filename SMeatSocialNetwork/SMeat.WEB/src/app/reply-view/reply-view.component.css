@@ -14,6 +14,7 @@
 .replyToCheckbox {
   float: right;
   margin: .5em;
+  width: 1em;
 }
 
 .message h6 {
