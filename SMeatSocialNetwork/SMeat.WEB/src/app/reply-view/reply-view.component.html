@@ -1,7 +1,7 @@
-<div id="{{ reply.id }}" class="message">
+<div [ngClass]="{OPMessage : nth === 0, message : nth !== 0}">
   <input class="replyToCheckbox" type="checkbox" name="replyTo" (change)="checkReplyId($event)">
 
-  <h6>{{ reply.id }}</h6>
+  <h6>{{ nth }} - {{ reply.id }}</h6>
   <p>{{ reply.text }}</p>
 
   <div class="replyList">

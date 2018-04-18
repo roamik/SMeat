@@ -11,6 +11,7 @@ import { RepliesService } from '../_services/replies.service';
 export class ReplyViewComponent implements OnInit {
 
   @Input() reply: Reply;
+  @Input() nth: number;
 
   replies: string[] = [];
 
