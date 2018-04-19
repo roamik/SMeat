@@ -19,6 +19,9 @@
 	"REQUESTS_TEXT":"Demande d'amis",
 	"NO_REQUESTS_TEXT":"Vous n'avez pas encore de demandes!",
 	"NO_CONTACTS_TEXT":"Vous n'avez pas encore de contacts!",
+	"SEARCH_RESULTS_TEXT":"Résultats de la recherche.",
+	"NO_USERS_TEXT":"Aucun utilisateur trouvé!",
+	"CONTACTS_TEXT":"Contacts",
 	
 	"CITY_TEXT": "Ville",
 	"COMPANY_TEXT": "Compagnie",

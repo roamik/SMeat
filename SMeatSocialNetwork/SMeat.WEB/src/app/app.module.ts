@@ -69,12 +69,14 @@ import { UsersPageComponent } from './users-page/users-page.component';
 
 //pipes
 import { MomentFormatPipe, MomentCalendarPipe } from './_pipes/moment.pipe';
+
 import { LocationModalComponent } from "./location-modal/location-modal.component";
 import { WorkplaceModalComponent } from "./workplace-modal/workplace-modal.component";
 import { ReplyViewComponent } from './reply-view/reply-view.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestViewComponent } from './request-view/request-view.component';
 import { ContactViewComponent } from './contact-view/contact-view.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 const appRoutes: Routes = [
   { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -139,7 +141,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RequestViewComponent,
     ContactsPageComponent,
     ContactViewComponent,
-    UsersPageComponent
+    UsersPageComponent,
+    UserViewComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,7 +1,10 @@
-<div class="contactArea">
-  <div class="row">
-    <img id="avatar" class="col-xs-3 col-md-2" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture" width="70" height="130">
-    <a [routerLink]="['/profile', user.id]" *ngFor="let user of users">{{user.name}} {{user.lastName}}</a>
+<div class="containerEdit">
+
+  <h1 class="name textOutline"><b>{{'SEARCH_RESULTS_TEXT' | translate}}</b></h1>
+
+  <div id="contactsList">
+
+    <user-view *ngFor="let user of users" [user]="user"></user-view>
+    <h1 *ngIf="users.length === 0" class="name textOutline">{{'NO_USERS_TEXT' | translate}}</h1>
   </div>
 </div>
-

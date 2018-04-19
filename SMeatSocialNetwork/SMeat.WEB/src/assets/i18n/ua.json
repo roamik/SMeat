@@ -2,6 +2,8 @@
 	"ABOUT_TEXT": "Про користувача",
 	"TEXT_NEW_LOCATION":"Додати місце",
 	"TEXT_NEW_WORKPLACE":"Місце роботи",
+	"SEARCH_RESULTS_TEXT":"Результати пошуку.",
+	"NO_USERS_TEXT":"Користувача не знайдено!",
 	
 	"BTN_APPLY_TEXT": "Підтвердити",
 	"BTN_BOARDS_TEXT": "Дошки",
@@ -20,6 +22,9 @@
 	"BTN_CONTACTS_TEXT": "Контакти",
 	"BTN_CANCEL_TEXT": "Скасувати",
 	"REQUESTS_TEXT":"Френд реквестс",
+	"NO_REQUESTS_TEXT":"Немає запитів на додавання!",
+	"NO_CONTACTS_TEXT":"Наразі у Вас немає контактів!",
+	"CONTACTS_TEXT":"Список контактів",
 	
 	"CITY_TEXT": "Місто",
 	"COMPANY_TEXT": "Компанія",

@@ -92,7 +92,7 @@ namespace SMeat.API.Controllers
     [Route("find")]
     public async Task<IActionResult> GetUsers([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
     {
-      var filters = new List<Expression<Func<User, bool>>> { c => c.Name == searchBy };
+      var filters = new List<Expression<Func<User, bool>>> { c => c.Name.Contains(searchBy) };
 
       var users = await _unitOfWork.UsersRepository.GetPagedAsync(filters, count, page);
       var usersCount = await _unitOfWork.UsersRepository.CountAsync(filters);

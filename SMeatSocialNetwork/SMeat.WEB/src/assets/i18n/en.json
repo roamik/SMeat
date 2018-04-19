@@ -11,6 +11,8 @@
 	"CONTACTS_TEXT":"Contacts",
 	"NO_REQUESTS_TEXT":"You have no requests yet!",
 	"NO_CONTACTS_TEXT":"You have no contacts yet!",
+	"SEARCH_RESULTS_TEXT":"Search results.",
+	"NO_USERS_TEXT":"No users found!",
 	
 	"BTN_APPLY_TEXT": "Apply",
 	"BTN_BOARDS_TEXT": "Boards",
