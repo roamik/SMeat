@@ -59,20 +59,13 @@ namespace SMeat.API.Controllers
     [Route("remove/{id:guid}")]
     public async Task<IActionResult> RemoveConnection(string id)
     {
-      bool isFriend;
       var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
       var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId, c => c.ContactsIAddedTo, c => c.ContactsAddedByMe);
       var friendUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id, c => c.ContactsAddedByMe);
       var connection = currentUser.ContactsAddedByMe.FirstOrDefault(c => c.FriendId == id);
       var friendConnection = currentUser.ContactsIAddedTo.FirstOrDefault(c => c.UserId == id);
-      isFriend = connection != null ? isFriend = true : isFriend = false;
 
       if (currentUser == null)
-      {
-        return BadRequest("");
-      }
-
-      if (isFriend == false)
       {
         return BadRequest("");
       }
@@ -80,7 +73,6 @@ namespace SMeat.API.Controllers
       if (connection != null)
       {
         currentUser.ContactsAddedByMe.Remove(connection);
-        //friendConnection.Status = ContactStatus.Send;
         friendConnection.Status = ContactStatus.Send;
       }
 

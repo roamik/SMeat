@@ -27,6 +27,7 @@ export class ProfilePageComponent implements OnInit {
   private sub: any;
   currentUserId: string;
   isFriend: boolean;
+  inRequest: boolean;
 
   public genders: typeof GenderType = GenderType;
   public relations: typeof RelationshipType = RelationshipType;
@@ -50,6 +51,7 @@ export class ProfilePageComponent implements OnInit {
         this.user = user,
           this.getBoards(this.id),
           this.isFriend = user.isFriend;
+        this.inRequest = user.inRequest;
       },
       error => { }
     )

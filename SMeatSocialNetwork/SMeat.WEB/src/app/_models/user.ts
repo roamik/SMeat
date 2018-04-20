@@ -20,10 +20,11 @@ export class User {
   workplace: WorkPlace;
   status: string;
   isFriend: boolean;
+  inRequest: boolean;
 
   constructor(id?: string, userName?: string, firstName?: string, name?: string, lastName?: string, userAbout?: string,
     gender?: GenderType, status?: string, relationship?: RelationshipType,
-    location?: Location, locationId?: string, workplaceId?: string, workplace?: WorkPlace, isFriend?: boolean) {
+    location?: Location, locationId?: string, workplaceId?: string, workplace?: WorkPlace, isFriend?: boolean, inRequest?: boolean) {
     this.id = id;
     this.userName = userName;
     this.firstName = firstName;
@@ -38,6 +39,7 @@ export class User {
     this.workplaceId = workplaceId;
     this.status = status;
     this.isFriend = isFriend;
+    this.inRequest = inRequest;
   }
 }
 
