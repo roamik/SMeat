@@ -1,10 +1,10 @@
-<div id="{{ reply.id }}" class="message">
+<div id="{{ reply.id }}" [ngClass]="{OPMessage : nth === 0, message : nth !== 0}">
   <input class="replyToCheckbox" type="checkbox" name="replyTo" (change)="checkReplyId($event)">
 
-  <h6>{{ reply.id }}</h6>
+  <h6>{{ nth }} - {{ reply.id }}</h6>
   <p>{{ reply.text }}</p>
 
   <div class="replyList">
-    <a *ngFor="let reply of replies, let i = index" (click)="replyClicked.emit(reply)">{{ i + 1 }} </a>
+    <a *ngFor="let rep of replies, let i = index" (click)="replyClicked.emit(rep)">{{ i + 1 }} </a>
   </div>
 </div>

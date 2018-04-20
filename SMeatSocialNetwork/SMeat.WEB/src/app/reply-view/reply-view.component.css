@@ -1,3 +1,23 @@
+.OPMessage {
+  margin: 0 0;
+  margin-bottom: 1em;
+  background: #810000;
+  border: 2px solid rgba(0,0,0,.7);
+  border-radius: 8px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.OPMessage h4 {
+  margin: .5em 3em;
+}
+
+.OPMessage p {
+  padding: 1em 1em;
+  border: 2px solid rgba(0,0,0,.5);
+  border-left: none;
+  border-right: none;
+}
+
 .message {
   margin: 0em 1em;
   margin-bottom: 1em;
@@ -14,9 +34,10 @@
 .replyToCheckbox {
   float: right;
   margin: .5em;
+  width: 1em;
 }
 
-.message h6 {
+h6 {
   margin-left: 1em;
   font-style: italic;
 }
@@ -35,6 +56,7 @@
 
 .replyList {
   margin: 0em 1em;
+  height: 20px;
 }
 
   .replyList a {
