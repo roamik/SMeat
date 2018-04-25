@@ -11,8 +11,24 @@
     </div>
   </div>
 
-	<div id="boardList">
-		<app-board-view *ngFor="let board of boards" [board]="board" [curUserId]="curUserId"></app-board-view>
-	</div>
+  <form id="searchForm">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="this.getBoards()">
+          <i class="glyphicon glyphicon-refresh"></i>
+        </button>
+      </div>
+      <input type="text" class="form-control" placeholder="Find board by name" name="findBoard" #findBoard>
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="getBoardsByName(findBoard.value)">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div id="boardList">
+    <app-board-view *ngFor="let board of boards" [board]="board" [curUserId]="curUserId"></app-board-view>
+  </div>
 
 </div>
