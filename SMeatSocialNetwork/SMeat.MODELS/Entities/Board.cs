@@ -20,6 +20,8 @@ namespace SMeat.MODELS.Entities
 
         public User MadeBy { get; set; }
 
+        public DateTimeOffset MadeTime { get; set; } = DateTimeOffset.Now;
+
         public List<Reply> Replies { get; set; }
 
         public List<BoardLike> Likes { get; set; } = new List<BoardLike>();
