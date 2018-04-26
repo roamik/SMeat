@@ -37,7 +37,7 @@
   <hr>
 
   <div id="boardList">
-    <app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
+    <app-board-view *ngFor="let board of boards" [board]="board" [curUserId]="this.currentUserId"></app-board-view>
   </div>
 
   <!--<request-view [currentUserId]="currentUserId"></request-view>-->

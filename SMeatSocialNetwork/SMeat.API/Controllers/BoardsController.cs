@@ -10,6 +10,7 @@ using AutoMapper;
 using SMeat.MODELS.BindingModels;
 using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
+using System.Collections.Generic;
 
 namespace SMeat.API.Controllers
 {
@@ -105,8 +106,9 @@ namespace SMeat.API.Controllers
                 return BadRequest("User not found.");
             }
 
-            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(b => b.MadeBy == currentUser);
-            if (currentUser == null)
+            //var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(b => b.MadeBy == currentUser);
+            var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(filter: b => b.MadeBy == currentUser, count: 100, page: 0, b => b.Likes, b => b.Dislikes);
+            if (boards == null)
             {
                 return BadRequest("No boards found.");
             }
