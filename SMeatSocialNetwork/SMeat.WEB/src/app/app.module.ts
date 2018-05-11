@@ -77,6 +77,7 @@ import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestViewComponent } from './request-view/request-view.component';
 import { ContactViewComponent } from './contact-view/contact-view.component';
 import { UserViewComponent } from './user-view/user-view.component';
+import { ImageModalComponent } from './image-modal/image-modal.component';
 
 const appRoutes: Routes = [
   { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -142,7 +143,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContactsPageComponent,
     ContactViewComponent,
     UsersPageComponent,
-    UserViewComponent
+    UserViewComponent,
+    ImageModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

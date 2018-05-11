@@ -16,9 +16,11 @@
 
       <img id="avatar" class="center" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture">
 
+      <!--<button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>-->
+
       <p class="text-center txtFieldText textOutline">Status</p>
       <button *ngIf="currentUserId != id && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
-      <button *ngIf="currentUserId != id && inRequest && !isFriend" class="btn btn_custom center-block" disabled>Requested</button>
+      <button *ngIf="currentUserId != id && inRequest && !isFriend" class="btn btn_custom center-block" disabled>{{'BTN_IN_REQUEST_TEXT' | translate}}</button>
       <button *ngIf="currentUserId != id && isFriend && !inRequest" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>
     </div>
 
@@ -42,7 +44,6 @@
   <div id="boardList">
     <app-board-view *ngFor="let board of boards" [board]="board"></app-board-view>
   </div>
-
-  <!--<request-view [currentUserId]="currentUserId"></request-view>-->
-
 </div>
+
+<!--<image-modal #imageModal (change)="onImageUploaded($event)"></image-modal>-->
