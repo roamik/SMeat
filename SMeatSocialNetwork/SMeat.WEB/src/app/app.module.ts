@@ -36,6 +36,7 @@ import { MessagesService } from "./_services/messages.service.";
 import { HomePageService } from "./home-page/home-page.service";
 import { BaseTosterService } from "./_services/base-toaster.service";
 import { ContactsService } from "./_services/contacts.service";
+import { UploadService } from "./_services/upload.service";
 
 //hubs
 import { ChatHub } from "./_hubs/chats.hub";
@@ -201,7 +202,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BsModalService,
     RepliesService,
     BoardsService,
-    ContactsService
+    ContactsService,
+    UploadService
     //ChatHub
   ],
   bootstrap: [

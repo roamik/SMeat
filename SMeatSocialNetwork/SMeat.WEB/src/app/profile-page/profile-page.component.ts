@@ -57,6 +57,10 @@ export class ProfilePageComponent implements OnInit {
     )
   }
 
+  onImageLoaded() { // update user info after modal method - uploadFile in image-modal.component finishes with success
+    this.getUserInfo(this.id);
+  }
+
   getBoards(id: string) {
     this.boardsService.getMyBoards(id)
       .subscribe(
@@ -67,7 +71,7 @@ export class ProfilePageComponent implements OnInit {
 
   addContact(id: string) {
     this.contactsService.addContact(id).subscribe(
-      user => {
+      success => {
         this.getUserInfo(this.id);
       },
       error => { }

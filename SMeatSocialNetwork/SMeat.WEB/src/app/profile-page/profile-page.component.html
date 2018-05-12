@@ -13,10 +13,11 @@
     <div class="col-md-4 col-md-push-4">
       <p class="text-center txtFieldText textOutline">{{user.name}} {{user.lastName}}</p>
 
+      <img *ngIf="user.pictureUrl" class="center" src="{{user.pictureUrl}}" alt="Picture">
+      <img *ngIf="!user.pictureUrl" class="center" src="http://localhost:27121/images/noimage.jpg" alt="Picture">
 
-      <img id="avatar" class="center" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Avatar picture">
 
-      <!--<button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>-->
+      <button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
 
       <p class="text-center txtFieldText textOutline">Status</p>
       <button *ngIf="currentUserId != id && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
@@ -46,4 +47,5 @@
   </div>
 </div>
 
-<!--<image-modal #imageModal (change)="onImageUploaded($event)"></image-modal>-->
+<!--<image-modal #imageModal [userId]="id"></image-modal>-->
+<image-modal #imageModal (change)="onImageLoaded($event)" [userId]="id"></image-modal>

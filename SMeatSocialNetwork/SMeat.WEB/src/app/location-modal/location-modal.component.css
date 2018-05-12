@@ -1,3 +1,11 @@
+input[type=text] {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  transition: 0.5s;
+  outline: none;
+}
+
 
 .dataBlock {
   background-color: ghostwhite;
@@ -8,14 +16,6 @@
   text-align: left;
   padding: 2em 2em;
   margin-top: 20px;
-}
-
-input[type=text] {
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  transition: 0.5s;
-  outline: none;
 }
 
 input[type=text]:focus {

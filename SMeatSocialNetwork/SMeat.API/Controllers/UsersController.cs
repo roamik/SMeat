@@ -50,7 +50,8 @@ namespace SMeat.API.Controllers
         Gender = user.GenderType,
         CustomGender = user.CustomGenderType,
         Relationship = user.RelationshipType,
-        Id = user.Id
+        Id = user.Id,
+        PictureUrl = user.PictureUrl
       });
     }
 
@@ -86,7 +87,8 @@ namespace SMeat.API.Controllers
         Relationship = user.RelationshipType,
         Id = user.Id,
         IsFriend = isFriend,
-        InRequest = inRequest
+        InRequest = inRequest,
+        PictureUrl = user.PictureUrl
       });
     }
 

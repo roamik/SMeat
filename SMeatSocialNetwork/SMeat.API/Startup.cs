@@ -213,6 +213,8 @@ namespace SMeat.API
             
             app.UseMvc();
 
+            app.UseStaticFiles();
+
             //app.UseIdentity();
 
             //Generate EF Core Seed Data

@@ -27,6 +27,7 @@
     <None Remove="src\app\_services\customToaster.service.ts" />
     <None Remove="src\app\_services\locations.service.ts" />
     <None Remove="src\app\_services\replies.service.ts" />
+    <None Remove="src\app\_services\upload.service.ts" />
     <None Remove="src\app\_services\users.service.ts" />
     <None Remove="src\app\_services\workplaces.service.ts" />
   </ItemGroup>
@@ -67,6 +68,7 @@
     <TypeScriptCompile Include="src\app\_services\boards.service.ts" />
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\locations.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\upload.service.ts" />
     <TypeScriptCompile Include="src\app\_services\users.service.ts" />
     <TypeScriptCompile Include="src\app\_services\workplaces.service.ts" />
   </ItemGroup>
