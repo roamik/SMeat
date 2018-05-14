@@ -50,7 +50,8 @@ namespace SMeat.API.Controllers
         Gender = user.GenderType,
         CustomGender = user.CustomGenderType,
         Relationship = user.RelationshipType,
-        Id = user.Id
+        Id = user.Id,
+        PictureUrl = user.PictureUrl
       });
     }
 
@@ -60,6 +61,7 @@ namespace SMeat.API.Controllers
     public async Task<IActionResult> GetUserByIdAsync(string id)
     {
       bool isFriend;
+      bool inRequest;
       var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
                                                                                                          //var userContacts = _unitOfWork.UsersRepository.GetAsync()
       var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == id, //1st filterBy
@@ -70,7 +72,8 @@ namespace SMeat.API.Controllers
       }
 
       var friend = user.ContactsIAddedTo.FirstOrDefault(c => c.FriendId == id);
-      isFriend = friend != null ? isFriend = true : isFriend = false;
+      isFriend = friend != null && friend.Status == ContactStatus.Confirmed ? isFriend = true : isFriend = false;
+      inRequest = friend != null && friend.Status == ContactStatus.Send ? inRequest = true : inRequest = false;
 
       return Ok(new
       {
@@ -83,7 +86,9 @@ namespace SMeat.API.Controllers
         CustomGender = user.CustomGenderType,
         Relationship = user.RelationshipType,
         Id = user.Id,
-        IsFriend = isFriend
+        IsFriend = isFriend,
+        InRequest = inRequest,
+        PictureUrl = user.PictureUrl
       });
     }
 

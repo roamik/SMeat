@@ -37,8 +37,7 @@ export class BoardPageComponent implements OnInit {
         glows[i].classList.remove('messageGlow');
       }
     var newGlow = document.getElementById(id);
-    console.log(id);
-    if (newGlow !== null) newGlow.classList.add('messageGlow');
+      newGlow.classList.add('messageGlow');
       location.hash = '#' + id;
     }
 

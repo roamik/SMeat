@@ -1,13 +1,27 @@
-#boardTitle {
-  color: black;
-  font-weight: 800;
+input {
+	display: block;
+	height: 2em;
+	width: 100%;
+	margin: 1em 0;
 }
 
-input {
-  display: block;
-  height: 2em;
-  width: 100%;
-  margin: 1em 0;
+#OPMessage {
+  margin: 0 0;
+  margin-bottom: 1em;
+  background: #810000;
+  border: 2px solid rgba(0,0,0,.7);
+  border-radius: 8px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+#OPMessage h4 {
+	margin: .5em 3em;
+}
+
+#OPMessage p {
+	padding: 1em 1em;
+	border: 2px solid rgba(0,0,0,.5);
+	border-left: none;
+	border-right: none;
 }
 
 .replyList

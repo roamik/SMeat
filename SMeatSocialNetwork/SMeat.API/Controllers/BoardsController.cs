@@ -154,13 +154,7 @@ namespace SMeat.API.Controllers
             var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
             board.MadeBy = currentUser;
 
-            var firstReply = new Reply();
-            firstReply.Text = model.Text;
-            firstReply.BoardId = board.Id;
-            firstReply.DateTime = DateTimeOffset.Now;
-
             await _unitOfWork.BoardsRepository.AddAsync(board);
-            await _unitOfWork.RepliesRepository.AddAsync(firstReply);
             await _unitOfWork.Save();
             return Ok(board);
         }

@@ -27,6 +27,7 @@ export class ProfilePageComponent implements OnInit {
   private sub: any;
   currentUserId: string;
   isFriend: boolean;
+  inRequest: boolean;
 
   public genders: typeof GenderType = GenderType;
   public relations: typeof RelationshipType = RelationshipType;
@@ -50,9 +51,14 @@ export class ProfilePageComponent implements OnInit {
         this.user = user,
           this.getBoards(this.id),
           this.isFriend = user.isFriend;
+        this.inRequest = user.inRequest;
       },
       error => { }
     )
+  }
+
+  onImageLoaded() { // update user info after modal method - uploadFile in image-modal.component finishes with success
+    this.getUserInfo(this.id);
   }
 
   getBoards(id: string) {
@@ -65,7 +71,7 @@ export class ProfilePageComponent implements OnInit {
 
   addContact(id: string) {
     this.contactsService.addContact(id).subscribe(
-      user => {
+      success => {
         this.getUserInfo(this.id);
       },
       error => { }
