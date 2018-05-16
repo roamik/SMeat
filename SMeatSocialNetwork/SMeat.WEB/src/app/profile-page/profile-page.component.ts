@@ -45,6 +45,23 @@ export class ProfilePageComponent implements OnInit {
     this.currentUserId = this.guard.userId;
   }
 
+  isUsersPage() {
+    return this.guard.userId === this.id;
+  }
+
+  UpdateStatus() {
+    let status = document.getElementById('statusP').innerText;
+    if (status !== null && status !== undefined && status !== '') {
+      this.user.status = status;
+      this.usersService.updateUserStatus(this.user).subscribe(
+        user => {
+          console.log('Updated user');
+        },
+        error => { }
+      );
+    }
+  }
+
   getUserInfo(id: string) {
     this.usersService.getById(id).subscribe(
       user => {

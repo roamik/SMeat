@@ -111,6 +111,25 @@ namespace SMeat.API.Controllers
       return Ok(pageReturnModel);
     }
 
+    [HttpPost]
+    [Authorize]
+    [Route("updateStatus")]
+    public async Task<IActionResult> UpdateUserStatus([FromBody] User model)
+    {
+            var userToUpdate = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.Id);
+
+            if(userToUpdate == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            userToUpdate.Status = model.Status;
+
+            _unitOfWork.UsersRepository.Update(userToUpdate);
+            await _unitOfWork.Save();
+
+            return Ok(userToUpdate);
+        }
 
     [HttpPut]
     [Authorize]
