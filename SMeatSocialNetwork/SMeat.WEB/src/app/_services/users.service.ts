@@ -39,7 +39,7 @@ export class UsersService {
   }
 
   updateUserStatus(model): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/updateStatus', model);
+    return this.http.post<User>(this.BASEURL + 'api/users/updatestatus', model);
   }
 
 

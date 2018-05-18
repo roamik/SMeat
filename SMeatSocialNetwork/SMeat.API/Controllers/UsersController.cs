@@ -88,7 +88,8 @@ namespace SMeat.API.Controllers
         Id = user.Id,
         IsFriend = isFriend,
         InRequest = inRequest,
-        PictureUrl = user.PictureUrl
+        PictureUrl = user.PictureUrl,
+        Status = user.Status
       });
     }
 
@@ -113,7 +114,7 @@ namespace SMeat.API.Controllers
 
     [HttpPost]
     [Authorize]
-    [Route("updateStatus")]
+    [Route("updatestatus")]
     public async Task<IActionResult> UpdateUserStatus([FromBody] User model)
     {
             var userToUpdate = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.Id);

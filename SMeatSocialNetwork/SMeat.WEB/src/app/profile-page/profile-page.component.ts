@@ -55,7 +55,7 @@ export class ProfilePageComponent implements OnInit {
       this.user.status = status;
       this.usersService.updateUserStatus(this.user).subscribe(
         user => {
-          console.log('Updated user');
+          console.log('Updated user status');
         },
         error => { }
       );
@@ -66,8 +66,8 @@ export class ProfilePageComponent implements OnInit {
     this.usersService.getById(id).subscribe(
       user => {
         this.user = user,
-          this.getBoards(this.id),
-          this.isFriend = user.isFriend;
+        this.getBoards(this.id),
+        this.isFriend = user.isFriend;
         this.inRequest = user.inRequest;
       },
       error => { }
