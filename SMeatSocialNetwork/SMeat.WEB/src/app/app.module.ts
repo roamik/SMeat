@@ -90,6 +90,7 @@ const appRoutes: Routes = [
   { path: "groups/create", component: GroupCreationPageComponent, canActivate: [AuthGuard] },
   { path: "boards/create", component: BoardCreationPageComponent, canActivate: [AuthGuard] },
   { path: "chats", component: ChatListPageComponent, canActivate: [AuthGuard] },
+  { path: "chats/create", component: ChatCreationPageComponent, canActivate: [AuthGuard] },
   { path: "groups", component: GroupListPageComponent, canActivate: [AuthGuard] },
   { path: "boards", component: BoardListPageComponent, canActivate: [AuthGuard] },
   { path: "groups/:id", component: GroupPageComponent, canActivate: [AuthGuard] },

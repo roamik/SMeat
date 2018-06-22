@@ -61,6 +61,11 @@ namespace SMeat.API.Controllers
             return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats));
         }
 
+        public async Task<IActionResult> CreateChat()
+        {
+            return Ok();
+        }
+
         public static Dictionary<string, object> ByteToJson ( byte[] json ) {
             var jsonStr = Encoding.UTF8.GetString(json);
             return JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
