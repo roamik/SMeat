@@ -5,7 +5,7 @@ import { UserStatusType } from "../_enums/user-status";
 
 export class Chat {
     id: string;
-    name: string;
+    text: string;
     messages: Message[];
     userChats: UserChat[];  
     userId: string;
@@ -17,9 +17,9 @@ export class Chat {
     get pictureUrl():string{
         return "http://emilcarlsson.se/assets/harveyspecter.png";
     }
-    constructor(id?: string, name?: string, messages?: Message[], user?: User, userId?: string, dateTime?: string, userChats?:UserChat[]) {
+    constructor(id?: string, text?: string, messages?: Message[], user?: User, userId?: string, dateTime?: string, userChats?:UserChat[]) {
         this.id= id;
-        this.name=name;
+        this.text=text;
         this.messages = messages;
         this.userChats = userChats;
         this.user = user;

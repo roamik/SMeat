@@ -46,7 +46,7 @@ export class ChatPreviewComponent implements OnInit, OnDestroy{
     this.chatHub.started().subscribe(
       sucsses => {
         this.onHubConnected();
-        this.tosterService.info("HUB", "started")
+        //this.tosterService.info("HUB", "started")
       },
       error => { this.tosterService.error("HUB", "not started") }
     )
@@ -55,7 +55,7 @@ export class ChatPreviewComponent implements OnInit, OnDestroy{
 
   onHubConnected() {
     this.chatHub.onSend((connectionId: string, user: User, message: Message) => {
-        this.tosterService.info("HUB", "send");
+        //this.tosterService.info("HUB", "send");
         var lastMessageIndex = _.findIndex(this.chat.messages, (mess) => { return mess.tempId === message.tempId });
         message.tempId = null;
         if(lastMessageIndex !== -1){
@@ -70,7 +70,7 @@ export class ChatPreviewComponent implements OnInit, OnDestroy{
     });
 
     this.chatHub.onConnected((connectionId: string, user: User) => {
-      this.tosterService.info("HUB", `connected ${connectionId}`)
+      //this.tosterService.info("HUB", `connected ${connectionId}`)
       //todo:change to set new user to online state;
       // this.messages.push({
       //   type: 'server', user: this.getUser(user), message: `user ${user.lastName} connected`
@@ -78,7 +78,7 @@ export class ChatPreviewComponent implements OnInit, OnDestroy{
     });
 
     this.chatHub.onDisconnected((connectionId: string, user: User, error: string) => {
-      this.tosterService.info("HUB", "disconnected")
+      //this.tosterService.info("HUB", "disconnected")
       // this.messages.push({
       //   type: 'server', error: error, user: this.getUser(user), message: `user ${user.lastName} disconnected`
       // });
@@ -102,7 +102,8 @@ export class ChatPreviewComponent implements OnInit, OnDestroy{
     });
 
     this.chatHub.connectToChat(this.chat.id).subscribe(
-      sucsses => { this.tosterService.success("Success", `connectToChat! ${this.chat.id}`) },
+      sucsses => { //this.tosterService.success("Success", `connectToChat! ${this.chat.id}`)
+      },
       error => { this.tosterService.error() });
   }
 

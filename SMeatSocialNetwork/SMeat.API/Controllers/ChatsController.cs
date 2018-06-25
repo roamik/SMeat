@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using SMeat.MODELS.DTO;
 using SMeat.MODELS.Entities;
 using SMeat.MODELS.Enums;
+using SMeat.MODELS.BindingModels;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SMeat.API.Controllers
 {
@@ -58,12 +60,34 @@ namespace SMeat.API.Controllers
                     userChat.Status = st;
                 }
             }
-            return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats));
+            
+            return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats).OrderByDescending(r => r.MadeTime).ToList());
         }
 
-        public async Task<IActionResult> CreateChat()
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateChat([FromBody] ChatCreateBindingModel model)
         {
-            return Ok();
+            if (!ModelState.IsValid || model == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (model.Text == "" || model.Text == null)
+            {
+                return BadRequest("Empty Text field");
+            }
+
+            var chat = new Chat();
+            chat.Text = model.Text;
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+            chat.User = currentUser;
+
+            await _unitOfWork.ChatsRepository.AddAsync(chat);
+            await _unitOfWork.Save();
+
+            return Ok(chat);
         }
 
         public static Dictionary<string, object> ByteToJson ( byte[] json ) {

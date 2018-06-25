@@ -60,7 +60,7 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
     this.getUserInfo();
     this.chatHub.started().subscribe(
       sucsses => {
-        this.tosterService.info("HUB main", "started")
+        //this.tosterService.info("HUB main", "started")
       },
       error => { this.tosterService.error("HUB main", "not started") }
     )

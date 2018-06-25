@@ -5,19 +5,19 @@
 		</div>
 		<div class="col-md-8 row">
 			<div class="lineRow">
-				<input type="text" name="chatName" placeholder="Chat Name">
+				<input type="text" name="chatName" placeholder="Chat Name" [(ngModel)]="chat.text" required>
 			</div>
 			<div class="row lineRow">
 				<div class="col-xs-3 col-sm-2">
 					<button class="btn_custom" id="addUserBtn">Add User</button>
 				</div>
-				<div class="col-xs-9 col-sm-10" id="userList">
-					<a href="">
-						<img src="https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-9/18527846_1352417654827677_8458244648201446402_n.jpg?oh=ac44e86d62197566f5456267ab09ce11&oe=5A99DEC9">
-					</a>
-				</div>
+        <div class="col-xs-9 col-sm-10" id="userList">
+          <a href="">
+            <img src="https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-9/18527846_1352417654827677_8458244648201446402_n.jpg?oh=ac44e86d62197566f5456267ab09ce11&oe=5A99DEC9">
+          </a>
+        </div>
 			</div>
 		</div>
 	</div>
-	<button class="btn_custom center-block">Create Chat</button>
+	<button class="btn_custom center-block" (click)="addChat()">Create Chat</button>
 </div>

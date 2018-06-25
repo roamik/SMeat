@@ -21,6 +21,8 @@ namespace SMeat.MODELS.Entities
 
         public virtual User User { get; set; }
 
+        public DateTimeOffset MadeTime { get; set; } = DateTimeOffset.Now;
+
         //Navigation properties
         public virtual List<Message> Messages { get; set; } = new List<Message>();
 

@@ -26,4 +26,8 @@ export class ChatsService {
     var url = `api/chat/${chatId}/paged?page=${page}&count=${count}&searchBy=${searchBy}`;
     return this.http.get<Message[]>(this.BASEURL + url);
   }
+
+  add(model): Observable<Chat> {
+    return this.http.post<Chat>(this.BASEURL + 'api/chats', model);
+  }
 }
