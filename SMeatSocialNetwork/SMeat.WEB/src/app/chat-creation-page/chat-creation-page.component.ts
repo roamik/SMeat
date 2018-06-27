@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ChatsService } from '../_services/chats.service';
 import { Chat } from '../_models/chat';
+import { AuthGuard } from '../_guards/auth.guard';
 
 @Component({
   selector: 'chat-creation-page',
@@ -12,7 +13,7 @@ export class ChatCreationPageComponent implements OnInit {
 
   chat: Chat = new Chat();
 
-  constructor(private chatService: ChatsService, private route: Router) { }
+  constructor(private chatService: ChatsService, private route: Router, private guard: AuthGuard) { }
 
   ngOnInit() {
   }

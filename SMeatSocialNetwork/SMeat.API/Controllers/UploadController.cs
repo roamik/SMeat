@@ -38,8 +38,14 @@ namespace SMeat.API.Controllers
 
             var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(p => p.Id == id.ToString());
 
-            var filePath = ims.SaveImage(file, _env);
-
+            string filePath;
+            try
+            {
+                filePath = ims.SaveImage(file, _env);
+            } catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
 
             user.PictureUrl = filePath;
 

@@ -61,7 +61,7 @@ namespace SMeat.API.Controllers
                 }
             }
             
-            return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats).OrderByDescending(r => r.MadeTime).ToList());
+            return Ok(_mapper.Map<IEnumerable<ChatDTO>>(chats).OrderByDescending(r => r.DateTime).ToList());
         }
 
         [HttpPost]

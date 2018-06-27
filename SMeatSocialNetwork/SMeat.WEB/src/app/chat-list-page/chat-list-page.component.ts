@@ -80,6 +80,7 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
       .subscribe(
       chats => {
         this._chats = _.concat(chats, this._chats);
+        console.log(this._chats);
         this.selectedChat = _.first(this.chats);
       },
       error => {
@@ -101,11 +102,20 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
       () => this.loaders["messages"] = false);
   }
 
+  resortChats() {
+    this._chats.sort((left, right) => {
+        let lastLeft = _.last(left.messages) || { dateTime: left.dateTime };
+        let lastRight = _.last(right.messages) || { dateTime: right.dateTime };
+        return moment.utc(moment.utc(lastRight.dateTime)).diff(lastLeft.dateTime);
+      })
+  }
+
   changeStatus(status: UserStatusType) {
     this.chatHub.changeUserStatus(status, this.selectedChat.id);
   }
 
   sendMessage(message): void {
+    this.resortChats();
     this.chatHub.sendMessage(message);
   }
 

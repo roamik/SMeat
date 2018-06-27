@@ -23,7 +23,8 @@ namespace SMeat.API.Helpers
             var webRoot = env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\");
 
             var filePath = webRoot + Path.GetFileName(modelImage.FileName);
-            var returnFilePath = "http://localhost:27121/images/" + modelImage.FileName;
+            var returnFilePath = "http://localhost:27121/wwwroot/images/" + modelImage.FileName;
+            //var returnFilePath = "http://localhost:27121/images/" + modelImage.FileName;
 
             File.WriteAllBytes(filePath, fileBytes); //creating file from bytes
 
