@@ -102,6 +102,17 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
       () => this.loaders["messages"] = false);
   }
 
+  searchChat(e) {
+    let searchEl = document.getElementById('chatsSearchBar');
+    let search = searchEl !== null ? searchEl.value : '';
+
+    if(search !== '')
+      this._chats = this._chats.filter(chat => chat.text.includes(search));
+    else this.getUserChats();
+
+    console.log('Chats filtered by "' + search + '"');
+  }
+
   resortChats() {
     this._chats.sort((left, right) => {
         let lastLeft = _.last(left.messages) || { dateTime: left.dateTime };
