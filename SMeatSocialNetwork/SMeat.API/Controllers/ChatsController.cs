@@ -46,7 +46,11 @@ namespace SMeat.API.Controllers
         [Route("paged")]
         public async Task<IActionResult> GetChats( [FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
         {
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
             var filters = new List<Expression<Func<Chat, bool>>>();
+            filters.Add(b => b.UserChats.Any(c => c.UserId == currentUserId) || b.User == currentUser);
             if ( searchBy != null ) {
                 filters.Add(b => b.Text.Contains(searchBy));
             }
@@ -54,7 +58,7 @@ namespace SMeat.API.Controllers
             var chats = await _unitOfWork.ChatsRepository.GetPagedFullAsync(filters, count, page, c => c.User);
             //var chatsCount = await _unitOfWork.ChatsRepository.CountAsync(filter: filter);
             foreach ( var chat in chats ) {
-                chat.Messages = await _unitOfWork.MessagesRepository.GetPagedAsync(c=>c.ChatId == chat.Id, 25, includes: c => c.User );
+                chat.Messages = await _unitOfWork.MessagesRepository.GetPagedAsync(c=>c.ChatId == chat.Id, 25, includes: c => c.User);
                 foreach ( var userChat in chat.UserChats ) {
                     var st = Enum.TryParse<UserStatusType>(await _cache.Database.StringGetAsync($"uc{userChat.UserId}{userChat.ChatId}"), out var status) ? status : 0;
                     userChat.Status = st;
@@ -83,6 +87,16 @@ namespace SMeat.API.Controllers
             var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
             var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
             chat.User = currentUser;
+
+            if (model.UserIds.Length != 0)
+            {
+                for (int i = 0; i < model.UserIds.Length; i++)
+                {
+                    var userToChat = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[i]);
+                    if (userToChat != null)
+                        chat.UserChats.Add(new UserChat { User = userToChat, ChatId = chat.Id });
+                }
+            }
 
             await _unitOfWork.ChatsRepository.AddAsync(chat);
             await _unitOfWork.Save();

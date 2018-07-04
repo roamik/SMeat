@@ -1,6 +1,6 @@
 <div class="containerEdit">
 
-  <div class="onoffswitch center-block">
+  <div *ngIf="currentUserId == id" class="onoffswitch center-block">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
     <label class="onoffswitch-label" for="myonoffswitch">
       <span class="onoffswitch-inner"></span>
@@ -17,11 +17,12 @@
       <img *ngIf="!user.pictureUrl" id="profilePic" class="center" src="http://localhost:27121/wwwroot/images/noimage.jpg" alt="Picture">
 
 
-      <button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
+      <button *ngIf="currentUserId == id" id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
 
       <p id="statusP" class="text-center txtFieldText textOutline" contenteditable="true" (blur)="UpdateStatus()" *ngIf="isUsersPage()">{{ this.user.status || 'Status' }}</p>
       <p class="text-center txtFieldText textOutline" *ngIf="!isUsersPage()">{{ this.user.status }}</p>
 
+      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="startChat()">Start chat</button>
       <button *ngIf="currentUserId != id && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
       <button *ngIf="currentUserId != id && inRequest && !isFriend" class="btn btn_custom center-block" disabled>{{'BTN_IN_REQUEST_TEXT' | translate}}</button>
       <button *ngIf="currentUserId != id && isFriend && !inRequest" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>

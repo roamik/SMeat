@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { User } from "../_models/user";
 import { UsersService } from "../_services/users.service";
 import { GenderType } from "../_enums/genders";
@@ -9,6 +9,7 @@ import { Board } from '../_models/board';
 import { BoardsService } from "../_services/boards.service";
 import { ContactsService } from '../_services/contacts.service';
 import { AuthGuard } from '../_guards/auth.guard';
+import { ChatsService } from '../_services/chats.service';
 
 @Component({
   selector: 'profile-page',
@@ -21,7 +22,9 @@ export class ProfilePageComponent implements OnInit {
     private usersService: UsersService,
     private guard: AuthGuard,
     private contactsService: ContactsService,
-    private boardsService: BoardsService) { }
+    private boardsService: BoardsService,
+    private routeOther: Router,
+    private chatService: ChatsService) { }
 
   id: string;
   private sub: any;
@@ -47,6 +50,19 @@ export class ProfilePageComponent implements OnInit {
 
   isUsersPage() {
     return this.guard.userId === this.id;
+  }
+
+  startChat() {
+    this.chatService.add({
+      Text: 'test',
+      UserIds: [this.user.id]
+    })
+      .subscribe(
+      chat => {
+        this.routeOther.navigate(['/chats']);
+      },
+      error => {
+      });
   }
 
   UpdateStatus() {
