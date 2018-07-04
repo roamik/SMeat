@@ -119,7 +119,7 @@ namespace SMeat.API.Controllers
         [HttpGet]
         //[Authorize]
         [Route("paged")]
-        public async Task<IActionResult> GetBoards([FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
+        public async Task<IActionResult> GetBoards([FromQuery] int page = 0, [FromQuery] int count = 100, [FromQuery] string searchBy = "")
         {
             Expression<Func<Board, bool>> filter = null;
             if (searchBy != null)
