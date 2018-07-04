@@ -79,7 +79,8 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
     this.chatsService.getChats(this.chatsPage, this.chatsCount, this.chatsSearchBy)
       .subscribe(
       chats => {
-        this._chats = _.concat(chats, this._chats);
+        //this._chats = _.concat(chats, this._chats);
+        this._chats = chats;
         console.log(this._chats);
         this.selectedChat = _.first(this.chats);
       },
@@ -100,17 +101,6 @@ export class ChatListPageComponent implements OnInit, OnDestroy {
         this.tosterService.error("getNextMessages");
       },
       () => this.loaders["messages"] = false);
-  }
-
-  searchChat(e) {
-    let searchEl = document.getElementById('chatsSearchBar');
-    let search = searchEl !== null ? searchEl.value : '';
-
-    if(search !== '')
-      this._chats = this._chats.filter(chat => chat.text.includes(search));
-    else this.getUserChats();
-
-    console.log('Chats filtered by "' + search + '"');
   }
 
   resortChats() {

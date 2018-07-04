@@ -34,7 +34,7 @@
 			<label for="">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</label>
-			<input id="chatsSearchBar" (change)="this.searchChat()" type="text" placeholder="Search chats..." />
+			<input id="chatsSearchBar" [(ngModel)]="chatsSearchBy" (change)="this.getUserChats()" type="text" placeholder="Search chats..." />
 		</div>
 		<div id="contacts">
 			<div *ngIf="!chats.length && loaders['chats']">
