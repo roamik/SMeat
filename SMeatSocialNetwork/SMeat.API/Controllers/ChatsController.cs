@@ -78,7 +78,16 @@ namespace SMeat.API.Controllers
             }
             if (model.Text == "" || model.Text == null)
             {
-                return BadRequest("Empty Text field");
+                var curUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+                var curUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == curUserId); ;
+                model.Text = curUser.Name + ' ' + curUser.LastName + ", ";
+                for (int i = 0; i < model.UserIds.Length; i++)
+                {
+                    var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[i]);
+                    model.Text += user.Name + ' ' + user.LastName;
+                    if (i != model.UserIds.Length - 1)
+                        model.Text += ", ";
+                }
             }
 
             var chat = new Chat();

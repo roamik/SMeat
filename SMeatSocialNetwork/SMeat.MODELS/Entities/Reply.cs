@@ -26,5 +26,8 @@ namespace SMeat.MODELS.Entities
         public DateTimeOffset DateTime { get; set; }
 
         public virtual ICollection<ReplyReply> ReplyTo { get; set; } = new List<ReplyReply>();
+        
+        [NotMapped]
+        public virtual List<string> RepliedAt { get; set; } = new List<string>();
     }
 }

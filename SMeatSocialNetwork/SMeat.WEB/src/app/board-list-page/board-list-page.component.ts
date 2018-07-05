@@ -28,16 +28,8 @@ export class BoardListPageComponent implements OnInit {
     this.getBoards();
   }
 
-  getBoardsByName(name: string) {
+  getBoards(name: string = '') {
     this.boardsService.getBoards(this.boardPage, this.boardCount, name)
-      .subscribe(
-      boards => {
-        this.boards = boards;
-      });
-  }
-
-  getBoards() {
-    this.boardsService.getBoards(this.boardPage, this.boardCount, '')
       .subscribe(
       boards => {
         this.boards = boards;

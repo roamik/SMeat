@@ -12,9 +12,10 @@ using System;
 namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180705095608_Replies_RepliedAt_field")]
+    partial class Replies_RepliedAt_field
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,8 +32,6 @@ namespace SMeat.MODELS.Migrations.SqlServerMigrations
                     b.Property<DateTimeOffset>("MadeTime");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("RepliesCount");
 
                     b.Property<string>("Text");
 

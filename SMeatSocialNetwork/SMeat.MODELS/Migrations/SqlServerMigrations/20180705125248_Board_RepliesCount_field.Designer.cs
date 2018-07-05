@@ -12,9 +12,10 @@ using System;
 namespace SMeat.MODELS.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180705125248_Board_RepliesCount_field")]
+    partial class Board_RepliesCount_field
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

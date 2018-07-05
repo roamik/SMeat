@@ -63,6 +63,8 @@ namespace SMeat.API.Controllers
                 if (existingDislike != null) board.Dislikes.Remove(existingDislike);
             }
 
+            board.RepliesCount = await _unitOfWork.RepliesRepository.CountAsync(r => r.Board == board);
+
             await _unitOfWork.Save();
             return Ok(board);
         }
@@ -90,6 +92,8 @@ namespace SMeat.API.Controllers
                 var existingLike = board.Likes.FirstOrDefault(b => b.LikeFromId == currentUserId);
                 if (existingLike != null) board.Likes.Remove(existingLike);
             }
+
+            board.RepliesCount = await _unitOfWork.RepliesRepository.CountAsync(r => r.Board == board);
 
             await _unitOfWork.Save();
             return Ok(board);
@@ -129,6 +133,10 @@ namespace SMeat.API.Controllers
 
             var boards = await _unitOfWork.BoardsRepository.GetPagedAsync(filter: filter, count: count, page: page, b => b.Likes, b => b.Dislikes);
             var boardsCount = await _unitOfWork.BoardsRepository.CountAsync(filter: filter);
+
+            for (int i = 0; i < boards.Count; i++) {
+                   boards[i].RepliesCount = await _unitOfWork.RepliesRepository.CountAsync(r => r.Board == boards[i]);
+            }
 
             boards = boards.OrderByDescending(b => b.Likes.Count - b.Dislikes.Count).ToList();
 

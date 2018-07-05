@@ -54,7 +54,7 @@ export class ProfilePageComponent implements OnInit {
 
   startChat() {
     this.chatService.add({
-      Text: 'test',
+      Text: '',
       UserIds: [this.user.id]
     })
       .subscribe(
