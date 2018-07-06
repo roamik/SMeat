@@ -76,11 +76,43 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            // If chat with these users exists - return it
+            // WARNING! SHITCODE!! User cand be the chat starter and chat participand, and those are considere two different chats =(
+            if (model.UserIds.Length == 1) // Only works on 1v1 users
+            {
+                // Try if user was the chat starter
+                var chatUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[0]);
+
+                // If user is the starter
+                var exChatFilters = new List<Expression<Func<Chat, bool>>>();
+                exChatFilters.Add(c => c.UserId == currentUserId);
+                exChatFilters.Add(c => c.UserChats.Count == 1);
+                exChatFilters.Add(c => c.UserChats.First().UserId == chatUser.Id);
+
+                var exChat = await _unitOfWork.ChatsRepository.FirstOrDefaultAsync(exChatFilters);
+                if (exChat != null)
+                    return Ok(exChat);
+
+                else // If user is not the starter
+                {
+                    exChatFilters.Clear();
+                    exChatFilters.Add(c => c.UserId == chatUser.Id);
+                    exChatFilters.Add(c => c.UserChats.Count == 1);
+                    exChatFilters.Add(c => c.UserChats.First().UserId == currentUserId);
+
+                    var exChat2 = await _unitOfWork.ChatsRepository.FirstOrDefaultAsync(exChatFilters);
+                    if (exChat2 != null)
+                        return Ok(exChat2);
+                }
+            }
+
             if (model.Text == "" || model.Text == null)
             {
-                var curUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
-                var curUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == curUserId); ;
-                model.Text = curUser.Name + ' ' + curUser.LastName + ", ";
+                model.Text = currentUser.Name + ' ' + currentUser.LastName + ", ";
                 for (int i = 0; i < model.UserIds.Length; i++)
                 {
                     var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[i]);
@@ -93,8 +125,6 @@ namespace SMeat.API.Controllers
             var chat = new Chat();
             chat.Text = model.Text;
 
-            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
-            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
             chat.User = currentUser;
 
             if (model.UserIds.Length != 0)

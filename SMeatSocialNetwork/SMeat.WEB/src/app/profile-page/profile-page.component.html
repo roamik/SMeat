@@ -22,7 +22,7 @@
       <p id="statusP" class="text-center txtFieldText textOutline" contenteditable="true" (blur)="UpdateStatus()" *ngIf="isUsersPage()">{{ this.user.status || 'Status' }}</p>
       <p class="text-center txtFieldText textOutline" *ngIf="!isUsersPage()">{{ this.user.status }}</p>
 
-      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="startChat()">Start chat</button>
+      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="startChat()">Chat</button>
       <button *ngIf="currentUserId != id && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
       <button *ngIf="currentUserId != id && inRequest && !isFriend" class="btn btn_custom center-block" disabled>{{'BTN_IN_REQUEST_TEXT' | translate}}</button>
       <button *ngIf="currentUserId != id && isFriend && !inRequest" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>
