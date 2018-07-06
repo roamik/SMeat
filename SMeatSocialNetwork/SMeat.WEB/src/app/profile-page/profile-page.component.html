@@ -14,7 +14,7 @@
       <p class="text-center txtFieldText textOutline">{{user.name}} {{user.lastName}}</p>
 
       <img *ngIf="user.pictureUrl" id="profilePic" class="center" src="{{user.pictureUrl}}" alt="Picture">
-      <img *ngIf="!user.pictureUrl" id="profilePic" class="center" src="http://localhost:27121/wwwroot/images/noimage.jpg" alt="Picture">
+      <img *ngIf="!user.pictureUrl" id="profilePic" class="center" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg" alt="Picture">
 
 
       <button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>

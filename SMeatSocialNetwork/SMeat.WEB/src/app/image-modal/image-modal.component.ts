@@ -4,6 +4,7 @@ import { User } from '../_models/user';
 import { FormGroup } from '@angular/forms';
 import { UploadService } from '../_services/upload.service';
 import { UsersService } from '../_services/users.service';
+import { BaseTosterService } from '../_services/base-toaster.service';
 
 @Component({
   selector: 'image-modal',
@@ -22,6 +23,8 @@ export class ImageModalComponent implements OnInit {
 
   fileToUpload: any;
 
+  imageUrl: string;
+
   fileInput: any;
 
   user: User = new User();
@@ -36,7 +39,8 @@ export class ImageModalComponent implements OnInit {
 
   constructor(private modalService: BsModalService,
     private usersService: UsersService,
-    private uploadService: UploadService) { }
+    private uploadService: UploadService,
+    private tosterService: BaseTosterService) { }
 
   ngOnInit() {
   }
@@ -45,8 +49,13 @@ export class ImageModalComponent implements OnInit {
   uploadFile() {
     this.uploadService.upload(this.user.id, this.fileToUpload)
       .subscribe(res => {
-        this.modalRef.hide();
+       // this.modalRef.hide();
         this.change.emit();
+        this.getUserInfo();
+        this.tosterService.success();
+      },
+      error => {
+        this.tosterService.error();
       });
   }
 
@@ -76,15 +85,16 @@ export class ImageModalComponent implements OnInit {
 
   //}
 
-  //getUserInfo(id: string) {
-  //  this.usersService.getById(id).subscribe(
-  //    response => { this.user = response },
-  //    error => { }
-  //  );
-  //}
+  getUserInfo() {
+    this.usersService.getById(this.user.id).subscribe(
+      response => { this.imageUrl = response.pictureUrl },
+      error => { }
+    );
+  }
 
   open() {
     this.modalRef = this.modalService.show(this.template);
+    this.getUserInfo();
     //this.afterUserIdSet(); // uncoment this too, it's part of the methods above
   }
 
