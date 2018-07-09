@@ -16,26 +16,15 @@
       <img *ngIf="user.pictureUrl" id="profilePic" class="center" src="{{user.pictureUrl}}" alt="Picture">
       <img *ngIf="!user.pictureUrl" id="profilePic" class="center" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg" alt="Picture">
 
-
-<<<<<<< HEAD
-      <button id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button> <!--Don't delete this!-->
-=======
       <button *ngIf="currentUserId == id" id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
->>>>>>> chat_from_profile
 
       <p id="statusP" class="text-center txtFieldText textOutline" contenteditable="true" (blur)="UpdateStatus()" *ngIf="isUsersPage()">{{ this.user.status || 'Status' }}</p>
       <p class="text-center txtFieldText textOutline" *ngIf="!isUsersPage()">{{ this.user.status }}</p>
 
-<<<<<<< HEAD
+      <button *ngIf="!isUsersPage()" class="btn btn_custom center-block" (click)="startChat()">Chat</button>
       <button *ngIf="!isUsersPage() && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
       <button *ngIf="!isUsersPage() && inRequest && !isFriend" class="btn btn_custom center-block" disabled>{{'BTN_IN_REQUEST_TEXT' | translate}}</button>
       <button *ngIf="!isUsersPage() && isFriend && !inRequest" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>
-=======
-      <button *ngIf="currentUserId != id" class="btn btn_custom center-block" (click)="startChat()">Chat</button>
-      <button *ngIf="currentUserId != id && !isFriend && !inRequest" class="btn btn_custom center-block" (click)="addContact(id)">Add</button>
-      <button *ngIf="currentUserId != id && inRequest && !isFriend" class="btn btn_custom center-block" disabled>{{'BTN_IN_REQUEST_TEXT' | translate}}</button>
-      <button *ngIf="currentUserId != id && isFriend && !inRequest" class="btn btn_custom center-block" (click)="removeContact(id)">Remove</button>
->>>>>>> chat_from_profile
     </div>
 
     <div class="col-md-4 col-md-pull-4 sideBar">
