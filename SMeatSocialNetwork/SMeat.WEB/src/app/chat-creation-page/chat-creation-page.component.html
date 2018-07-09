@@ -1,7 +1,7 @@
 <div class="containerEdit">
 	<div class="row">
-		<div class="col-md-4 lineRow" id="pictureRow">
-			<img id="picture" src="https://image.freepik.com/free-icon/group-of-people-in-a-formation_318-44341.jpg">
+		<div class="col-md-4 lineRow" id="pictureRow" (click)="imageModal.open()">
+			<img id="picture" [src]="this.chat.picture">
 		</div>
 		<div class="col-md-8 row">
 			<div class="lineRow">
@@ -20,3 +20,5 @@
 		</div>
 	</div>
 	<button class="btn_custom center-block" (click)="addChat()">Create Chat</button>
+
+  <image-modal #imageModal (change)="onImageLoaded($event)" [userId]="id"></image-modal>

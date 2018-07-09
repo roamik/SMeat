@@ -19,18 +19,17 @@
             <input type="file" id="file" (change)="onFileChange($event)">
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <p style="color: darkred" class="boldLables">Picture url: </p>
-          </div>
-          <div class="col-xs-6">
-            <p style="color: black" class="boldLables">{{imageUrl}}</p>
-          </div>
-        </div>
-
-        <button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url === '/images'" class="btn btn-primary center-block" (click)="uploadImage()">Loadssss</button>
-
+        <!--<div class="row">
+    <div class="col-xs-6">
+      <p style="color: darkred" class="boldLables">Picture url: </p>
+    </div>
+    <div class="col-xs-6">
+      <p style="color: black" class="boldLables">{{imageUrl}}</p>
+    </div>
+  </div>-->
+        <!--<button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url === '/images'" class="btn btn-primary center-block" (click)="uploadImage()">Load</button>-->
         <button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url === '/profile/'+ this.user.id" class="btn btn-primary center-block" (click)="uploadUserImage()">Change</button>
+        <button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url !== '/profile/'+ this.user.id" class="btn btn-primary center-block" (click)="uploadImage()">Load</button>
 
       </div>
     </form>

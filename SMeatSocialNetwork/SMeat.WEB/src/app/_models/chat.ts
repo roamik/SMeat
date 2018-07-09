@@ -11,6 +11,8 @@ export class Chat {
     userId: string;
     user:User;   
     dateTime: string;
+    picture: string;
+
     get lastMessageDate() : string {
         return _.last(this.messages).dateTime;
     }
@@ -24,7 +26,8 @@ export class Chat {
         this.userChats = userChats;
         this.user = user;
         this.userId = userId;
-        this.dateTime = dateTime;       
+        this.dateTime = dateTime;
+        this.picture = '';
     }
 }
 

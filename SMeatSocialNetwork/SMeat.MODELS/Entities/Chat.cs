@@ -16,6 +16,8 @@ namespace SMeat.MODELS.Entities
 
         public string Text { get; set; }
 
+        public string Picture { get; set; }
+
         [ForeignKey("User")]
         public string UserId { get; set; }
 

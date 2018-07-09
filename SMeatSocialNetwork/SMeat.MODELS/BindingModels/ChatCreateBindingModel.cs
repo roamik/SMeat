@@ -8,6 +8,8 @@ namespace SMeat.MODELS.BindingModels
     {
         public string Text { get; set; }
 
+        public string Picture { get; set; }
+
         public string[] UserIds { get; set; }
     }
 }

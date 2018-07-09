@@ -16,7 +16,7 @@
       <img *ngIf="user.pictureUrl" id="profilePic" class="center" src="{{user.pictureUrl}}" alt="Picture">
       <img *ngIf="!user.pictureUrl" id="profilePic" class="center" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Placeholder_no_text.svg" alt="Picture">
 
-      <button *ngIf="currentUserId == id" id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
+      <button *ngIf="isUsersPage()" id="avatarChange" class="btn btn_custom center-block" (click)="imageModal.open()">+</button>
 
       <p id="statusP" class="text-center txtFieldText textOutline" contenteditable="true" (blur)="UpdateStatus()" *ngIf="isUsersPage()">{{ this.user.status || 'Status' }}</p>
       <p class="text-center txtFieldText textOutline" *ngIf="!isUsersPage()">{{ this.user.status }}</p>

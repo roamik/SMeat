@@ -88,7 +88,7 @@ export class ProfilePageComponent implements OnInit {
     )
   }
 
-  onImageLoaded() { // update user info after modal method - uploadFile in image-modal.component finishes with success
+  onImageLoaded(e) { // update user info after modal method - uploadFile in image-modal.component finishes with success
     this.getUserInfo(this.id);
   }
 

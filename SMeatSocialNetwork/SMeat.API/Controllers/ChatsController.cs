@@ -82,7 +82,7 @@ namespace SMeat.API.Controllers
 
             // If chat with these users exists - return it
             // WARNING! SHITCODE!! User cand be the chat starter and chat participand, and those are considere two different chats =(
-            if (model.UserIds.Length == 1) // Only works on 1v1 users
+            if (model.UserIds != null && model.UserIds.Length == 1) // Only works on 1v1 users
             {
                 // Try if user was the chat starter
                 var chatUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[0]);
@@ -112,6 +112,8 @@ namespace SMeat.API.Controllers
 
             if (model.Text == "" || model.Text == null)
             {
+                if (model.UserIds == null)
+                    return BadRequest("No users specified");
                 model.Text = currentUser.Name + ' ' + currentUser.LastName + ", ";
                 for (int i = 0; i < model.UserIds.Length; i++)
                 {
@@ -124,7 +126,7 @@ namespace SMeat.API.Controllers
 
             var chat = new Chat();
             chat.Text = model.Text;
-
+            chat.Picture = model.Picture;
             chat.User = currentUser;
 
             if (model.UserIds.Length != 0)

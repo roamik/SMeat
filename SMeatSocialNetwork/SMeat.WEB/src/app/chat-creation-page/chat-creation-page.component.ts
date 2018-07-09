@@ -16,6 +16,11 @@ export class ChatCreationPageComponent implements OnInit {
   constructor(private chatService: ChatsService, private route: Router, private guard: AuthGuard) { }
 
   ngOnInit() {
+    this.chat.picture = 'https://image.freepik.com/free-icon/group-of-people-in-a-formation_318-44341.jpg';
+  }
+
+  onImageLoaded(e) {
+    this.chat.picture = e;
   }
 
   addChat() {

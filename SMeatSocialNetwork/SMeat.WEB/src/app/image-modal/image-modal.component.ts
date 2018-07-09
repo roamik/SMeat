@@ -18,7 +18,7 @@ export class ImageModalComponent implements OnInit {
   template: TemplateRef<any>;
 
   @Output()
-  change: EventEmitter<User> = new EventEmitter<User>();
+  change: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
 
@@ -55,7 +55,7 @@ export class ImageModalComponent implements OnInit {
   uploadUserImage() { //DUPLICATEDCODE - for setting the avatar pic directly for a user
     this.uploadService.uploadUserImage(this.fileToUpload)
       .subscribe(res => {
-        //this.modalRef.hide();
+        this.modalRef.hide();
         this.change.emit();
         this.imageUrl = res.pictureUrl;
         this.tosterService.success();
@@ -68,8 +68,8 @@ export class ImageModalComponent implements OnInit {
   uploadImage() { // DUPLICATEDCODE - global loading 
     this.uploadService.uploadImage(this.fileToUpload)
       .subscribe(res => {
-        //this.modalRef.hide();
-        this.change.emit();
+        this.modalRef.hide();
+        this.change.emit(res.path);
         this.imageUrl = res.path;
         this.tosterService.success();
       },
