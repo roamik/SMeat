@@ -46,7 +46,11 @@ namespace SMeat.API.Controllers
         [Route("paged")]
         public async Task<IActionResult> GetChats( [FromQuery] int page, [FromQuery] int count, [FromQuery] string searchBy)
         {
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
             var filters = new List<Expression<Func<Chat, bool>>>();
+            filters.Add(b => b.UserChats.Any(c => c.UserId == currentUserId) || b.User == currentUser);
             if ( searchBy != null ) {
                 filters.Add(b => b.Text.Contains(searchBy));
             }
@@ -54,7 +58,7 @@ namespace SMeat.API.Controllers
             var chats = await _unitOfWork.ChatsRepository.GetPagedFullAsync(filters, count, page, c => c.User);
             //var chatsCount = await _unitOfWork.ChatsRepository.CountAsync(filter: filter);
             foreach ( var chat in chats ) {
-                chat.Messages = await _unitOfWork.MessagesRepository.GetPagedAsync(c=>c.ChatId == chat.Id, 25, includes: c => c.User );
+                chat.Messages = await _unitOfWork.MessagesRepository.GetPagedAsync(c=>c.ChatId == chat.Id, 25, includes: c => c.User);
                 foreach ( var userChat in chat.UserChats ) {
                     var st = Enum.TryParse<UserStatusType>(await _cache.Database.StringGetAsync($"uc{userChat.UserId}{userChat.ChatId}"), out var status) ? status : 0;
                     userChat.Status = st;
@@ -72,22 +76,79 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
+            
+            var existingChat = GetExistingChat(model, currentUser);
+            if (existingChat != null)
+                return Ok(existingChat);
+
             if (model.Text == "" || model.Text == null)
             {
-                return BadRequest("Empty Text field");
+                model.Text = currentUser.Name + ' ' + currentUser.LastName + ", ";
+                for (int i = 0; i < model.UserIds.Length; i++)
+                {
+                    var user = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[i]);
+                    model.Text += user.Name + ' ' + user.LastName;
+                    if (i != model.UserIds.Length - 1)
+                        model.Text += ", ";
+                }
             }
 
             var chat = new Chat();
             chat.Text = model.Text;
 
-            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
-            var currentUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == currentUserId);
             chat.User = currentUser;
+
+            if (model.UserIds.Length != 0)
+            {
+                for (int i = 0; i < model.UserIds.Length; i++)
+                {
+                    var userToChat = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[i]);
+                    if (userToChat != null)
+                        chat.UserChats.Add(new UserChat { User = userToChat, ChatId = chat.Id });
+                }
+            }
 
             await _unitOfWork.ChatsRepository.AddAsync(chat);
             await _unitOfWork.Save();
 
             return Ok(chat);
+        }
+
+        public async Task<Chat> GetExistingChat(ChatCreateBindingModel model, User curUser)
+        {
+            // If chat with these users exists - return it
+            // WARNING! SHITCODE!! User cand be the chat starter and chat participand, and those are considere two different chats =(
+            if (model.UserIds.Length == 1) // Only works on 1v1 users
+            {
+                // Try if user was the chat starter
+                var chatUser = await _unitOfWork.UsersRepository.FirstOrDefaultAsync(u => u.Id == model.UserIds[0]);
+
+                // If user is the starter
+                var exChatFilters = new List<Expression<Func<Chat, bool>>>();
+                exChatFilters.Add(c => c.UserId == curUser.Id);
+                exChatFilters.Add(c => c.UserChats.Count == 1);
+                exChatFilters.Add(c => c.UserChats.First().UserId == chatUser.Id);
+
+                var exChat = await _unitOfWork.ChatsRepository.FirstOrDefaultAsync(exChatFilters);
+                if (exChat != null)
+                    return exChat;
+
+                else // If user is not the starter
+                {
+                    exChatFilters.Clear();
+                    exChatFilters.Add(c => c.UserId == chatUser.Id);
+                    exChatFilters.Add(c => c.UserChats.Count == 1);
+                    exChatFilters.Add(c => c.UserChats.First().UserId == curUser.Id);
+
+                    var exChat2 = await _unitOfWork.ChatsRepository.FirstOrDefaultAsync(exChatFilters);
+                    if (exChat2 != null)
+                        return exChat2;
+                }
+            }
+            return null;
         }
 
         public static Dictionary<string, object> ByteToJson ( byte[] json ) {

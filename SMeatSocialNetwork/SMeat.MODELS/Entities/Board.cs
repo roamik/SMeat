@@ -22,6 +22,8 @@ namespace SMeat.MODELS.Entities
 
         public DateTimeOffset MadeTime { get; set; } = DateTimeOffset.Now;
 
+        public int RepliesCount { get; set; }
+
         public List<Reply> Replies { get; set; }
 
         public List<BoardLike> Likes { get; set; } = new List<BoardLike>();

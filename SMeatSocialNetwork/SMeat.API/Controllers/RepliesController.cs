@@ -33,7 +33,7 @@ namespace SMeat.API.Controllers
                 return BadRequest("Board not found!");
             }
 
-            var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.BoardId == board.Id);
+            var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(filter: rep => rep.BoardId == board.Id, count: 500, page: 0, rep => rep.ReplyTo);
             //var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(filter: rep => rep.BoardId == board.Id, count: 500, page: 0, rep => rep.ReplyTo);
 
             return Ok(replies.OrderBy(r => r.DateTime).ToList());
@@ -65,7 +65,7 @@ namespace SMeat.API.Controllers
             {
                 return BadRequest("Reply not found!");
             }
-            
+
             var replies = await _unitOfWork.RepliesRepository.GetPagedAsync(rep => rep.ReplyTo.Any(r => r.ReplyToId == reply.Id));
             var idStrings = replies.Select(r => r.Id);
 
