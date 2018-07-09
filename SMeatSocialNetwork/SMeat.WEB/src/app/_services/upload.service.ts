@@ -4,6 +4,8 @@ import { AuthGuard } from '../_guards/auth.guard';
 
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs/Observable';
+import { User } from '../_models/user';
 
 @Injectable()
 export class UploadService {
@@ -15,10 +17,17 @@ export class UploadService {
   }
 
 
-  upload(id, fileToUpload: any) {
+  uploadUserImage(fileToUpload: any) {
     let input = new FormData();
     input.append("file", fileToUpload);
 
-    return this.http.post(this.BASEURL + 'api/upload/' + id, input);
+    return this.http.post<User>(this.BASEURL + 'api/upload/avatar/', input);
+  }
+
+  uploadImage(fileToUpload: any) {
+    let input = new FormData();
+    input.append("file", fileToUpload);
+
+    return this.http.post<{ path: string }>(this.BASEURL + 'api/upload/file/', input);
   }
 }

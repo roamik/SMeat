@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { UploadService } from '../_services/upload.service';
 import { UsersService } from '../_services/users.service';
 import { BaseTosterService } from '../_services/base-toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'image-modal',
@@ -27,6 +28,8 @@ export class ImageModalComponent implements OnInit {
 
   fileInput: any;
 
+  checkRoute: any;
+
   user: User = new User();
 
   @Input() // receive user id from profile page in order to have user info in the modal (if needed)
@@ -40,23 +43,39 @@ export class ImageModalComponent implements OnInit {
   constructor(private modalService: BsModalService,
     private usersService: UsersService,
     private uploadService: UploadService,
-    private tosterService: BaseTosterService) { }
+    private tosterService: BaseTosterService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.checkRoute = this.router;
   }
 
+  //this.router.url === '/login'
 
-  uploadFile() {
-    this.uploadService.upload(this.user.id, this.fileToUpload)
+  uploadUserImage() { //DUPLICATEDCODE - for setting the avatar pic directly for a user
+    this.uploadService.uploadUserImage(this.fileToUpload)
       .subscribe(res => {
-       // this.modalRef.hide();
+        //this.modalRef.hide();
         this.change.emit();
-        this.getUserInfo();
+        this.imageUrl = res.pictureUrl;
         this.tosterService.success();
       },
       error => {
         this.tosterService.error();
       });
+  }
+
+  uploadImage() { // DUPLICATEDCODE - global loading 
+    this.uploadService.uploadImage(this.fileToUpload)
+      .subscribe(res => {
+        //this.modalRef.hide();
+        this.change.emit();
+        this.imageUrl = res.path;
+        this.tosterService.success();
+      },
+        error => {
+          this.tosterService.error();
+        });
   }
 
   onFileChange(event) {
@@ -94,7 +113,7 @@ export class ImageModalComponent implements OnInit {
 
   open() {
     this.modalRef = this.modalService.show(this.template);
-    this.getUserInfo();
+    //this.getUserInfo();
     //this.afterUserIdSet(); // uncoment this too, it's part of the methods above
   }
 

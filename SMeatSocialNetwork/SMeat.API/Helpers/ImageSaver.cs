@@ -16,7 +16,6 @@ namespace SMeat.API.Helpers
         {
             var modelImage = image;
 
-
             var ms = new MemoryStream();
 
             string[] separators = new string[] { "image/" };

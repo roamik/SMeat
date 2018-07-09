@@ -25,7 +25,6 @@ export class ProfilePageComponent implements OnInit {
 
   id: string;
   private sub: any;
-  currentUserId: string;
   isFriend: boolean;
   inRequest: boolean;
 
@@ -42,7 +41,6 @@ export class ProfilePageComponent implements OnInit {
 
       this.getUserInfo(this.id);
     });
-    this.currentUserId = this.guard.userId;
   }
 
   isUsersPage() {

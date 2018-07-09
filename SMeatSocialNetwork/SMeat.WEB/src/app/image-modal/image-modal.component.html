@@ -21,14 +21,17 @@
         </div>
         <div class="row">
           <div class="col-xs-6">
-            <p style="color: darkred" class="boldLables">Current avatar-URL: </p>
+            <p style="color: darkred" class="boldLables">Picture url: </p>
           </div>
           <div class="col-xs-6">
             <p style="color: black" class="boldLables">{{imageUrl}}</p>
           </div>
         </div>
 
-        <button type="submit" *ngIf="fileToUpload != null" class="btn btn-primary center-block" (click)="uploadFile()">Save</button>
+        <button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url === '/images'" class="btn btn-primary center-block" (click)="uploadImage()">Loadssss</button>
+
+        <button type="submit" *ngIf="fileToUpload != null && this.checkRoute.url === '/profile/'+ this.user.id" class="btn btn-primary center-block" (click)="uploadUserImage()">Change</button>
+
       </div>
     </form>
   </div>

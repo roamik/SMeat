@@ -17,6 +17,8 @@
 	"BTN_CONTACTS_TEXT": "Contacts",
 	"BTN_CANCEL_TEXT": "Annuler",
 	"BTN_IN_REQUEST_TEXT": "Demandé",
+	"BTN_IMAGES_TEXT": "Images",
+	
 	"REQUESTS_TEXT":"Demande d'amis",
 	"NO_REQUESTS_TEXT":"Vous n'avez pas encore de demandes!",
 	"NO_CONTACTS_TEXT":"Vous n'avez pas encore de contacts!",
