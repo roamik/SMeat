@@ -119,5 +119,19 @@ namespace SMeat.API.Controllers
 
       return Ok(contactsList);
     }
+
+    [HttpGet]
+    [Route("status")]
+    public async Task<IActionResult> GetContactStatus([FromQuery] string userId)
+    {
+            var currentUserId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+
+            var contact = await _unitOfWork.ContactsRepository.FirstOrDefaultAsync(f => (f.UserId == currentUserId && f.FriendId == userId) || (f.UserId == userId && f.FriendId == currentUserId));
+            if (contact != null)
+                return Ok(contact);
+
+            return Ok();
+    }
+
   }
 }

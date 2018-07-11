@@ -9,7 +9,7 @@ namespace SMeat.MODELS.BindingModels
         public string Name { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
+        
         public string About { get; set; }
 
         public string LocationId { get; set; }
@@ -21,5 +21,9 @@ namespace SMeat.MODELS.BindingModels
         public string WorkplaceId { get; set; }
 
         public string CustomGender { get; set; }
+
+        public string PictureUrl { get; set; }
+
+        public string Status { get; set; }
     }
 }

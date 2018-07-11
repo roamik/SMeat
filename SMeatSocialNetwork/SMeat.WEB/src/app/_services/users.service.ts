@@ -38,10 +38,6 @@ export class UsersService {
     return this.http.get<PageModel<User>>(this.BASEURL + url);
   }
 
-  updateUserStatus(model): Observable<User> {
-    return this.http.post<User>(this.BASEURL + 'api/users/updatestatus', model);
-  }
-
 
   //delete(id: number) {
   //  return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());

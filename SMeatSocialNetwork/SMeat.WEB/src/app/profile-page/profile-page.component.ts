@@ -67,18 +67,14 @@ export class ProfilePageComponent implements OnInit {
     let status = document.getElementById('statusP').innerText;
     if (status !== null && status !== undefined && status !== '') {
       this.user.status = status;
-      this.usersService.updateUserStatus(this.user).subscribe(
-        user => {
-          console.log('Updated user status');
-        },
-        error => { }
-      );
+      this.usersService.update(this.user).subscribe();
     }
   }
 
   getUserInfo(id: string) {
     this.usersService.getById(id).subscribe(
       user => {
+        console.log(user);
         this.user = user,
         this.getBoards(this.id),
         this.isFriend = user.isFriend;
