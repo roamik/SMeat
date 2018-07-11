@@ -80,6 +80,7 @@ import { RequestViewComponent } from './request-view/request-view.component';
 import { ContactViewComponent } from './contact-view/contact-view.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ImageModalComponent } from './image-modal/image-modal.component';
+import { ContactsPickerModalComponent } from './contacts-picker-modal/contacts-picker-modal.component';
 
 const appRoutes: Routes = [
   { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
@@ -149,7 +150,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersPageComponent,
     UserViewComponent,
     ImageModalComponent,
-    ImagesPageComponent
+    ImagesPageComponent,
+    ContactsPickerModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

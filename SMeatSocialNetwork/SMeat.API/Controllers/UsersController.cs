@@ -146,7 +146,7 @@ namespace SMeat.API.Controllers
 
       await _unitOfWork.UserManager.UpdateAsync(user);
       await _unitOfWork.Save();
-      return new NoContentResult();
+      return Ok(user);
     }
   }
 }

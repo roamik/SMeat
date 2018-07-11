@@ -1,0 +1,9 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h1 style="color: black">Select users from your contacts:</h1>
+  </div>
+  <div class="modal-body">
+    <contact-view *ngFor="let user of users" [contact]="user" [currentUserId]="this.curUser"></contact-view>
+  </div>
+  <div class="modal-footer"></div>
+</ng-template>
