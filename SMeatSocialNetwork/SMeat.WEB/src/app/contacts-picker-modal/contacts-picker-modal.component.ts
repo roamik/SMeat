@@ -20,6 +20,9 @@ export class ContactsPickerModalComponent implements OnInit {
   template: TemplateRef<any>;
   modalRef: BsModalRef;
 
+  @Output()
+  confirm: EventEmitter<any> = new EventEmitter<any>();
+
   curUser: User;
   users: Friend[];
   pickedUsersIds: string[];
@@ -30,13 +33,32 @@ export class ContactsPickerModalComponent implements OnInit {
 
   ngOnInit() {
     this.curUser = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.pickedUsersIds = [];
     this.getContacts();
+  }
+
+  isPicked(id: string) {
+    for (var i = 0; i < this.pickedUsersIds.length; i++)
+      if (this.pickedUsersIds[i] === id)
+        return true;
+    return false;
+  }
+
+  tooglePicked(id: string) {
+    var index = this.pickedUsersIds.indexOf(id);
+    if (index === -1)
+      this.pickedUsersIds.push(id);
+    else
+      this.pickedUsersIds.splice(index, 1);
+  }
+
+  confirmForm() {
+    this.confirm.emit(this.pickedUsersIds);
   }
 
   getContacts() {
     this.contactsService.getContacts(this.page, this.count, this.searchString)
       .subscribe(users => {
-        console.log(users);
         this.users = users;
       });
   }

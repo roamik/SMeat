@@ -1,0 +1,9 @@
+.contact {
+  padding: 0;
+}
+
+.picked {
+  padding: .5px;
+  margin: 2px;
+  background-color: rgb(255, 0, 0, .3);
+}

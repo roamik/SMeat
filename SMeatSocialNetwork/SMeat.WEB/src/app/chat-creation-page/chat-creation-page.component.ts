@@ -23,6 +23,10 @@ export class ChatCreationPageComponent implements OnInit {
     this.chat.picture = e;
   }
 
+  getSelectedUsers(e) {
+    console.log(e);
+  }
+
   addChat() {
     this.chatService.add(this.chat)
       .subscribe(

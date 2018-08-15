@@ -22,4 +22,4 @@
   <button class="btn_custom center-block" (click)="addChat()">Create Chat</button>
 
   <image-modal #imageModal (change)="onImageLoaded($event)" [userId]="id"></image-modal>
-  <contacts-picker-modal #contactsModal></contacts-picker-modal>
+  <contacts-picker-modal #contactsModal (confirm)="getSelectedUsers($event)"></contacts-picker-modal>
